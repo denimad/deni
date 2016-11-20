@@ -11,7 +11,7 @@ import Pattern.FanPattern;
  *
  * @author daudirac
  */
-public class SimpleFan extends ProcessingSketch
+public class SimpleFan extends DeniCanvas
 {
     public void settings(){
         super.settings();

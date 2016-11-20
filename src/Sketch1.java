@@ -13,7 +13,7 @@ import Pencil.StrokeFollower2;
  *
  * @author daudirac
  */
-public class Sketch1 extends ProcessingSketch
+public class Sketch1 extends DeniCanvas
 {
 
     public void settings(){

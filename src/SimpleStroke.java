@@ -12,7 +12,7 @@ import Pencil.StrokeFollower2;
  *
  * @author daudirac
  */
-public class SimpleStroke extends ProcessingSketch
+public class SimpleStroke extends DeniCanvas
 {
 
     @Override
