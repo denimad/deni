@@ -3,16 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Processing.java</file>
-            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Pencil/Stroke.java</file>
-            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Object/Drawing/PositionDrawingObject.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Pencil/StrokeFollower2.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Moving/Mover.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/nbproject/build-impl.xml</file>
             <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Pencil/StrokeFollower1.java</file>
-            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Canvas/CanvasManager.java</file>
             <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Sketch1.java</file>
             <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Object/Drawing/DrawingObjectImpl.java</file>
             <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/ProcessingSketch.java</file>
-            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Object/Drawing/DrawingObject.java</file>
             <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Canvas/CanvasObject.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Processing.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Pencil/Stroke.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Object/Drawing/PositionDrawingObject.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Canvas/CanvasManager.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/SimpleStroke.java</file>
         </group>
     </open-files>
 </project-private>
