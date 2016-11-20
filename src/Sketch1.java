@@ -1,6 +1,6 @@
 
 import Pencil.Stroke;
-import Pencil.StrokeFollower1;
+import Pencil.StrokeFollower2;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,7 +19,7 @@ public class Sketch1 extends ProcessingSketch
     public void settings(){
         super.settings();
         strokeElement = new Stroke();
-        strokeFollower = new StrokeFollower1(1000,20);
+        strokeFollower = new StrokeFollower2(100,90);
         //this.addMouseListenerObject(strokeElement);
         this.addMouseListenerObject(strokeFollower);
     }
@@ -39,5 +39,5 @@ public class Sketch1 extends ProcessingSketch
     
     
     Stroke strokeElement;
-    StrokeFollower1 strokeFollower;
+    StrokeFollower2 strokeFollower;
 }

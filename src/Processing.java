@@ -15,8 +15,9 @@ public class Processing
     public static void main(String[] args) {
         // TODO code application logic here
         PApplet.main(projectName);
+        
     }
     
     
-    public static final String projectName = "Sketch1";   
+    public static final String projectName = "SimpleFan";   
 }
