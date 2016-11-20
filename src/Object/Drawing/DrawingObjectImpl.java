@@ -31,16 +31,21 @@ public abstract class DrawingObjectImpl implements CanvasObject, DrawingObject
     public PApplet canvas;
 
     @Override
-    public abstract void onMousePressed(int mouseX, int mouseY);
+    public  void onMousePressed(int mouseX, int mouseY){}
 
     @Override
-    public abstract void onMouseDragged(int mouseX, int mouseY);
+    public  void onMouseDragged(int mouseX, int mouseY){}
 
     @Override
-    public abstract void onMouseReleased(int mouseX, int mouseY);
+    public  void onMouseReleased(int mouseX, int mouseY){}
 
     @Override
-    public abstract void onKeyPressed(char key);
+    public void onMouseClicked(int mouseX, int mouseY){}
+    
+    @Override
+    public  void onKeyPressed(char key){}
+
+    
 }
 
 

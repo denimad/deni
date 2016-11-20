@@ -19,6 +19,10 @@ public class ProcessingSketch extends PApplet
         size(540,540);
         canvasManager = CanvasManager.getInstance();
         canvasManager.setCanvas(this);
+        
+        String[] args = {"controlWindow"};
+        controlWindow = new ControlWindow();
+        PApplet.runSketch(args, controlWindow);
     }
     
     
@@ -59,8 +63,15 @@ public class ProcessingSketch extends PApplet
     {
        canvasManager.onMouseReleased(mouseX,mouseY);
     }
+    
+    @Override
+    public void mouseClicked()
+    {
+        canvasManager.onMouseClicked(mouseX,mouseY);
+    }
    
     
     
     public CanvasManager canvasManager;
+    public PApplet controlWindow;
 }

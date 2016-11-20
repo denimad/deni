@@ -36,6 +36,7 @@ public final class CanvasManager
         this.onMousePressedListeners = new ArrayList();
         this.onMouseDraggedListeners = new ArrayList();
         this.onMouseReleasedListeners = new ArrayList();
+        this.onMouseClickedListeners = new ArrayList();
         this.onKeyPressedListeners = new ArrayList();
     }
     
@@ -66,6 +67,14 @@ public final class CanvasManager
     }
     
     
+    public void onMouseClicked(int mouseX, int mouseY)
+    {
+        for (CanvasObject object : this.onMouseClickedListeners )
+        {
+            object.onMouseClicked(mouseX, mouseY);
+        }
+    }
+    
     
     public void addOnMousePressedListener(CanvasObject canvasObject)
     {
@@ -82,12 +91,17 @@ public final class CanvasManager
         this.onMouseReleasedListeners.add(canvasObject);
     }
     
+    public void addOnMouseClickedListeners(CanvasObject canvasObject)
+    {
+        this.onMouseClickedListeners.add(canvasObject);
+    }
     
     public void addMouseListeners(CanvasObject canvasObject)
     {
         addOnMousePressedListener(canvasObject);
         addOnMouseDraggedListener(canvasObject);
         addOnMouseReleasedListener(canvasObject);
+        addOnMouseClickedListeners(canvasObject);
     }
     
     public static CanvasManager getInstance() {
@@ -100,6 +114,6 @@ public final class CanvasManager
     public List<CanvasObject> onMousePressedListeners;
     public List<CanvasObject> onMouseDraggedListeners;
     public List<CanvasObject> onMouseReleasedListeners;
-    
+    public List<CanvasObject> onMouseClickedListeners;
     public List<CanvasObject> onKeyPressedListeners;
 }
