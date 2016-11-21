@@ -19,16 +19,17 @@ public class Sketch1 extends DeniCanvas
 
     public void settings(){
         super.settings();
-        strokeElement = new Stroke();
-        strokeFollower = new StrokeFollower2(100,90);
-        //this.addMouseListenerObject(strokeElement);
-        this.addMouseListenerObject(strokeFollower);
+        
     }
 
     @Override
     public void setup() 
     {
-        
+        super.setup();
+        strokeElement = new Stroke();
+        strokeFollower = new StrokeFollower2(100,90);
+        //this.addMouseListenerObject(strokeElement);
+        this.addMouseListenerObject(strokeFollower);
     }
     
     @Override
