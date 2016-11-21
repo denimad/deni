@@ -7,6 +7,7 @@ package Moving;
 
 import Object.Drawing.DrawingObjectImpl;
 import processing.core.PApplet;
+import processing.core.PGraphics;
 import processing.core.PVector;
 
 /**
@@ -214,9 +215,11 @@ public class Mover extends DrawingObjectImpl
 
 
     @Override
-    public void draw() {
-        canvas.fill (color);
-        canvas.ellipse (location.x, location.y, ellipseSize, ellipseSize);
+    public void draw(PGraphics canvasLayer) {
+        canvasLayer.beginDraw();
+            canvasLayer.fill (color);
+            canvasLayer.ellipse (location.x, location.y, ellipseSize, ellipseSize);
+        canvasLayer.endDraw();
     }
 
     @Override
@@ -228,5 +231,6 @@ public class Mover extends DrawingObjectImpl
     public void onMouseClicked(int mouseX, int mouseY) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
     
 }

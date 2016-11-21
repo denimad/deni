@@ -1,4 +1,5 @@
 
+import Canvas.DeniCanvas;
 import Pencil.Stroke;
 import Pencil.StrokeFollower2;
 

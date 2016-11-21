@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import processing.core.PApplet;
+import processing.core.PGraphics;
 import processing.core.PVector;
 
 /**
@@ -53,50 +54,53 @@ public class Stroke extends DrawingObjectImpl
     @Override
     public void setDrawingProperties()
     {
-        canvas.noFill();
+       
     }
 
     @Override
-    public void draw() 
+    public void draw(PGraphics canvasLayer) 
     {
+        canvasLayer.beginDraw();
         if(drawStroke)
         {
             
-            canvas.beginShape();
-            strokePoints.stream().forEach((point) -> {
-                canvas.stroke(0);
-                canvas.vertex(point.x, point.y);
-                canvas.ellipse(point.x, point.y,3,3);
+            canvasLayer.beginShape();
+            for (PVector point: strokePoints)
+            {
+                canvasLayer.stroke(0);
+                canvasLayer.vertex(point.x, point.y);
+                canvasLayer.ellipse(point.x, point.y,3,3);
                 if(drawStrokeMovement && point != lastAddedPoint)
                 {
                     PVector movement = strokeMovement.get(point);
-                    drawArrow(point.x,point.y,pointsDistance,pointsDistance/2,
+                    drawArrow(canvasLayer, point.x,point.y,pointsDistance,pointsDistance/2,
                         PApplet.atan2(movement.y, movement.x));
                 }
-            });
-            canvas.endShape();
+            }
+            canvasLayer.endShape();
         }
+        canvasLayer.endDraw();
     }
     
-    void drawArrow (PVector loc, PVector dir, float r, float ar)
+    void drawArrow (PGraphics canvasLayer, PVector loc, PVector dir, float r, float ar)
     {
-      canvas.stroke(200,0,0);
+      
       dir.normalize();
       dir.mult(r);
       float endX = loc.x+ dir.x;   
       float endY = loc.y+ dir.y;
-      canvas.line(loc.x, loc.y, endX,endY);
-      canvas.ellipse(endX,endY,2,2);
+      canvasLayer.line(loc.x, loc.y, endX,endY);
+      canvasLayer.ellipse(endX,endY,2,2);
     }
     
-    void drawArrow (float x, float y, float r, float ar, float angle)
+    void drawArrow (PGraphics canvasLayer, float x, float y, float r, float ar, float angle)
     {
       float endX = x + PApplet.cos (angle)*r;
       float endY = y + PApplet.sin (angle)*r;
-      canvas.line (x, y, endX, endY );
-      canvas.line (endX, endY, endX + PApplet.cos (angle-PApplet.PI * 0.88f)
+      canvasLayer.line (x, y, endX, endY );
+      canvasLayer.line (endX, endY, endX + PApplet.cos (angle-PApplet.PI * 0.88f)
             * ar, endY + PApplet.sin (angle-PApplet.PI*0.88f) * ar);
-      canvas.line (endX, endY, endX + PApplet.cos (angle-PApplet.PI * 1.12f) 
+      canvasLayer.line (endX, endY, endX + PApplet.cos (angle-PApplet.PI * 1.12f) 
             * ar, endY + PApplet.sin (angle-PApplet.PI*1.12f) * ar);
     }
     

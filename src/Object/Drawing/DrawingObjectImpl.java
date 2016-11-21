@@ -7,6 +7,7 @@ package Object.Drawing;
 
 import Canvas.CanvasManager;
 import Canvas.CanvasObject;
+import Canvas.DeniCanvas;
 import processing.core.PApplet;
 
 /**
@@ -25,10 +26,10 @@ public abstract class DrawingObjectImpl implements CanvasObject, DrawingObject
     {
         update();
         setDrawingProperties();
-        draw();
+        draw(canvas.getCurrenDrawingLayer());
     }
     
-    public PApplet canvas;
+    public DeniCanvas canvas;
 
     @Override
     public  void onMousePressed(int mouseX, int mouseY){}

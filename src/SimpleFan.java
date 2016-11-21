@@ -1,4 +1,5 @@
 
+import Canvas.DeniCanvas;
 import Pattern.FanPattern;
 
 /*
@@ -13,24 +14,29 @@ import Pattern.FanPattern;
  */
 public class SimpleFan extends DeniCanvas
 {
+    
     public void settings(){
+        canvasWidth = 540;
+        canvasHeight = 540;
         super.settings();
-        fan = new FanPattern();
-        this.addMouseListenerObject(fan);
+        
     }
 
     @Override
     public void setup() 
     {
-        
+      super.setup();
+      fan = new FanPattern();
+      this.addMouseListenerObject(fan);
     }
     
     @Override
     public void draw()
     {
-        fan.draw();
+        super.draw();
+        fan.draw(this.getCurrenDrawingLayer());
     }
-    
+   
     FanPattern fan;
     
 }

@@ -10,6 +10,7 @@ import Object.Drawing.DrawingObjectImpl;
 import java.util.ArrayList;
 import java.util.List;
 import processing.core.PApplet;
+import processing.core.PGraphics;
 import processing.core.PVector;
 
 /**
@@ -41,16 +42,10 @@ public class StrokeFollower2 extends DrawingObjectImpl{
     }
 
     @Override
-    public void draw() 
+    public void draw(PGraphics canvasLayer) 
     {
-        canvas.noFill();
-        canvas.beginShape();
-        stroke.strokePoints.stream().forEach((point) -> {
-            canvas.vertex(point.x, point.y);
-        });
-        canvas.endShape();
-        
-        drawFollowers();
+        stroke.draw(canvas.getToolDrawingLayer());
+        drawFollowers(canvasLayer);
     }
 
     @Override
@@ -78,7 +73,7 @@ public class StrokeFollower2 extends DrawingObjectImpl{
         createFollowers();
     }
     
-    public void drawFollowers()
+    public void drawFollowers(PGraphics canvasLayer)
     { 
         for (Follower follower: followers)
         {
@@ -93,7 +88,7 @@ public class StrokeFollower2 extends DrawingObjectImpl{
                 
             }
             follower.update();
-            follower.draw();
+            follower.draw(canvasLayer);
         }
     }
     
@@ -129,6 +124,8 @@ public class StrokeFollower2 extends DrawingObjectImpl{
     public void onMouseClicked(int mouseX, int mouseY) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+   
     
     class Follower extends DrawingObjectImpl
     {
@@ -183,9 +180,11 @@ public class StrokeFollower2 extends DrawingObjectImpl{
         }
 
         @Override
-        public void draw() {
-            canvas.fill(255);
-            canvas.ellipse(loc.x, loc.y,10,10);
+        public void draw(PGraphics canvasLayer) {
+            canvasLayer.beginDraw();
+                canvasLayer.fill(255);
+                canvasLayer.ellipse(loc.x, loc.y,10,10);
+            canvasLayer.endDraw();
         }
 
         @Override
@@ -197,6 +196,7 @@ public class StrokeFollower2 extends DrawingObjectImpl{
         public void onMouseClicked(int mouseX, int mouseY) {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
+
 
        
     }

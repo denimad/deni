@@ -5,13 +5,15 @@
  */
 package Object.Drawing;
 
+import processing.core.PGraphics;
+
 /**
  *
  * @author daudirac
  */
 public interface DrawingObject 
 {
-    public void update();
-    public void draw();
+    public void update();    
+    public void draw(PGraphics canvasLayer);
     public void setDrawingProperties();
 }

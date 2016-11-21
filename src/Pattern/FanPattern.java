@@ -6,15 +6,15 @@
 package Pattern;
 
 import Moving.MovementDescriber;
-import Moving.Mover;
+
 import Moving.MovingDrawingObj;
 import Moving.SeekMovementDescriber;
-import Moving.SteerMovementDescriber;
 import Moving.TargetMovementDescriber;
 import Object.Drawing.DrawingObjectImpl;
 import Pencil.Stroke;
 import java.util.ArrayList;
 import java.util.List;
+import processing.core.PGraphics;
 import processing.core.PVector;
 
 /**
@@ -127,14 +127,14 @@ public class FanPattern extends DrawingObjectImpl{
     
     
     
-    private void drawMovingObjects()
+    private void drawMovingObjects(PGraphics canvasLayer)
     {
         if (this.movingObjects != null)
         {
             for (MovingDrawingObj movObj: this.movingObjects)
             {
                 movObj.update();
-                movObj.draw();
+                movObj.draw(canvasLayer);
             }
         }
         
@@ -152,9 +152,9 @@ public class FanPattern extends DrawingObjectImpl{
     }
 
     @Override
-    public void draw() {
-        //stroke.draw();
-        drawMovingObjects();
+    public void draw(PGraphics canvasLayer) {
+        stroke.draw(canvas.getToolDrawingLayer());
+        drawMovingObjects(canvasLayer);
     }
 
     @Override
@@ -177,8 +177,9 @@ public class FanPattern extends DrawingObjectImpl{
         }
 
         @Override
-        public void draw() 
+        public void draw(PGraphics canvasLayer) 
         {
+            
             if (this.movementDescriber instanceof TargetMovementDescriber &&
                 !((TargetMovementDescriber) movementDescriber).reachedTarget())
             {
@@ -188,32 +189,34 @@ public class FanPattern extends DrawingObjectImpl{
             {
                 if (!painted)
                 {
+                    canvasLayer.beginDraw();
+                    
                     painted = true;
-                    canvas.fill(0);
-                    canvas.noStroke();
+                    canvasLayer.fill(0);
+                    canvasLayer.noStroke();
                     for (PVector point : stroke.strokePoints)
                     {
                         circleSize += circleSizeInc;
 
-                        canvas.ellipse(point.x,
+                        canvasLayer.ellipse(point.x,
                             point.y,
                             circleSize,circleSize);  
                     }
                 
                     circleSize = 0;
-                    canvas.fill(255);
+                    canvasLayer.fill(255);
                     for (PVector point : stroke.strokePoints)
                     {
                         circleSize += circleSizeInc;
 
-                        canvas.ellipse(point.x,
+                        canvasLayer.ellipse(point.x,
                             point.y,
                              circleSize-5,circleSize-5);  
                     }
-                }
                     
+                    canvasLayer.endDraw();
+                }   
             }
-            
         }
 
         @Override

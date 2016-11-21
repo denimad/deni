@@ -1,4 +1,5 @@
 
+import Canvas.DeniCanvas;
 import Pencil.Stroke;
 import Pencil.StrokeFollower2;
 
@@ -34,7 +35,8 @@ public class Sketch1 extends DeniCanvas
     public void draw()
     {
         //strokeElement.drawSequence();
-        strokeFollower.draw();
+        strokeFollower.draw(this.getCurrenDrawingLayer());
+        super.draw();
     }
     
     

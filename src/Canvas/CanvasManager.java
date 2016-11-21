@@ -21,12 +21,12 @@ public final class CanvasManager
         this.initListenerLists();
     }
     
-    public PApplet getCanvas()
+    public DeniCanvas getCanvas()
     {
         return canvas;
     }
     
-    public void setCanvas(PApplet _canvas)
+    public void setCanvas(DeniCanvas _canvas)
     {
         canvas = _canvas;
     }
@@ -110,7 +110,7 @@ public final class CanvasManager
     
     private static CanvasManager instance = new CanvasManager();
     
-    public PApplet canvas;
+    public DeniCanvas canvas;
     public List<CanvasObject> onMousePressedListeners;
     public List<CanvasObject> onMouseDraggedListeners;
     public List<CanvasObject> onMouseReleasedListeners;
