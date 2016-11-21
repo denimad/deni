@@ -11,6 +11,7 @@ package Canvas;
  */
 public enum CanvasLayer
     {
+        Draft("draft"),
         Main("main"),
         Tool("tool"),
         Test("test");

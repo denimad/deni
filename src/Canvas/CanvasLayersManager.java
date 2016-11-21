@@ -24,17 +24,14 @@ public class CanvasLayersManager
     
     public void drawLayers(PApplet canvas)
     {
-        if (CanvasLayer.Main.isVisible())
+        CanvasLayer[] layers = CanvasLayer.values();
+        
+        for(CanvasLayer layer : layers)
         {
-            canvas.image(this.layersMap.get(CanvasLayer.Main),0,0);
-        }
-        if (CanvasLayer.Tool.isVisible())
-        {
-            canvas.image(this.layersMap.get(CanvasLayer.Tool),0,0);
-        }
-        if (CanvasLayer.Test.isVisible())
-        {
-            canvas.image(this.layersMap.get(CanvasLayer.Test),0,0);
+            if (layer.isVisible())
+            {
+                canvas.image(this.layersMap.get(layer), 0, 0);
+            }
         }
     }
     
@@ -51,9 +48,13 @@ public class CanvasLayersManager
     {
         layersMap = new HashMap<>();
         
-        layersMap.put(CanvasLayer.Main, parentCanvas.createGraphics(parentCanvas.width,parentCanvas.height));
-        layersMap.put(CanvasLayer.Tool, parentCanvas.createGraphics(parentCanvas.width,parentCanvas.height));
-        layersMap.put(CanvasLayer.Test, parentCanvas.createGraphics(parentCanvas.width,parentCanvas.height));
+        CanvasLayer[] layers = CanvasLayer.values();
+        
+        for(CanvasLayer layer : layers)
+        {
+            this.layersMap.put(layer, 
+                parentCanvas.createGraphics(parentCanvas.width, parentCanvas.height));
+        }
         
         this.currentDrawingLayer = CanvasLayer.Main;
     }
