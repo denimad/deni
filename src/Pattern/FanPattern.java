@@ -74,9 +74,7 @@ public class FanPattern extends DrawingObjectImpl{
     public void onMouseReleased(int mouseX, int mouseY) {
         if (currentState == drawingState.pointDrawing)
         {
-            dir = PVector.sub(new PVector(mouseX, mouseY), point);
-        
-            
+            dir = PVector.sub(new PVector(mouseX, mouseY), point);    
             this.createMovingObjects(point, stroke.strokePoints);
         }
         
