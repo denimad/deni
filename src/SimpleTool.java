@@ -5,9 +5,9 @@ import Tool.ToolDrawingObject;
 import processing.core.PGraphics;
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This is a simple example to show how to create a simple tool
+ * and set a interactive controller in the control frame 
+ * by overriding the setControls() method.
  */
 
 /**
