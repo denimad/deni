@@ -6,7 +6,11 @@ package Canvas;
  * and open the template in the editor.
  */
 
-import java.awt.event.KeyEvent;
+import Controller.ControlFrame;
+import Controller.ControlFrameWriter;
+import Controller.ControlFrameWriterOwner;
+import Controller.ControlOwner;
+import controlP5.ControlP5;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 
@@ -28,6 +32,7 @@ public class DeniCanvas extends PApplet
         canvasManager = CanvasManager.getInstance();
         canvasManager.setCanvas(this);  
         canvasLayersManager = new CanvasLayersManager();
+        this.initControlFrame();
     }
     
     @Override
@@ -85,6 +90,10 @@ public class DeniCanvas extends PApplet
         this.canvasLayersManager.keyPressed(key);
     }
     
+    // ======= ============= ======
+    // ======= LAYER METHODS ======
+    // ======= ============= ======
+    
     public PGraphics getCurrenDrawingLayer()
     {
         return this.canvasLayersManager.getCurrentDrawingLayer();
@@ -100,12 +109,37 @@ public class DeniCanvas extends PApplet
         return this.canvasLayersManager.getLayer(layer);
     }
    
+    // ======= =========== ======
+    // ======= CP5 METHODS ======
+    // ======= =========== ======
+    
+    public void initControlFrame()
+    {
+        controlFrame = new ControlFrame(this,200,200,"deniController");
+        
+        
+    }
+    
+    /**
+     * returns a control frame writer for the given control frame writer owner.
+     * @param owner
+     * @return 
+     */
+    public ControlFrameWriter getNewControlFrameWriter(ControlFrameWriterOwner owner)
+    {
+        return this.controlFrame.createNewControlFrameWriter(owner);
+    }
+   
+    
+    private ControlP5 cp5; 
+    ControlFrame controlFrame;
+    
     public CanvasManager canvasManager;
     public CanvasLayersManager canvasLayersManager;
     
-    public int canvasWidth = DEFAULT_WIDTH;
-    public int canvasHeight = DEFAULT_HEIGHT;
+    public int canvasWidth = DENI_DEFAULT_WIDTH;
+    public int canvasHeight = DENI_DEFAULT_HEIGHT;
     
-    public static final int DEFAULT_WIDTH = 540;
-    public static final int DEFAULT_HEIGHT = 540;
+    public static final int DENI_DEFAULT_WIDTH = 540;
+    public static final int DENI_DEFAULT_HEIGHT = 540;
 }
