@@ -16,8 +16,9 @@ import processing.core.PGraphics;
  */
 public class SimpleTool extends DeniCanvas
 {
-    public void settings(){
-        canvasWidth = 540;
+	@Override
+	public void settings(){
+		canvasWidth = 540;
         canvasHeight = 540;
         super.settings();
         
@@ -53,7 +54,7 @@ public class SimpleTool extends DeniCanvas
         @Override
         public void setControls() 
         {
-           this.controlFrameWriter.addSlider("slider", 20, 20, 0, 100);
+           this.controlFrameWriter.addSlider("slider", 20, 20, 0, 500);
         }
         
         @Override
