@@ -29,9 +29,9 @@ public class CanvasLayersManager
         for(CanvasLayer layer : layers)
         {
             if (layer.isVisible())
-            {
+            {	
                 canvas.image(this.layersMap.get(layer), 0, 0);
-            }
+			}
         }
     }
     
@@ -88,8 +88,12 @@ public class CanvasLayersManager
         {
             CanvasLayer.Test.toggleVisible();
         }
+		if(key == ' ')
+		{
+			this.clearLayer(currentDrawingLayer);
+		}
     }
-    
+	
     PApplet parentCanvas;
     
     // this canvas has different layers

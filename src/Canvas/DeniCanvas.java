@@ -13,6 +13,7 @@ import Controller.ControlOwner;
 import controlP5.ControlP5;
 import processing.core.PApplet;
 import processing.core.PGraphics;
+import processing.core.PImage;
 
 /**
  *
@@ -22,7 +23,7 @@ public class DeniCanvas extends PApplet
 {
     @Override
     public void settings() {
-        size(canvasHeight,canvasWidth);
+        size(canvasWidth,canvasHeight);
          
     }
     
@@ -32,7 +33,11 @@ public class DeniCanvas extends PApplet
         canvasManager = CanvasManager.getInstance();
         canvasManager.setCanvas(this);  
         canvasLayersManager = new CanvasLayersManager();
-        this.initControlFrame();
+		
+		if (this.openControlFrame)
+		{
+			this.initControlFrame();
+		}
     }
     
     @Override
@@ -109,13 +114,24 @@ public class DeniCanvas extends PApplet
         return this.canvasLayersManager.getLayer(layer);
     }
    
+	public void drawDraftBackground(String path)
+	{
+		PImage bg = this.loadImage(path);
+		this.getDrawingLayer(CanvasLayer.Draft).beginDraw();
+		this.getDrawingLayer(CanvasLayer.Draft).background(bg);
+		this.getDrawingLayer(CanvasLayer.Draft).endDraw();
+	}
+	
     // ======= =========== ======
     // ======= CP5 METHODS ======
     // ======= =========== ======
     
     public void initControlFrame()
     {
-        controlFrame = new ControlFrame(this,200,200,"deniController");
+        controlFrame = new ControlFrame(this,
+			DeniCanvasConstants.DENI_DEFAULT_CONTROLLERWINDOW_WIDTH,
+			DeniCanvasConstants.DENI_DEFAULT_CONTROLLERWINDOW_HEIGHT,
+			"deniController");
         
         
     }
@@ -133,13 +149,13 @@ public class DeniCanvas extends PApplet
     
     private ControlP5 cp5; 
     ControlFrame controlFrame;
+	public boolean openControlFrame = 
+		DeniCanvasConstants.DENI_DEFAULT_OPEN_CONTROLLER;
     
     public CanvasManager canvasManager;
     public CanvasLayersManager canvasLayersManager;
     
-    public int canvasWidth = DENI_DEFAULT_WIDTH;
-    public int canvasHeight = DENI_DEFAULT_HEIGHT;
+    public int canvasWidth = DeniCanvasConstants.DENI_DEFAULT_WIDTH;
+    public int canvasHeight = DeniCanvasConstants.DENI_DEFAULT_HEIGHT;
     
-    public static final int DENI_DEFAULT_WIDTH = 540;
-    public static final int DENI_DEFAULT_HEIGHT = 540;
 }
