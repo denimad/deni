@@ -4,12 +4,6 @@ import Controller.ControlFrameWriter;
 import Tool.ToolDrawingObject;
 import processing.core.PGraphics;
 
-/*
- * This is a simple example to show how to create a simple tool
- * and set a interactive controller in the control frame 
- * by overriding the setControls() method.
- */
-
 /**
  *
  * @author daudirac
@@ -35,7 +29,7 @@ public class SimpleTool extends DeniCanvas
     }
     
     @Override
-    public void draw()
+		public void draw()
     {
         super.draw();
         theSimpleTool.draw(this.getCurrenDrawingLayer());   
@@ -56,6 +50,7 @@ public class SimpleTool extends DeniCanvas
         {
            this.controlFrameWriter.addSlider("slider", 20, 20, 0, 500);
         }
+		
         
         @Override
         public void draw(PGraphics canvasLayer)

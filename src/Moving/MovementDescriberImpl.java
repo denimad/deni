@@ -10,9 +10,7 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 /**
- * This class describes the movement of a particle
- * by different customizable behaviors:
- * steer, seek, noise and radial.
+ * This class describes the movement of a particle.
  */
 public abstract class MovementDescriberImpl implements MovementDescriber 
 {
@@ -25,7 +23,7 @@ public abstract class MovementDescriberImpl implements MovementDescriber
     protected float forceStrength;
     
     protected PApplet canvas;
-    
+	
     MovementDescriberImpl()
     {
         canvas = CanvasManager.getInstance().getCanvas();
@@ -147,9 +145,9 @@ public abstract class MovementDescriberImpl implements MovementDescriber
     
     @Override
     public void move() {
-      PVector mov = direction.copy();
-      mov.mult (speed);
-      location.add (mov);
+		PVector mov = direction.copy();
+		mov.mult (speed);
+		location.add (mov);
     }
     
     @Override

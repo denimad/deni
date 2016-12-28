@@ -12,7 +12,8 @@ import processing.core.PVector;
 
 /**
  * This class implements a Mover. a mover is a moving object
- * with different moving settings.
+ * with different moving settings:
+ * steer, seek, noise and radial.
  */
 public class Mover extends DrawingObjectImpl
 {

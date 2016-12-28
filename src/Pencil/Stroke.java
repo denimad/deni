@@ -50,6 +50,11 @@ public class Stroke extends DrawingObjectImpl
     public void update() {
 
     }
+	
+	public void setPointsDistance(int distance)
+	{
+		this.pointsDistance = distance;
+	}
     
     @Override
     public void setDrawingProperties()
@@ -173,7 +178,7 @@ public class Stroke extends DrawingObjectImpl
     private int pointsDistance;
     
     
-    private static int DEFAULT_POINTS_DISTANCE = 20;
+    public static final int DEFAULT_POINTS_DISTANCE = 20;
 
     @Override
     public void onMouseClicked(int mouseX, int mouseY) {

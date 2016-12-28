@@ -12,6 +12,7 @@ import Moving.SeekMovementDescriber;
 import Moving.TargetMovementDescriber;
 import Object.Drawing.DrawingObjectImpl;
 import Pencil.Stroke;
+import Util.ColorHelper;
 import java.util.ArrayList;
 import java.util.List;
 import processing.core.PGraphics;
@@ -29,9 +30,21 @@ public class FanPattern extends DrawingObjectImpl{
     drawingState currentState;
 
     ArrayList<MovingDrawingObj> movingObjects;
+	
+	int strokePointsDistance = Stroke.DEFAULT_POINTS_DISTANCE;
     int totalMovingObjects;
+	
+	float movingObjectsSpeed = 2;
+	float movingObjectsInerciaStrengthMult = 1;
+	float movingObjectsAttractionStrength = 8;
+	float fanCircleSizeInc = 0.2f;
     
     private static final int DEFAULT_NUMBER_MOVING_OBJS = 10;
+
+	int colorDeAletas;
+	
+	public static final int DEFAULT_COLOR = 
+		ColorHelper.getInstance().getColor(255, 0, 0);
     
     enum drawingState
     {
@@ -53,6 +66,12 @@ public class FanPattern extends DrawingObjectImpl{
         if (currentState == drawingState.pointDrawing)
         {
             point = new PVector(mouseX, mouseY);
+        }
+		// on each start of a stroke drawing set the current 
+		// points distance value.
+		if (currentState == drawingState.strokeDrawing)
+        {
+            stroke.setPointsDistance(strokePointsDistance);
         }
     }
     
@@ -113,13 +132,14 @@ public class FanPattern extends DrawingObjectImpl{
             
             mdes = new SeekMovementDescriber(point, dir.normalize(),targetPoint);
             
-            mdes.setSpeed(2);
+            mdes.setSpeed(this.movingObjectsSpeed);
             ((SeekMovementDescriber) mdes).inerciaStrength =
-                    PVector.dist(point,targetPoint);
-            ((SeekMovementDescriber) mdes).attractionStrength = 8;
+                    PVector.dist(point,targetPoint)*this.movingObjectsInerciaStrengthMult;
+            ((SeekMovementDescriber) mdes).attractionStrength = 
+				this.movingObjectsAttractionStrength;
             
              this.movingObjects.add(
-                new FanDrawingObj(mdes));
+                new FanDrawingObj(mdes, this.fanCircleSizeInc));
         }
     }
     
@@ -167,26 +187,40 @@ public class FanPattern extends DrawingObjectImpl{
         float circleSizeInc;
         Stroke stroke;
         boolean painted = false;
-        public FanDrawingObj(MovementDescriber movementDescriber) {
+        
+		
+		public FanDrawingObj(MovementDescriber movementDescriber) {
+            this(movementDescriber, 0.2f);
+        }
+		
+		public FanDrawingObj(MovementDescriber movementDescriber, float circleSizeInc) {
             super(movementDescriber);
-            circleSize = 0;
-            circleSizeInc = 0.2f;
+            circleSize = 10;
+            this.circleSizeInc = circleSizeInc;
             stroke = new Stroke(1);
         }
 
         @Override
         public void draw(PGraphics canvasLayer) 
         {
-            
+             
             if (this.movementDescriber instanceof TargetMovementDescriber &&
-                !((TargetMovementDescriber) movementDescriber).reachedTarget())
+                !((TargetMovementDescriber) movementDescriber).nearTarget(2))
             {
                 stroke.addStrokePoint(movementDescriber.returnLocation().copy());
+				canvas.getToolDrawingLayer().beginDraw();
+				if (circleSize>0){circleSize -= circleSizeInc;}
+				
+				canvas.getToolDrawingLayer().ellipse(movementDescriber.returnLocation().x, 
+							movementDescriber.returnLocation().y, circleSize, circleSize);
+				canvas.getToolDrawingLayer().endDraw();
             }
             else
             {
+				circleSize =10;
                 if (!painted)
                 {
+					
                     canvasLayer.beginDraw();
                     
                     painted = true;
@@ -194,18 +228,18 @@ public class FanPattern extends DrawingObjectImpl{
                     canvasLayer.noStroke();
                     for (PVector point : stroke.strokePoints)
                     {
-                        circleSize += circleSizeInc;
+                        if (circleSize>0){circleSize -= circleSizeInc;}
 
                         canvasLayer.ellipse(point.x,
                             point.y,
                             circleSize,circleSize);  
                     }
                 
-                    circleSize = 0;
-                    canvasLayer.fill(255);
+                    circleSize = 10;
+                    canvasLayer.fill(FanPattern.this.colorDeAletas);
                     for (PVector point : stroke.strokePoints)
                     {
-                        circleSize += circleSizeInc;
+                        if (circleSize>0){circleSize -= circleSizeInc;}
 
                         canvasLayer.ellipse(point.x,
                             point.y,
@@ -215,6 +249,7 @@ public class FanPattern extends DrawingObjectImpl{
                     canvasLayer.endDraw();
                 }   
             }
+
         }
 
         @Override

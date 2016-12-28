@@ -146,8 +146,12 @@ public class DeniCanvas extends PApplet
         return this.controlFrame.createNewControlFrameWriter(owner);
     }
    
-    
-    private ControlP5 cp5; 
+	public ControlFrame getControlFrame()
+	{
+		return this.controlFrame;
+	}
+	
+	
     ControlFrame controlFrame;
 	public boolean openControlFrame = 
 		DeniCanvasConstants.DENI_DEFAULT_OPEN_CONTROLLER;

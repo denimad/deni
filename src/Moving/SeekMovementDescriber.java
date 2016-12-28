@@ -5,7 +5,6 @@
  */
 package Moving;
 
-import processing.core.PApplet;
 import processing.core.PVector;
 
 /**
@@ -18,7 +17,6 @@ public class SeekMovementDescriber extends MovementDescriberImpl implements Targ
     public float inerciaStrength;
     public float attractionStrength;
     
-    private static final float DEFAULT_STRENGTH = 1;
     
     public SeekMovementDescriber()
     {
@@ -95,6 +93,9 @@ public class SeekMovementDescriber extends MovementDescriberImpl implements Targ
     public boolean reachedTarget() {
        return this.location.equals(this.targetLocation);
     }
-
-    
+	
+	public boolean nearTarget(int distance)
+	{
+		return PVector.dist(targetLocation, location)< distance;
+	}
 }

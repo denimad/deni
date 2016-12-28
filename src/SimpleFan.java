@@ -16,8 +16,8 @@ public class SimpleFan extends DeniCanvas
 {
     
     public void settings(){
-        canvasWidth = 540;
-        canvasHeight = 540;
+        canvasWidth = 680;
+        canvasHeight = 412;
         super.settings();
         
     }
@@ -25,9 +25,12 @@ public class SimpleFan extends DeniCanvas
     @Override
     public void setup() 
     {
+	  this.openControlFrame = false;
       super.setup();
       fan = new FanPattern();
       this.addMouseListenerObject(fan);
+	  
+	  this.drawDraftBackground("/Users/daudirac/Pictures/artists/inspiration/fish.jpg");
     }
     
     @Override

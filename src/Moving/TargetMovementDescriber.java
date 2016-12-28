@@ -15,4 +15,5 @@ public interface TargetMovementDescriber
 {
     public PVector getTargetLocation();
     public boolean reachedTarget();
+	public boolean nearTarget(int distance);
 }

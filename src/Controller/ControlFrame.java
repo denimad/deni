@@ -1,15 +1,10 @@
-    package Controller;
+package Controller;
 
 
 import controlP5.ControlP5;
 import java.util.List;
 import processing.core.PApplet;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  *
@@ -37,6 +32,7 @@ public class ControlFrame extends PApplet implements ControlOwner{
   @Override
   public void setup() {
     surface.setLocation(10,10); 
+	//cp5 = new ControlP5(this);
   }
   
   public void init()
@@ -105,11 +101,22 @@ public class ControlFrame extends PApplet implements ControlOwner{
         if (cp5 == null)
         {
             cp5 = new ControlP5(this);
+			cp5.hide();
         }
         
         return cp5;
     }
 
+	public void hideControllers()
+	{
+		this.cp5.hide();
+	}
+	
+	public void showControllers()
+	{
+		this.cp5.show();
+	}
+	
     @Override
     public void setControllers() {
         
