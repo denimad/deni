@@ -5,10 +5,8 @@
  */
 package ToolBox;
 
-import Controller.Color.ColorControllerCreator;
 import Object.Drawing.DrawingObjectImpl;
 import Pattern.FanPattern;
-import Util.ColorHelper;
 
 
 /**
