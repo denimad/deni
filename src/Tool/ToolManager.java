@@ -13,7 +13,7 @@ import java.util.Set;
  */
 public class ToolManager 
 {
-    ToolManager()
+    public ToolManager()
     {
         tools = new HashMap<>();
     }
