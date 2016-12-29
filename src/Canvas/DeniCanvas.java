@@ -9,8 +9,6 @@ package Canvas;
 import Controller.ControlFrame;
 import Controller.ControlFrameWriter;
 import Controller.ControlFrameWriterOwner;
-import Controller.ControlOwner;
-import controlP5.ControlP5;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
