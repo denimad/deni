@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * deni 2016
  */
 package Tool;
 
@@ -17,9 +15,8 @@ import java.util.Set;
  */
 public class ToolManager 
 {
-    ToolManager(DeniCanvas parent)
+    ToolManager()
     {
-        canvas = parent;
         tools = new HashMap<>();
     }
     
@@ -46,9 +43,6 @@ public class ToolManager
     }
     
     
-    
-    
-    DeniCanvas canvas;
     ToolObject activeTool;
     Map<String, ToolObject> tools;
 }
