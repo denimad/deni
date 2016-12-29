@@ -15,12 +15,29 @@ public class ControlFrame extends PApplet implements ControlOwner{
   int w, h;
   private final PApplet parent;
   private ControlP5 cp5;
-
-  public ControlFrame(PApplet _parent, int _w, int _h, String _name) {
-    super();   
+  private int locationX;
+  private int locationY;
+  
+  public static final int DEFAULT_WINDOW_LOCATION_X = 10;
+  public static final int DEFAULT_WINDOW_LOCATION_Y = 10;
+  public ControlFrame(PApplet _parent, int _w, int _h, String _name) 
+  {
+    this(_parent,
+			_w, 
+			_h , 
+		ControlFrame.DEFAULT_WINDOW_LOCATION_X,
+		ControlFrame.DEFAULT_WINDOW_LOCATION_Y,
+		_name);
+  }
+  
+  public ControlFrame(PApplet _parent, int _w, int _h, int locX, int locY, String _name) {
+	super();   
     parent = _parent;
     w=_w;
     h=_h;
+	locationX = locX;
+	locationY = locY;
+	
     PApplet.runSketch(new String[]{this.getClass().getName()}, this);
   }
 
@@ -31,7 +48,7 @@ public class ControlFrame extends PApplet implements ControlOwner{
 
   @Override
   public void setup() {
-    surface.setLocation(10,10); 
+    surface.setLocation(locationX,locationY); 
 	//cp5 = new ControlP5(this);
   }
   
