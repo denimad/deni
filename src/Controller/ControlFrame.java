@@ -2,6 +2,7 @@ package Controller;
 
 
 import controlP5.ControlP5;
+import controlP5.ControllerInterface;
 import java.util.List;
 import processing.core.PApplet;
 
@@ -17,6 +18,7 @@ public class ControlFrame extends PApplet implements ControlOwner{
   private ControlP5 cp5;
   private int locationX;
   private int locationY;
+  
   
   public static final int DEFAULT_WINDOW_LOCATION_X = 10;
   public static final int DEFAULT_WINDOW_LOCATION_Y = 10;
@@ -108,8 +110,12 @@ public class ControlFrame extends PApplet implements ControlOwner{
   
   public void removeAllControls()
   {
-     List controllerList =  this.cp5.getList();
-     controllerList.clear();
+	  
+     List<ControllerInterface<?>> controllerList =  this.cp5.getList();
+	 for (ControllerInterface<?> control: controllerList)
+	 {
+		 this.cp5.remove(control.getName());
+	 }
   }
   
 
@@ -126,12 +132,12 @@ public class ControlFrame extends PApplet implements ControlOwner{
 
 	public void hideControllers()
 	{
-		this.cp5.hide();
+		this.getControlP5().hide();
 	}
 	
 	public void showControllers()
 	{
-		this.cp5.show();
+		this.getControlP5().show();
 	}
 	
     @Override

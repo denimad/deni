@@ -16,8 +16,8 @@ import processing.core.PGraphics;
  * support interaction and can use ControllerP5 to modify
  * internal variables.
  */
-public class ToolDrawingObject implements
-    DrawingObject, ControlFrameWriterOwner, CanvasObject
+public abstract class ToolDrawingObject implements
+    ToolInterface
 {
     public ToolDrawingObject()
     {
@@ -107,8 +107,14 @@ public class ToolDrawingObject implements
         
     }
 
+	
+	@Override
+	public abstract String getName();
+	
     /**
      * The control frame writer belonging to this tool
      */
     public ControlFrameWriter controlFrameWriter;
+
+	
 }

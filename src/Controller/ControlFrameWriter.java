@@ -9,6 +9,8 @@ import controlP5.ControlP5;
 import controlP5.Controller;
 import controlP5.ControllerGroup;
 import controlP5.Tab;
+import java.util.List;
+import java.util.Set;
 
 /**
  * ControlFrameWriter class writes on a Control Frame 
@@ -74,6 +76,21 @@ public class ControlFrameWriter {
                 .plugTo(this.getVariableObject(), varName)
                 .moveTo(this.getTab(groupName).getName());
     }
+	
+	public Controller addScrollableList(String methodName, 
+        float posX, 
+        float posY,
+		List items,
+        String groupName) 
+	{
+		return cp5.addScrollableList(methodName)
+				.setPosition(posX, posY)
+				.addItems(items)
+				.setBarHeight(20)
+				.setItemHeight(20)
+				.plugTo(this.getVariableObject(), methodName)
+				.moveTo(this.getTab(groupName).getName())	;
+	}
     
 	public void addColorController(String varName,
 		int color)
@@ -98,6 +115,7 @@ public class ControlFrameWriter {
 		return tab;
     }
     
+
 	/**
 	 * return the requested tab. if it doesn't exists it loosely creates it. 
 	 */
@@ -110,6 +128,17 @@ public class ControlFrameWriter {
 		}
 		
 		return tab;
+	}
+	
+	public Controller getController(String name)
+	{
+		
+		return this.cp5.getController(name);
+	}
+	
+	public <C extends Object> C getController(Class<C> c, String name)
+	{
+		return this.cp5.get(c, name);
 	}
 	
     private ControllerGroup getCurrentControllerGroup()

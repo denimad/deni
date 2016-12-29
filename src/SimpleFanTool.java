@@ -29,6 +29,12 @@ public class SimpleFanTool extends DeniCanvas
 		
 		fanPattern = new FanPatternTool();
 		
+		this.toolController.addTool(fanPattern);
+		this.toolController.setControls();
+		
+		/*
+		Below code is deprecated
+		
 		//create the control frame writer for the object 
 		fanPattern.setControlFrameWriter(
 				this.getNewControlFrameWriter(fanPattern));
@@ -36,6 +42,7 @@ public class SimpleFanTool extends DeniCanvas
 		
 		//show the control window
 		this.getControlFrame().showControllers();
+		*/
 	}
 	
 	public void draw()

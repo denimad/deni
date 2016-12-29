@@ -8,13 +8,14 @@ package ToolBox;
 import Controller.ControlFrameWriter;
 import Controller.ControlFrameWriterOwner;
 import Object.Drawing.DrawingObjectImpl;
+import Tool.ToolInterface;
 
 /**
  *
  * @author daudirac
  */
-public class ToolForwardingDrawingObject extends ForwardingDrawingObject
-		implements ControlFrameWriterOwner
+public abstract class ToolForwardingDrawingObject extends ForwardingDrawingObject
+		implements ToolInterface
 {
 	
 	public ToolForwardingDrawingObject(DrawingObjectImpl drawingObj) 
@@ -40,8 +41,13 @@ public class ToolForwardingDrawingObject extends ForwardingDrawingObject
 		
 	}
 	
+	@Override
+	public abstract String getName();
+	
 	/**
      * The control frame writer belonging to this tool
      */
     public ControlFrameWriter controlFrameWriter;
+
+	
 }

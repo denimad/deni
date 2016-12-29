@@ -3,7 +3,9 @@
  */
 package Tool;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,12 +18,14 @@ public class ToolManager
     public ToolManager()
     {
         tools = new HashMap<>();
+		toolNames = new ArrayList<>();
     }
     
-    public void addTool(ToolObject tool)
+    public void addTool(ToolInterface tool)
     {
         tools.put(tool.getName(), tool);
-        
+        toolNames.add(tool.getName());
+		
         // if this is the first tool to be added
         // set this as the active tool.
         if (tools.size() == 1)
@@ -30,17 +34,23 @@ public class ToolManager
         }
     }
     
-    public void removeTool(ToolObject tool)
+	public ToolInterface getTool(String toolName)
+	{
+		return this.tools.get(toolName);
+	}
+	
+    public void removeTool(ToolInterface tool)
     {
         tools.remove(tool.getName(), tool);
     }
     
-    public Set<String> getToolNames()
+    public List<String> getToolNames()
     {
-        return tools.keySet();
+        return toolNames;
     }
     
     
-    ToolObject activeTool;
-    Map<String, ToolObject> tools;
+    ToolInterface activeTool;
+    Map<String, ToolInterface> tools;
+	List<String> toolNames;
 }

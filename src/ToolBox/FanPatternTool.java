@@ -23,6 +23,10 @@ public class FanPatternTool extends ToolForwardingDrawingObject
 		super(drawingObj);
 	}
 	
+	@Override
+	public String getName() {
+		return "Fan Pattern Tool";
+	}
 	
 	@Override
 	public void setControls() 
@@ -32,10 +36,9 @@ public class FanPatternTool extends ToolForwardingDrawingObject
 		this.controlFrameWriter.addSlider("movingObjectsInerciaStrengthMult", 20, 40, 1, 10);
 		this.controlFrameWriter.addSlider("movingObjectsAttractionStrength", 20, 50, 1, 50);
 		this.controlFrameWriter.addSlider("fanCircleSizeInc", 20, 60, 0, 1);
-		/*this.controlFrameWriter.addColorController("color", 
-			ColorControllerCreator.ColorControllerType.solidColorController, 
-			20, 20, "color");*/
 		this.controlFrameWriter.addColorController("colorDeAletas", 
 				FanPattern.DEFAULT_COLOR);
 	}
+
+	
 }

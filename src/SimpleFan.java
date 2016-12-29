@@ -25,7 +25,7 @@ public class SimpleFan extends DeniCanvas
     @Override
     public void setup() 
     {
-	  this.openControlFrame = false;
+	 
       super.setup();
       fan = new FanPattern();
       this.addMouseListenerObject(fan);

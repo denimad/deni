@@ -24,8 +24,8 @@ public class SimpleTool extends DeniCanvas
       super.setup();
       theSimpleTool = new SimpleTooll();
       
-      ControlFrameWriter cwf= this.getNewControlFrameWriter(theSimpleTool);
-      theSimpleTool.setControlFrameWriter(cwf);
+    /*  ControlFrameWriter cwf= this.getNewControlFrameWriter(theSimpleTool);
+      theSimpleTool.setControlFrameWriter(cwf);*/
     }
     
     @Override
@@ -63,6 +63,11 @@ public class SimpleTool extends DeniCanvas
                 slider);
             canvasLayer.endDraw();
         }
+
+		@Override
+		public String getName() {
+			return "simpleTestTool";
+		}
     }
     
 }
