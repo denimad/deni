@@ -6,9 +6,7 @@ package Canvas;
  * and open the template in the editor.
  */
 
-import Controller.ControlFrame;
-import Controller.ControlFrameWriter;
-import Controller.ControlFrameWriterOwner;
+import Controller.Tool.ToolControl;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
@@ -32,10 +30,7 @@ public class DeniCanvas extends PApplet
         canvasManager.setCanvas(this);  
         canvasLayersManager = new CanvasLayersManager();
 		
-		if (this.openControlFrame)
-		{
-			this.initControlFrame();
-		}
+		this.initToolController();
     }
     
     @Override
@@ -121,43 +116,25 @@ public class DeniCanvas extends PApplet
 	}
 	
     // ======= =========== ======
-    // ======= CP5 METHODS ======
+    // =======    TOOLS    ======
     // ======= =========== ======
     
-    public void initControlFrame()
-    {
-        controlFrame = new ControlFrame(this,
-			DeniCanvasConstants.DENI_DEFAULT_CONTROLLERWINDOW_WIDTH,
-			DeniCanvasConstants.DENI_DEFAULT_CONTROLLERWINDOW_HEIGHT,
-			"deniController");
-        
-        
-    }
+
     
-    /**
-     * returns a control frame writer for the given control frame writer owner.
-     * @param owner
-     * @return 
-     */
-    public ControlFrameWriter getNewControlFrameWriter(ControlFrameWriterOwner owner)
-    {
-        return this.controlFrame.createNewControlFrameWriter(owner);
-    }
-   
-	public ControlFrame getControlFrame()
+	
+	public void initToolController()
 	{
-		return this.controlFrame;
+		this.toolController = new ToolControl(this);
+		this.toolController.initFrames();
 	}
 	
-	
-    ControlFrame controlFrame;
-	public boolean openControlFrame = 
-		DeniCanvasConstants.DENI_DEFAULT_OPEN_CONTROLLER;
     
+	public ToolControl toolController;
+	
     public CanvasManager canvasManager;
     public CanvasLayersManager canvasLayersManager;
     
-    public int canvasWidth = DeniCanvasConstants.DENI_DEFAULT_WIDTH;
+	public int canvasWidth = DeniCanvasConstants.DENI_DEFAULT_WIDTH;
     public int canvasHeight = DeniCanvasConstants.DENI_DEFAULT_HEIGHT;
     
 }
