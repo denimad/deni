@@ -3,14 +3,12 @@
  */
 package Controller;
 
-import Controller.Color.ColorControllerCreator;
 import Controller.Color.ColorsController;
 import controlP5.ControlP5;
 import controlP5.Controller;
 import controlP5.ControllerGroup;
 import controlP5.Tab;
 import java.util.List;
-import java.util.Set;
 
 /**
  * ControlFrameWriter class writes on a Control Frame 
