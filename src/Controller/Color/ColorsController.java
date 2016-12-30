@@ -118,7 +118,9 @@ public class ColorsController
 		int activeColor = ColorHelper.getInstance().getColorWithAlpha(color, alfa);
 		
 		bang.setColorForeground(color);
-		bang.setColorActive(activeColor);	
+		bang.setColorActive(activeColor);
+		
+		this.colors.put(bang.getLabel(), color);
 	}
 	
 	/*public void bangClick() 
@@ -136,10 +138,12 @@ public class ColorsController
 			
 			String bangVarName = this.BangToVarNameMap.get(this.currentModifiedBang);
 			Object variableObject = this.BangToVarObjectMap.get(this.currentModifiedBang);
+			int color = this.colors.get(bangVarName);
 			
 			this.cp5.addColorWheel(bangVarName)
 				.plugTo(variableObject)
 				.setPosition(40,40)
+				.setRGB(color)	
 				.moveTo(groupName)
 				.addCallback(new CallbackListener()
 				{

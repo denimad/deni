@@ -31,17 +31,17 @@ public class FanPattern extends DrawingObjectImpl{
 
     ArrayList<MovingDrawingObj> movingObjects;
 	
-	int strokePointsDistance = Stroke.DEFAULT_POINTS_DISTANCE;
-    int totalMovingObjects;
+	public int strokePointsDistance = Stroke.DEFAULT_POINTS_DISTANCE;
+    public int totalMovingObjects;
 	
-	float movingObjectsSpeed = 2;
-	float movingObjectsInerciaStrengthMult = 1;
-	float movingObjectsAttractionStrength = 8;
-	float fanCircleSizeInc = 0.2f;
+	public float movingObjectsSpeed = 2;
+	public float movingObjectsInerciaStrengthMult = 1;
+	public float movingObjectsAttractionStrength = 8;
+	public float fanCircleSizeInc = 0.2f;
     
     private static final int DEFAULT_NUMBER_MOVING_OBJS = 10;
 
-	int colorDeAletas;
+	public int colorDeAletas = FanPattern.DEFAULT_COLOR;
 	
 	public static final int DEFAULT_COLOR = 
 		ColorHelper.getInstance().getColor(255, 0, 0);

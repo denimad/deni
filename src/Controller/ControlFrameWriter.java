@@ -41,13 +41,15 @@ public class ControlFrameWriter {
         float posX, 
         float posY, 
         float minVal, 
-        float maxVal) 
+        float maxVal,
+		float value) 
     {
        return this.addSlider(varName, 
             posX, 
             posY, 
             minVal, 
-            maxVal, 
+            maxVal,
+			value,
             this.getCurrentControllerGroup().getName());
         
     }
@@ -67,10 +69,12 @@ public class ControlFrameWriter {
         float posY, 
         float minVal, 
         float maxVal,
+		float value,
         String groupName) 
     {
          return cp5.addSlider(varName).setPosition(posX, posY)
                 .setRange(minVal, maxVal)
+				.setValue(value)
                 .plugTo(this.getVariableObject(), varName)
                 .moveTo(this.getTab(groupName).getName());
     }

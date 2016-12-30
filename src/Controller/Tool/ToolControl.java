@@ -41,10 +41,10 @@ public class ToolControl implements ControlFrameWriterOwner
 	{
 		
 		toolControlFrame = new ControlFrame(owner,
-		200,200,"toolControlFrame");
+		400,300,10,10,"toolControlFrame");
 		
 		toolChooserFrame = new ControlFrame(owner,
-		200,200,"toolChooserFrame");
+		400,200,10,310,"toolChooserFrame");
 		
 		toolControlFrame.hideControllers();
 		toolChooserFrame.hideControllers();

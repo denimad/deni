@@ -48,7 +48,7 @@ public class SimpleTool extends DeniCanvas
         @Override
         public void setControls() 
         {
-           this.controlFrameWriter.addSlider("slider", 20, 20, 0, 500);
+           this.controlFrameWriter.addSlider("slider", 20, 20, 0, 500,20);
         }
 		
         
