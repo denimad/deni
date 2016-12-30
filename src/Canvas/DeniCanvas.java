@@ -6,7 +6,10 @@ package Canvas;
  * and open the template in the editor.
  */
 
+import Canvas.Tool.ToolCanvasListenerManager;
 import Controller.Tool.ToolControl;
+import Tool.ToolInterface;
+import java.util.Iterator;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
@@ -39,47 +42,31 @@ public class DeniCanvas extends PApplet
         canvasLayersManager.drawLayers(this);
     }
     
-    public void addMousePressedObject(CanvasObject canvasObject)
-    {
-        canvasManager.addOnMousePressedListener(
-            canvasObject);
-    }
-    
-    public void addMouseDraggedObject(CanvasObject canvasObject)
-    {
-        canvasManager.addOnMouseDraggedListener(
-            canvasObject);
-    }
-    
-    
-    public void addMouseListenerObject(CanvasObject canvasObject)
-    {
-        canvasManager.addMouseListeners(canvasObject);
-    }
-    
-    
+    // ======= ============= ======
+    // ===== LISTENER METHODS =====
+    // ======= ============= ======
     @Override
     public void mousePressed()
     {
-        canvasManager.onMousePressed(mouseX, mouseY);
+        canvasManager.mousePressed(mouseX, mouseY);
     }
     
     @Override
     public void mouseDragged()
     {
-        canvasManager.onMouseDragged(mouseX, mouseY);
+        canvasManager.mouseDragged(mouseX, mouseY);
     }
     
     @Override
     public void mouseReleased()
     {
-       canvasManager.onMouseReleased(mouseX,mouseY);
+       canvasManager.mouseReleased(mouseX, mouseY);
     }
     
     @Override
     public void mouseClicked()
     {
-        canvasManager.onMouseClicked(mouseX,mouseY);
+        canvasManager.mouseClicked(mouseX, mouseY);
     }
     
     @Override
@@ -91,7 +78,7 @@ public class DeniCanvas extends PApplet
     // ======= ============= ======
     // ======= LAYER METHODS ======
     // ======= ============= ======
-    
+	
     public PGraphics getCurrenDrawingLayer()
     {
         return this.canvasLayersManager.getCurrentDrawingLayer();
@@ -119,19 +106,21 @@ public class DeniCanvas extends PApplet
     // =======    TOOLS    ======
     // ======= =========== ======
     
-
-    
-	
 	public void initToolController()
 	{
 		this.toolController = new ToolControl(this);
 		this.toolController.initFrames();
+		
+		canvasManager.addCanvasListener(
+			CanvasListenerType.ToolListener.getName(), 
+			CanvasListenerType.ToolListener.getCanvasListener());
 	}
 	
     
 	public ToolControl toolController;
+	public ToolCanvasListenerManager toolCanvasListenerManager;
 	
-    public CanvasManager canvasManager;
+    public CanvasManager<CanvasObject> canvasManager;
     public CanvasLayersManager canvasLayersManager;
     
 	public int canvasWidth = DeniCanvasConstants.DENI_DEFAULT_WIDTH;

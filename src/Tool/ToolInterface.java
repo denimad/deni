@@ -17,4 +17,6 @@ public interface ToolInterface extends
 		CanvasObject
 {
 	public String getName();
+	public boolean isActive();
+	public void setActive(boolean active);
 }

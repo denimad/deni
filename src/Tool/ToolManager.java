@@ -48,7 +48,32 @@ public class ToolManager
     {
         return toolNames;
     }
-    
+    public void setActiveTool(String toolName)
+	{
+		if (this.tools.containsKey(toolName))
+		{
+			this.tools.get(toolName).setActive(true);
+		}
+		else
+		{
+			System.err.println(
+				"tool with name " + toolName + " doesn't exist ");
+		}
+	}
+	
+	public void unSetActiveTool(String toolName)
+	{
+		if (this.tools.containsKey(toolName))
+		{
+			this.tools.get(toolName).setActive(false);
+		}
+		else
+		{
+			System.err.println(
+				"tool with name " + toolName + " doesn't exist");
+		}
+	}
+	
     
     ToolInterface activeTool;
     Map<String, ToolInterface> tools;

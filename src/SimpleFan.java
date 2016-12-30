@@ -28,7 +28,7 @@ public class SimpleFan extends DeniCanvas
 	 
       super.setup();
       fan = new FanPattern();
-      this.addMouseListenerObject(fan);
+      //this.addMouseListenerObject(fan);
 	  
 	  this.drawDraftBackground("/Users/daudirac/Pictures/artists/inspiration/fish.jpg");
     }

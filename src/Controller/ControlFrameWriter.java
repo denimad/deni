@@ -76,6 +76,22 @@ public class ControlFrameWriter {
                 .plugTo(this.getVariableObject(), varName)
                 .moveTo(this.getTab(groupName).getName());
     }
+	public Controller addToogle(
+			String label,
+        float posX, 
+        float posY,
+		int w,
+		int h,
+		String groupName)
+	{
+		return cp5.addToggle(label)
+				.setLabel(label)
+				.setPosition(posX, posY)
+				.setSize(w, h)
+				.plugTo(this.getVariableObject())
+				.moveTo(this.getTab(groupName).getName());
+	}
+	
 	
 	public Controller addScrollableList(String methodName, 
         float posX, 

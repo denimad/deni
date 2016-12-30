@@ -27,7 +27,7 @@ public class SimpleStroke extends DeniCanvas
         super.setup();
         
         strokeElement = new Stroke();
-        this.addMouseListenerObject(strokeElement);
+        
     }
     
     @Override

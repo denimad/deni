@@ -5,20 +5,20 @@
  */
 package Canvas;
 
-import java.util.ArrayList;
-import java.util.List;
-import processing.core.PApplet;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  *
  * @author daudirac
  */
-public final class CanvasManager 
+public final class CanvasManager<T extends CanvasObject> 
 {
-    public CanvasManager()
+    private CanvasManager()
     {
-        
-        this.initListenerLists();
+		canvasListeners = new HashMap<>();
     }
     
     public DeniCanvas getCanvas()
@@ -28,92 +28,80 @@ public final class CanvasManager
     
     public void setCanvas(DeniCanvas _canvas)
     {
-        canvas = _canvas;
+        canvas = _canvas;	
     }
+	
+	public void addCanvasListener(String listenerName,
+			CanvasListenerManager<T> cm)
+	{
+		canvasListeners.put(listenerName, cm);
+	}
+	
+	public Collection<CanvasListenerManager<T>> getCanvasListeners()
+	{
+		return this.canvasListeners.values();
+	}
     
-    public void initListenerLists()
+    public static CanvasManager getInstance() 
+	{
+      return INSTANCE;
+    }
+	
+    // Listener methods
+	
+	public CanvasListenerManager<T> getCanvasListener(
+		String name)
+	{
+		return this.canvasListeners.get(name);
+	}
+	
+	
+	public void mouseDragged(int mouseX, int mouseY)
     {
-        this.onMousePressedListeners = new ArrayList();
-        this.onMouseDraggedListeners = new ArrayList();
-        this.onMouseReleasedListeners = new ArrayList();
-        this.onMouseClickedListeners = new ArrayList();
-        this.onKeyPressedListeners = new ArrayList();
-    }
-    
-    
-    public void onMousePressed(int mouseX, int mouseY)
+		Iterator<CanvasListenerManager<T>> it = 
+			canvasListeners.values().iterator();
+		
+		while (it.hasNext())
+		{
+			it.next().onMouseDragged(mouseX, mouseY);
+		}
+	}
+	public void mouseReleased(int mouseX, int mouseY)
     {
-        for (CanvasObject object : this.onMousePressedListeners )
-        {
-            object.onMousePressed(mouseX, mouseY);
-        }
-    }
-
-
-    public void onMouseDragged(int mouseX, int mouseY)
+		Iterator<CanvasListenerManager<T>> it = 
+			canvasListeners.values().iterator();
+		
+		while (it.hasNext())
+		{
+			it.next().onMouseReleased(mouseX, mouseY);
+		}
+	}
+	public void mousePressed(int mouseX, int mouseY)
     {
-        for (CanvasObject object : this.onMouseDraggedListeners )
-        {
-            object.onMouseDragged(mouseX, mouseY);
-        }
-    }
-    
-    public void onMouseReleased(int mouseX, int mouseY)
+		Iterator<CanvasListenerManager<T>> it = 
+			canvasListeners.values().iterator();
+		
+		while (it.hasNext())
+		{
+			it.next().onMousePressed(mouseX, mouseY);
+		}
+	}
+	public void mouseClicked(int mouseX, int mouseY)
     {
-        for (CanvasObject object : this.onMouseReleasedListeners )
-        {
-            object.onMouseReleased(mouseX, mouseY);
-        }
+        Iterator<CanvasListenerManager<T>> it = 
+			canvasListeners.values().iterator();
+		
+		while (it.hasNext())
+		{
+			it.next().onMouseClicked(mouseX, mouseY);
+		}
     }
-    
-    
-    public void onMouseClicked(int mouseX, int mouseY)
-    {
-        for (CanvasObject object : this.onMouseClickedListeners )
-        {
-            object.onMouseClicked(mouseX, mouseY);
-        }
-    }
-    
-    
-    public void addOnMousePressedListener(CanvasObject canvasObject)
-    {
-        this.onMousePressedListeners.add(canvasObject);
-    }
-    
-    public void addOnMouseDraggedListener(CanvasObject canvasObject)
-    {
-        this.onMouseDraggedListeners.add(canvasObject);
-    }
-    
-    public void addOnMouseReleasedListener(CanvasObject canvasObject)
-    {
-        this.onMouseReleasedListeners.add(canvasObject);
-    }
-    
-    public void addOnMouseClickedListeners(CanvasObject canvasObject)
-    {
-        this.onMouseClickedListeners.add(canvasObject);
-    }
-    
-    public void addMouseListeners(CanvasObject canvasObject)
-    {
-        addOnMousePressedListener(canvasObject);
-        addOnMouseDraggedListener(canvasObject);
-        addOnMouseReleasedListener(canvasObject);
-        addOnMouseClickedListeners(canvasObject);
-    }
-    
-    public static CanvasManager getInstance() {
-      return instance;
-   }
-    
-    private static CanvasManager instance = new CanvasManager();
-    
-    public DeniCanvas canvas;
-    public List<CanvasObject> onMousePressedListeners;
-    public List<CanvasObject> onMouseDraggedListeners;
-    public List<CanvasObject> onMouseReleasedListeners;
-    public List<CanvasObject> onMouseClickedListeners;
-    public List<CanvasObject> onKeyPressedListeners;
+	
+    private static final CanvasManager<CanvasObject> INSTANCE = new CanvasManager<>();
+    private DeniCanvas canvas;
+	
+	//deni canvas can have different types of canvas object listeners.
+	//we use the canvas manager to store these.
+	private final Map<String, CanvasListenerManager<T>> 
+			canvasListeners;
 }

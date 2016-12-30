@@ -29,7 +29,7 @@ public class Sketch1 extends DeniCanvas
         strokeElement = new Stroke();
         strokeFollower = new StrokeFollower2(100,90);
         //this.addMouseListenerObject(strokeElement);
-        this.addMouseListenerObject(strokeFollower);
+        //this.addMouseListenerObject(strokeFollower);
     }
     
     @Override

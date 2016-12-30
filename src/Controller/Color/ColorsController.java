@@ -128,7 +128,6 @@ public class ColorsController
 	
 	public void controlEvent(ControlEvent theEvent) 
 	{
-		System.out.println("im here");
 		
 		//show the color wheel or color picker.
 		if (this.type.equals(PickerType.colorWheel))

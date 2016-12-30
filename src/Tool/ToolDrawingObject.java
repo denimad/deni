@@ -21,7 +21,7 @@ public abstract class ToolDrawingObject implements
 {
     public ToolDrawingObject()
     {
-    
+		active = true;
     }
     
     
@@ -107,6 +107,15 @@ public abstract class ToolDrawingObject implements
         
     }
 
+	@Override
+	public boolean isActive() {
+			return this.active;
+	}
+	
+	@Override
+	public void setActive(boolean active) {
+			this.active = active;
+	}
 	
 	@Override
 	public abstract String getName();
@@ -115,6 +124,7 @@ public abstract class ToolDrawingObject implements
      * The control frame writer belonging to this tool
      */
     public ControlFrameWriter controlFrameWriter;
-
+	
+	private boolean active;
 	
 }

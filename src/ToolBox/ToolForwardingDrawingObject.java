@@ -20,7 +20,8 @@ public abstract class ToolForwardingDrawingObject extends ForwardingDrawingObjec
 	
 	public ToolForwardingDrawingObject(DrawingObjectImpl drawingObj) 
 	{
-		super(drawingObj);		
+		super(drawingObj);
+		active = false;
 	}
 
 	@Override
@@ -42,12 +43,25 @@ public abstract class ToolForwardingDrawingObject extends ForwardingDrawingObjec
 	}
 	
 	@Override
+	public boolean isActive() {
+			return this.active;
+	}
+	
+	@Override
+	public void setActive(boolean active) {
+			this.active = active;
+	}
+	
+	
+	@Override
 	public abstract String getName();
 	
 	/**
      * The control frame writer belonging to this tool
      */
     public ControlFrameWriter controlFrameWriter;
+	
+	private boolean active;
 
 	
 }
