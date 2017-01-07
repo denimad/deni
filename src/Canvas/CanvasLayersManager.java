@@ -30,10 +30,12 @@ public class CanvasLayersManager
         {
             if (layer.isVisible())
             {	
+				this.drawLayerColorFrame(layer);
                 canvas.image(this.layersMap.get(layer), 0, 0);
 			}
         }
     }
+	
     
     public PGraphics getCurrentDrawingLayer()
     {
@@ -54,11 +56,27 @@ public class CanvasLayersManager
         {
             this.layersMap.put(layer, 
                 parentCanvas.createGraphics(parentCanvas.width, parentCanvas.height));
+			
         }
         
         this.currentDrawingLayer = CanvasLayer.Main;
     }
     
+	
+	public void drawLayerColorFrame(CanvasLayer canvasLayer)
+	{
+		PGraphics canvas = this.layersMap.get(canvasLayer);
+		canvas.beginDraw();
+		canvas.noFill();
+		canvas.strokeWeight(4);
+		canvas.stroke(canvasLayer.getFrameColor());
+		canvas.rect(canvasLayer.numberID() * 4,
+			canvasLayer.numberID() * 4,
+			canvas.width - (canvasLayer.numberID() * 8),
+			canvas.height - (canvasLayer.numberID() * 8));
+		canvas.endDraw();
+	}
+	
     public void clearLayer(CanvasLayer layer)
     {
         PGraphics clearLayer = this.layersMap.get(layer);
@@ -84,12 +102,27 @@ public class CanvasLayersManager
         {
             CanvasLayer.Tool.toggleVisible();
         }
-        if(key == 'R' || key == 'r')
+		else if (key == 'R' || key == 'r')
         {
             CanvasLayer.Test.toggleVisible();
         }
-		if(key == ' ')
+		else if(key == 'D' || key == 'd')
+        {
+            CanvasLayer.Draft.toggleVisible();
+        }
+		else if(key == 'M' || key == 'm')
+        {
+            CanvasLayer.Main.toggleVisible();
+        }
+		else if(key == 'C' || key == 'c')
+        {
+            currentDrawingLayer = currentDrawingLayer == CanvasLayer.Main ?
+				CanvasLayer.Test : CanvasLayer.Main;
+			currentDrawingLayer.setVisible(true);
+        }
+		else if(key == ' ')
 		{
+			this.clearLayer(CanvasLayer.Draft);
 			this.clearLayer(currentDrawingLayer);
 		}
     }

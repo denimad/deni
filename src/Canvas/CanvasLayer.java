@@ -5,24 +5,32 @@
  */
 package Canvas;
 
+import Util.ColorHelper;
+
 /**
  *
  * @author daudirac
  */
 public enum CanvasLayer
     {
-        Draft("draft"),
-        Main("main"),
-        Tool("tool"),
-        Test("test");
+        Draft("draft", 0,true, ColorHelper.GOLDENROD),
+        Main("main", 1,true, ColorHelper.BROWN2),
+        Tool("tool",2,true, ColorHelper.AQUAMARINE),
+        Test("test", 3,true, ColorHelper.DARKOLIVEGREEN);
         
         private final String name;
+		private final int numberID;
         private boolean visible;
+		private final int frameColor;
         
-        CanvasLayer(String _name)
+		
+        CanvasLayer(String _name, int _numberID, boolean _visible, int _frameColor)
         {
             name = _name;
-            visible = true;
+			numberID = _numberID;
+            visible = _visible;
+			frameColor = _frameColor;
+			
         }
         
         public String getName()
@@ -44,4 +52,14 @@ public enum CanvasLayer
         {
             this.visible = visible;
         }
+		
+		public int getFrameColor()
+		{
+			return frameColor;
+		}
+		
+		public int numberID()
+		{
+			return numberID;
+		}
     } 

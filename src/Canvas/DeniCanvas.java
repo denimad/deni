@@ -125,5 +125,4 @@ public class DeniCanvas extends PApplet
     
 	public int canvasWidth = DeniCanvasConstants.DENI_DEFAULT_WIDTH;
     public int canvasHeight = DeniCanvasConstants.DENI_DEFAULT_HEIGHT;
-    
 }
