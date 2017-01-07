@@ -35,9 +35,20 @@ public class ColorHelper
 		return p5.color(r, g, b);
 	}
 	
+	public int getColor(int r, int g, int b, int a)
+	{
+		return p5.color(r, g, b,a );
+	}
+	
+	
 	public float getAlpha(int color)
 	{
 		return p5.alpha(color);
+	}
+	
+	public float getBrightness(int color)
+	{
+		return p5.brightness(color);
 	}
 	
 	public static ColorHelper getInstance()
@@ -49,6 +60,14 @@ public class ColorHelper
 		
 		return instance;
 	}
+	
+	public static final int RED = ColorHelper.getInstance().getColor(255, 0, 0);
+	public static final int BLUE = ColorHelper.getInstance().getColor(0, 255, 0);
+	public static final int GREEN = ColorHelper.getInstance().getColor(0, 0, 255);
+	public static final int BROWN2 = ColorHelper.getInstance().getColor(238, 59, 59);
+	public static final int AQUAMARINE = ColorHelper.getInstance().getColor(69,	139, 116);
+	public static final int DARKOLIVEGREEN = ColorHelper.getInstance().getColor(162,	205,	90);
+	public static final int GOLDENROD = ColorHelper.getInstance().getColor(	218,	165,	32);
 	
 	
 }
