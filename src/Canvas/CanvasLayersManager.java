@@ -24,13 +24,16 @@ public class CanvasLayersManager
     
     public void drawLayers(PApplet canvas)
     {
+		// pre drawing
+		this.preDrawingLayer();
+		
+		// do draw
         CanvasLayer[] layers = CanvasLayer.values();
         
         for(CanvasLayer layer : layers)
         {
             if (layer.isVisible())
             {	
-				this.drawLayerColorFrame(layer);
                 canvas.image(this.layersMap.get(layer), 0, 0);
 			}
         }
@@ -62,19 +65,54 @@ public class CanvasLayersManager
         this.currentDrawingLayer = CanvasLayer.Main;
     }
     
-	
-	public void drawLayerColorFrame(CanvasLayer canvasLayer)
+	public void preDrawingLayer()
 	{
-		PGraphics canvas = this.layersMap.get(canvasLayer);
-		canvas.beginDraw();
-		canvas.noFill();
-		canvas.strokeWeight(4);
-		canvas.stroke(canvasLayer.getFrameColor());
-		canvas.rect(canvasLayer.numberID() * 4,
-			canvasLayer.numberID() * 4,
-			canvas.width - (canvasLayer.numberID() * 8),
-			canvas.height - (canvasLayer.numberID() * 8));
-		canvas.endDraw();
+		this.clearLayer(CanvasLayer.Guides);
+		this.drawLayerFrames();
+		this.drawDrawingLayerMark();
+	}
+	
+	
+	public void drawLayerFrames()
+	{
+		CanvasLayer[] layers = CanvasLayer.values();
+        PGraphics guidesCanvas = this.layersMap.get(CanvasLayer.Guides);
+		guidesCanvas.beginDraw();
+		
+		guidesCanvas.noFill();
+		guidesCanvas.strokeWeight(4);
+        
+		for(CanvasLayer canvasLayer : layers)
+        {
+			if (canvasLayer.isVisible() && canvasLayer.hasFrame())
+			{
+				guidesCanvas.stroke(canvasLayer.getFrameColor());
+				guidesCanvas.rect(
+					canvasLayer.getFramePosition()* 4,
+					canvasLayer.getFramePosition() * 4,
+					guidesCanvas.width - (canvasLayer.getFramePosition() * 8),
+					guidesCanvas.height - (canvasLayer.getFramePosition() * 8));
+				
+			}
+		}
+		guidesCanvas.endDraw();
+	}
+	
+	
+	public void drawDrawingLayerMark()
+	{
+		PGraphics guidesCanvas = this.layersMap.get(CanvasLayer.Guides);
+		
+		guidesCanvas.beginDraw();
+			guidesCanvas.noFill();
+			guidesCanvas.stroke(0);
+			guidesCanvas.strokeWeight(1);
+			guidesCanvas.rect(
+					this.currentDrawingLayer.getFramePosition()* 6,
+					this.currentDrawingLayer.getFramePosition() * 6,
+					guidesCanvas.width - (this.currentDrawingLayer.getFramePosition() * 12),
+					guidesCanvas.height - (this.currentDrawingLayer.getFramePosition() * 12));
+		guidesCanvas.endDraw();
 	}
 	
     public void clearLayer(CanvasLayer layer)
@@ -98,11 +136,11 @@ public class CanvasLayersManager
     
     void keyPressed(char key)
     {
-        if(key == 'T' || key == 't')
+        if(key == 'E' || key == 'e')
         {
             CanvasLayer.Tool.toggleVisible();
         }
-		else if (key == 'R' || key == 'r')
+		else if (key == 'W' || key == 'w')
         {
             CanvasLayer.Test.toggleVisible();
         }
@@ -110,11 +148,11 @@ public class CanvasLayersManager
         {
             CanvasLayer.Draft.toggleVisible();
         }
-		else if(key == 'M' || key == 'm')
+		else if(key == 'Q' || key == 'q')
         {
             CanvasLayer.Main.toggleVisible();
         }
-		else if(key == 'C' || key == 'c')
+		else if(key == 'R' || key == 'r')
         {
             currentDrawingLayer = currentDrawingLayer == CanvasLayer.Main ?
 				CanvasLayer.Test : CanvasLayer.Main;
@@ -122,7 +160,7 @@ public class CanvasLayersManager
         }
 		else if(key == ' ')
 		{
-			this.clearLayer(CanvasLayer.Draft);
+			this.clearLayer(CanvasLayer.Tool);
 			this.clearLayer(currentDrawingLayer);
 		}
     }

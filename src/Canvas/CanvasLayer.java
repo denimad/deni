@@ -13,23 +13,34 @@ import Util.ColorHelper;
  */
 public enum CanvasLayer
     {
-        Draft("draft", 0,true, ColorHelper.GOLDENROD),
-        Main("main", 1,true, ColorHelper.BROWN2),
-        Tool("tool",2,true, ColorHelper.AQUAMARINE),
-        Test("test", 3,true, ColorHelper.DARKOLIVEGREEN);
-        
+        Draft("draft",true),
+        Main("main",true, ColorHelper.BROWN2,0),
+        Tool("tool",true, ColorHelper.AQUAMARINE,2),
+        Test("test",true, ColorHelper.DARKOLIVEGREEN,1),
+        Guides("guides",true);
+		
         private final String name;
-		private final int numberID;
+		private final int framePosition;
         private boolean visible;
 		private final int frameColor;
-        
+        boolean hasFrame;
 		
-        CanvasLayer(String _name, int _numberID, boolean _visible, int _frameColor)
+        CanvasLayer(String _name, boolean _visible)
         {
             name = _name;
-			numberID = _numberID;
+            visible = _visible;
+			framePosition = 0;
+			frameColor = 0;
+			hasFrame = false;
+        }
+		
+        CanvasLayer(String _name, boolean _visible, int _frameColor, int _framePosition)
+        {
+            name = _name;
             visible = _visible;
 			frameColor = _frameColor;
+			framePosition = _framePosition;
+			hasFrame = true;
 			
         }
         
@@ -58,8 +69,13 @@ public enum CanvasLayer
 			return frameColor;
 		}
 		
-		public int numberID()
+		public int getFramePosition()
 		{
-			return numberID;
+			return framePosition;
+		}
+		
+		public boolean hasFrame()
+		{
+			return hasFrame;
 		}
     } 
