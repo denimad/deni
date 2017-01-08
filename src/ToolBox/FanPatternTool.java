@@ -1,12 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * deni 2017
  */
 package ToolBox;
 
 import Object.Drawing.DrawingObjectImpl;
 import Pattern.FanPattern;
+import java.util.Arrays;
 
 
 /**
@@ -45,10 +44,12 @@ public class FanPatternTool extends ToolForwardingDrawingObject
 			
 		this.controlFrameWriter.addSlider("movingObjectsAttractionStrength", 20, 50, 1, 50,
 				this.getFanPatterObj().movingObjectsAttractionStrength);
-		this.controlFrameWriter.addSlider("fanCircleSizeInc", 20, 60, 0, 1,
+		this.controlFrameWriter.addSlider("fanCircleSizeInc", 20, 60, -1, 1,
 				this.getFanPatterObj().fanCircleSizeInc);
 		this.controlFrameWriter.addColorController("colorDeAletas", 
 				this.getFanPatterObj().colorDeAletas);
+		this.controlFrameWriter.addScrollableList("changeMode","mode", 20, 70, 
+			FanPattern.MODES , "default");
 	}
 
 	

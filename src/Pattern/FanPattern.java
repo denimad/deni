@@ -14,7 +14,9 @@ import Object.Drawing.DrawingObjectImpl;
 import Pencil.Stroke;
 import Util.ColorHelper;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
 
@@ -28,6 +30,9 @@ public class FanPattern extends DrawingObjectImpl{
     PVector dir;
     Stroke stroke;
     drawingState currentState;
+	String mode="direction";
+	
+	public static List<String> MODES= Arrays.asList("direction","direct","slight random","random");
 
     ArrayList<MovingDrawingObj> movingObjects;
 	
@@ -42,9 +47,10 @@ public class FanPattern extends DrawingObjectImpl{
     private static final int DEFAULT_NUMBER_MOVING_OBJS = 10;
 
 	public int colorDeAletas = FanPattern.DEFAULT_COLOR;
+	public int colorDeAletasalfa = 255;
 	
 	public static final int DEFAULT_COLOR = 
-		ColorHelper.getInstance().getColor(255, 0, 0);
+		ColorHelper.getInstance().getColor(255, 0, 0,10);
     
     enum drawingState
     {
@@ -126,20 +132,41 @@ public class FanPattern extends DrawingObjectImpl{
     private void createMovingObjects(PVector point, List<PVector> targetPoints)
     {
         movingObjects = new ArrayList<>(targetPoints.size());
-        MovementDescriber mdes;
+        MovementDescriber mdes= null;
         for (PVector targetPoint : targetPoints)
         {
+            switch(mode)
+			{
+				case "direction": mdes = new SeekMovementDescriber(point, dir.normalize(),targetPoint);
+					break;
+				case "direct": mdes = new SeekMovementDescriber(point, PVector.sub(targetPoint, point),targetPoint);
+					break;
+				case "slight random": mdes = new SeekMovementDescriber(point, 
+					
+					PVector.add(new PVector(
+							PApplet.cos(canvas.random(0,PApplet.TWO_PI)),
+							PApplet.sin(canvas.random(0,PApplet.TWO_PI))),
+							PVector.sub(targetPoint, point).normalize().mult(1f)  ),targetPoint);
+					break;
+				case "random": mdes = new SeekMovementDescriber(point, 
+					new PVector(
+							PApplet.cos(canvas.random(0,PApplet.TWO_PI)),
+							PApplet.sin(canvas.random(0,PApplet.TWO_PI))),
+					targetPoint);
+				break;
+			}
             
-            mdes = new SeekMovementDescriber(point, dir.normalize(),targetPoint);
-            
-            mdes.setSpeed(this.movingObjectsSpeed);
-            ((SeekMovementDescriber) mdes).inerciaStrength =
-                    PVector.dist(point,targetPoint)*this.movingObjectsInerciaStrengthMult;
-            ((SeekMovementDescriber) mdes).attractionStrength = 
-				this.movingObjectsAttractionStrength;
-            
-             this.movingObjects.add(
-                new FanDrawingObj(mdes, this.fanCircleSizeInc));
+			if (mdes != null)
+			{
+				mdes.setSpeed(this.movingObjectsSpeed);
+				((SeekMovementDescriber) mdes).inerciaStrength =
+						PVector.dist(point,targetPoint)*this.movingObjectsInerciaStrengthMult;
+				((SeekMovementDescriber) mdes).attractionStrength = 
+					this.movingObjectsAttractionStrength;
+
+				 this.movingObjects.add(
+					new FanDrawingObj(mdes, this.fanCircleSizeInc));
+			}
         }
     }
     
@@ -168,6 +195,11 @@ public class FanPattern extends DrawingObjectImpl{
     {
         
     }
+	
+	public void changeMode(int n)
+	{
+		mode = FanPattern.MODES.get(n);
+	}
 
     @Override
     public void draw(PGraphics canvasLayer) {
@@ -209,41 +241,52 @@ public class FanPattern extends DrawingObjectImpl{
             {
                 stroke.addStrokePoint(movementDescriber.returnLocation().copy());
 				canvas.getToolDrawingLayer().beginDraw();
-				if (circleSize>0){circleSize -= circleSizeInc;}
-				
-				canvas.getToolDrawingLayer().ellipse(movementDescriber.returnLocation().x, 
+				if (circleSize>0)
+				{
+					circleSize -= circleSizeInc;
+					canvas.getToolDrawingLayer().ellipse(movementDescriber.returnLocation().x, 
 							movementDescriber.returnLocation().y, circleSize, circleSize);
-				canvas.getToolDrawingLayer().endDraw();
+					canvas.getToolDrawingLayer().endDraw();
+				}
+				
+				
             }
             else
             {
-				circleSize =10;
+				
                 if (!painted)
                 {
 					
                     canvasLayer.beginDraw();
-                    
+                    circleSize = 5;
                     painted = true;
                     canvasLayer.fill(0);
                     canvasLayer.noStroke();
                     for (PVector point : stroke.strokePoints)
                     {
-                        if (circleSize>0){circleSize -= circleSizeInc;}
-
-                        canvasLayer.ellipse(point.x,
-                            point.y,
-                            circleSize,circleSize);  
+                        if (circleSize>0)
+						{
+							circleSize += circleSizeInc;
+						
+							canvasLayer.ellipse(point.x,
+								point.y,
+								circleSize,circleSize);  
+						}
                     }
                 
-                    circleSize = 10;
-                    canvasLayer.fill(FanPattern.this.colorDeAletas);
+                    circleSize = 5;
+                    canvasLayer.fill(FanPattern.this.colorDeAletas, FanPattern.this.colorDeAletasalfa);
                     for (PVector point : stroke.strokePoints)
                     {
-                        if (circleSize>0){circleSize -= circleSizeInc;}
+                        if (circleSize>0)
+						{
+							circleSize += circleSizeInc;
+							canvasLayer.ellipse(point.x,
+								point.y,
+								 circleSize,circleSize);  
+							System.out.println(circleSize);
+						}
 
-                        canvasLayer.ellipse(point.x,
-                            point.y,
-                             circleSize-5,circleSize-5);  
                     }
                     
                     canvasLayer.endDraw();

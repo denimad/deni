@@ -46,6 +46,8 @@ public class ColorsController
 	 */
 	String groupName;
 	
+	boolean inColorEdition;
+	
 	int[] bangPosition;
 	
 	Bang currentModifiedBang;
@@ -103,6 +105,29 @@ public class ColorsController
 			//.setColorActive(100)
 			.plugTo(this).moveTo(this.groupName);
 		
+		this.cp5.addSlider(varName+"alfa")
+				.plugTo(variableObject,varName+"alfa")
+				.setRange(0, 255)
+				.setPosition(bangPosition[0]+40, bangPosition[1])
+				.setLabel("alfa")
+				.moveTo(groupName).addCallback(
+					new CallbackListener()
+					{
+						public void controlEvent(CallbackEvent event) 
+						{
+							String bangName =
+								event.getController().getName()
+									.substring(0,event.getController().getName().length() - 4);
+							int bangColor = ColorsController.this.colors.get(bangName);
+							float alfa = event.getController().getValue();
+							
+							ColorsController.this.setBangColors(
+								ColorsController.this.colorBangs.get(bangName), 
+								ColorHelper.getInstance().getColorWithAlpha(bangColor, 
+									alfa));
+						}
+					});
+		
 		this.setBangColors(newBang, color);
 		
 		this.colorBangs.put(varName,newBang);
@@ -129,7 +154,7 @@ public class ColorsController
 	
 	public void controlEvent(ControlEvent theEvent) 
 	{
-		
+	
 		//show the color wheel or color picker.
 		if (this.type.equals(PickerType.colorWheel))
 		{
@@ -138,23 +163,26 @@ public class ColorsController
 			String bangVarName = this.BangToVarNameMap.get(this.currentModifiedBang);
 			Object variableObject = this.BangToVarObjectMap.get(this.currentModifiedBang);
 			int color = this.colors.get(bangVarName);
+			inColorEdition = true;
+			
 			
 			this.cp5.addColorWheel(bangVarName)
 				.plugTo(variableObject)
 				.setPosition(40,40)
-				.setRGB(color)	
+				.setRGB(color)
 				.moveTo(groupName)
 				.addCallback(new CallbackListener()
 				{
 					public void controlEvent(CallbackEvent event) 
 					{
-						
 						int newColor = ((ColorWheel) event.getController()).getRGB();
 						if (event.getAction() == ControlP5.ACTION_RELEASE) 
 						{
 							ColorsController.this.currentModifiedBang.setColorForeground(newColor);
 							ColorsController.this.setBangColors(currentModifiedBang, newColor);
 							ColorsController.this.cp5.remove(event.getController().getName());
+							
+							inColorEdition = false;
 						}
 					}
 				});

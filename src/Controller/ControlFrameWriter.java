@@ -95,19 +95,21 @@ public class ControlFrameWriter {
 	}
 	
 	
-	public Controller addScrollableList(String methodName, 
+	public Controller addScrollableList(String theName,
+		String label,
         float posX, 
         float posY,
 		List items,
         String groupName) 
 	{
-		return cp5.addScrollableList(methodName)
+		return cp5.addScrollableList(theName)
 				.setPosition(posX, posY)
+				.setLabel(label)
 				.addItems(items)
 				.setBarHeight(20)
 				.setItemHeight(20)
-				.plugTo(this.getVariableObject(), methodName)
-				.moveTo(this.getTab(groupName).getName())	;
+				.plugTo(this.getVariableObject())
+				.moveTo(this.getTab(groupName).getName());
 	}
     
 	public void addColorController(String varName,
