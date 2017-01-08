@@ -5,9 +5,10 @@
  */
 package ToolBox;
 
+import Drawing.ForwardingDrawingObject;
 import Controller.ControlFrameWriter;
 import Controller.ControlFrameWriterOwner;
-import Object.Drawing.DrawingObjectImpl;
+import Drawing.DrawingObjectImpl;
 import Tool.ToolInterface;
 
 /**

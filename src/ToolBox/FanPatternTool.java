@@ -3,7 +3,7 @@
  */
 package ToolBox;
 
-import Object.Drawing.DrawingObjectImpl;
+import Drawing.DrawingObjectImpl;
 import Pattern.FanPattern;
 import java.util.Arrays;
 

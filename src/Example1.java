@@ -1,6 +1,6 @@
 
 import Canvas.DeniCanvas;
-import Object.Drawing.DrawingObjectImpl;
+import Drawing.DrawingObjectImpl;
 import processing.core.PGraphics;
 
 /*

@@ -5,7 +5,7 @@
  */
 package Moving;
 
-import Object.Drawing.DrawingObjectImpl;
+import Drawing.DrawingObjectImpl;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;

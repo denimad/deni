@@ -5,7 +5,7 @@ package Tool;
 
 import Canvas.CanvasObject;
 import Controller.ControlFrameWriterOwner;
-import Object.Drawing.DrawingObject;
+import Drawing.DrawingObject;
 
 /**
  *

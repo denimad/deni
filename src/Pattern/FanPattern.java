@@ -10,7 +10,7 @@ import Moving.MovementDescriber;
 import Moving.MovingDrawingObj;
 import Moving.SeekMovementDescriber;
 import Moving.TargetMovementDescriber;
-import Object.Drawing.DrawingObjectImpl;
+import Drawing.DrawingObjectImpl;
 import Pencil.Stroke;
 import Util.ColorHelper;
 import java.util.ArrayList;

@@ -3,11 +3,11 @@
  */
 
 
-package ToolBox;
+package Drawing;
 
 import Canvas.CanvasObject;
-import Object.Drawing.DrawingObject;
-import Object.Drawing.DrawingObjectImpl;
+import Drawing.DrawingObject;
+import Drawing.DrawingObjectImpl;
 import processing.core.PGraphics;
 
 /**

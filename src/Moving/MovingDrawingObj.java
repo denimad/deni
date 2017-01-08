@@ -5,7 +5,7 @@
  */
 package Moving;
 
-import Object.Drawing.DrawingObjectImpl;
+import Drawing.DrawingObjectImpl;
 
 /**
  *
