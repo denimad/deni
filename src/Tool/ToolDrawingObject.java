@@ -65,7 +65,11 @@ public abstract class ToolDrawingObject implements
         return this.controlFrameWriter;
     }
     
-    
+    public void resetControlFrameWriter()
+	{
+		this.controlFrameWriter.resetController();
+	}
+	
     /**
      * All sub classes should individually set in this method
      * the controllers assigned to this tool.

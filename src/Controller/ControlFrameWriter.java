@@ -28,6 +28,11 @@ public class ControlFrameWriter {
     }
     
 
+	public void resetController()
+	{
+		this.colorsController.resetController();
+	}
+	
     /**
      * add a slider to the current active group.
      * @param varName
@@ -113,9 +118,13 @@ public class ControlFrameWriter {
 	}
     
 	public void addColorController(String varName,
-		int color)
+		int color,
+		float alpha)
 	{
-		this.getColorsController().addColor(varName, color,this.variableObject);
+		this.getColorsController().addColor(varName, 
+			color,
+			alpha,
+			this.variableObject);
 	}
 
     public void newGroup(String label, int width, int height) {
@@ -200,6 +209,7 @@ public class ControlFrameWriter {
 		return this.colorsController;
 	}	
 	
+
 
     ControllerGroup currentControllerGroup;
 

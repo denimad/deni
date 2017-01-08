@@ -82,6 +82,12 @@ public class ToolControl implements ControlFrameWriterOwner
 	{
 		return this.toolChooserFrameWriter;
 	}
+	
+	@Override
+	public void resetControlFrameWriter() 
+	{
+		this.toolChooserFrameWriter.resetController();
+	}
 
 	@Override
 	public void setControls() 
@@ -110,6 +116,7 @@ public class ToolControl implements ControlFrameWriterOwner
 	{
 		this.toolControlFrame.hideControllers();
 		this.toolControlFrame.removeAllControls();
+		tool.resetControlFrameWriter();
 		tool.setControls();
 		this.toolControlFrame.showControllers();
 	}

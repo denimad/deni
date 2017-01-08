@@ -25,6 +25,12 @@ public abstract class ToolForwardingDrawingObject extends ForwardingDrawingObjec
 		active = false;
 	}
 
+	public DrawingObjectImpl getDrawingObject()
+	{
+		return this.drawingObj;
+	}
+	
+	
 	@Override
 	public void setControlFrameWriter(ControlFrameWriter cw) {
 		this.controlFrameWriter = cw;
@@ -36,6 +42,12 @@ public abstract class ToolForwardingDrawingObject extends ForwardingDrawingObjec
 	public ControlFrameWriter getControlFrameWriter() {
 		return this.controlFrameWriter;
 	}
+	
+	public void resetControlFrameWriter()
+	{
+		this.controlFrameWriter.resetController();
+	}
+	
 
 	@Override
 	public void setControls() 
