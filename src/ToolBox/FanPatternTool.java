@@ -27,7 +27,7 @@ public class FanPatternTool extends ToolForwardingDrawingObject
 		return "Fan Pattern Tool";
 	}
 	
-	private FanPattern getFanPatterObj()
+	protected FanPattern getFanPatterObj()
 	{
 		return (FanPattern) this.drawingObj;
 	}
@@ -47,7 +47,8 @@ public class FanPatternTool extends ToolForwardingDrawingObject
 		this.controlFrameWriter.addSlider("fanCircleSizeInc", 20, 60, -1, 1,
 				this.getFanPatterObj().fanCircleSizeInc);
 		this.controlFrameWriter.addColorController("colorDeAletas", 
-				this.getFanPatterObj().colorDeAletas);
+				this.getFanPatterObj().colorDeAletas,
+				this.getFanPatterObj().colorDeAletasalpha);
 		this.controlFrameWriter.addScrollableList("changeMode","mode", 20, 70, 
 			FanPattern.MODES , "default");
 	}

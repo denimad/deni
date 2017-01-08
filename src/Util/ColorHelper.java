@@ -61,6 +61,8 @@ public class ColorHelper
 		return instance;
 	}
 	
+	public static final int WHITE = ColorHelper.getInstance().getColor(255, 255, 255);
+	public static final int BLACK = ColorHelper.getInstance().getColor(0, 0, 0);
 	public static final int RED = ColorHelper.getInstance().getColor(255, 0, 0);
 	public static final int BLUE = ColorHelper.getInstance().getColor(0, 255, 0);
 	public static final int GREEN = ColorHelper.getInstance().getColor(0, 0, 255);

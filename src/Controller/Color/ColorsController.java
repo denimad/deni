@@ -27,6 +27,7 @@ public class ColorsController
 	 * Map of color variable names and colors handled by this object
 	 */
 	Map<String, Integer> colors;
+	Map<String, Float> alphas;
 	Map<String, Bang> colorBangs;
 	Map<Bang,String> BangToVarNameMap;
 	Map<Bang,Object> BangToVarObjectMap;
@@ -69,6 +70,7 @@ public class ColorsController
 		PickerType type)
 	{
 		this.colors = new HashMap<>();
+		this.alphas = new HashMap<>();
 		this.colorBangs = new HashMap<>();
 		this.BangToVarNameMap = new HashMap<>();
 		this.BangToVarObjectMap = new HashMap<>();
@@ -91,33 +93,41 @@ public class ColorsController
 		this(cp5, variableObject, groupName, PickerType.colorWheel);
 	}
 	
-	public void addColor(String varName, Integer color, Object variableObject)
+	public void addColor(String varName, 
+		Integer color, 
+		Float alpha,
+		Object variableObject)
 	{
 		this.colors.put(varName, color);
+		this.alphas.put(varName,alpha);
+		
 		//each color variable has a bang
-		Bang newBang = this.cp5.addBang("bangClick")
+		Bang newBang = this.cp5.addBang(varName + "bang")
 			.setSize(ColorsController.DEFAULT_BANG_WIDTH, 
 					ColorsController.DEFAULT_BANG_HEIGHT)
 			.setPosition(bangPosition[0], bangPosition[1])
 			.setId(0)
 			.setLabel(varName)
-			//.setColorForeground(color)
-			//.setColorActive(100)
+			.setColorForeground(color)
+			.setColorActive(100)
 			.plugTo(this).moveTo(this.groupName);
 		
-		this.cp5.addSlider(varName+"alfa")
-				.plugTo(variableObject,varName+"alfa")
+		this.cp5.addSlider(varName+"alpha")
+				.plugTo(variableObject,varName+"alpha")
 				.setRange(0, 255)
+				.setValue(alpha)
 				.setPosition(bangPosition[0]+40, bangPosition[1])
-				.setLabel("alfa")
-				.moveTo(groupName).addCallback(
+				.setLabel("alpha")
+				.moveTo(groupName)
+				.addCallback(
 					new CallbackListener()
 					{
 						public void controlEvent(CallbackEvent event) 
 						{
+							
 							String bangName =
 								event.getController().getName()
-									.substring(0,event.getController().getName().length() - 4);
+									.substring(0,event.getController().getName().length() - 5);
 							int bangColor = ColorsController.this.colors.get(bangName);
 							float alfa = event.getController().getValue();
 							
@@ -133,6 +143,9 @@ public class ColorsController
 		this.colorBangs.put(varName,newBang);
 		this.BangToVarNameMap.put(newBang, varName);
 		this.BangToVarObjectMap.put(newBang, variableObject);
+		
+		//post actions
+		this.calculateNextBangPosition();
 	}
 	
 	private void setBangColors(Bang bang, 
@@ -145,6 +158,11 @@ public class ColorsController
 		bang.setColorActive(activeColor);
 		
 		this.colors.put(bang.getLabel(), color);
+	}
+	
+	private void calculateNextBangPosition()
+	{
+		bangPosition[1]+=40; 
 	}
 	
 	/*public void bangClick() 
@@ -187,6 +205,12 @@ public class ColorsController
 					}
 				});
 		}
+	}
+	
+	
+	public void resetController()
+	{
+		bangPosition= new int[]{20,20};
 	}
 	
 	

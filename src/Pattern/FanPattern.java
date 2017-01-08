@@ -13,6 +13,7 @@ import Moving.TargetMovementDescriber;
 import Drawing.DrawingObjectImpl;
 import Pencil.Stroke;
 import Util.ColorHelper;
+import controlP5.ControlEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -47,10 +48,10 @@ public class FanPattern extends DrawingObjectImpl{
     private static final int DEFAULT_NUMBER_MOVING_OBJS = 10;
 
 	public int colorDeAletas = FanPattern.DEFAULT_COLOR;
-	public int colorDeAletasalfa = 255;
+	public int colorDeAletasalpha = 255;
 	
 	public static final int DEFAULT_COLOR = 
-		ColorHelper.getInstance().getColor(255, 0, 0,10);
+		ColorHelper.WHITE;
     
     enum drawingState
     {
@@ -165,7 +166,7 @@ public class FanPattern extends DrawingObjectImpl{
 					this.movingObjectsAttractionStrength;
 
 				 this.movingObjects.add(
-					new FanDrawingObj(mdes, this.fanCircleSizeInc));
+					this.createFanDrawingObj(mdes, this.fanCircleSizeInc));
 			}
         }
     }
@@ -213,12 +214,18 @@ public class FanPattern extends DrawingObjectImpl{
     }
     
     
-    class FanDrawingObj extends MovingDrawingObj
+    protected FanDrawingObj createFanDrawingObj(MovementDescriber mdes, float circleSize)
+	{
+		return new FanDrawingObj(mdes, circleSize);
+	}
+	
+	
+    public class FanDrawingObj extends MovingDrawingObj
     {
-        float circleSize;
-        float circleSizeInc;
-        Stroke stroke;
-        boolean painted = false;
+        protected float circleSize;
+        protected float circleSizeInc;
+        protected Stroke stroke;
+        protected boolean painted = false;
         
 		
 		public FanDrawingObj(MovementDescriber movementDescriber) {
@@ -240,10 +247,10 @@ public class FanPattern extends DrawingObjectImpl{
                 !((TargetMovementDescriber) movementDescriber).nearTarget(2))
             {
                 stroke.addStrokePoint(movementDescriber.returnLocation().copy());
-				canvas.getToolDrawingLayer().beginDraw();
 				if (circleSize>0)
 				{
-					circleSize -= circleSizeInc;
+					canvas.getToolDrawingLayer().beginDraw();
+					circleSize += circleSizeInc;
 					canvas.getToolDrawingLayer().ellipse(movementDescriber.returnLocation().x, 
 							movementDescriber.returnLocation().y, circleSize, circleSize);
 					canvas.getToolDrawingLayer().endDraw();
@@ -275,7 +282,7 @@ public class FanPattern extends DrawingObjectImpl{
                     }
                 
                     circleSize = 5;
-                    canvasLayer.fill(FanPattern.this.colorDeAletas, FanPattern.this.colorDeAletasalfa);
+                    canvasLayer.fill(FanPattern.this.colorDeAletas, FanPattern.this.colorDeAletasalpha);
                     for (PVector point : stroke.strokePoints)
                     {
                         if (circleSize>0)
@@ -299,6 +306,6 @@ public class FanPattern extends DrawingObjectImpl{
         public void setDrawingProperties() {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
-    
+		
     }
 }

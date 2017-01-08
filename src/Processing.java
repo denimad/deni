@@ -19,5 +19,5 @@ public class Processing
     }
     
     
-    public static final String projectName = "SimpleFanTool";   
+    public static final String projectName = "Example1";   
 }

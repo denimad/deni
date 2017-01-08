@@ -16,7 +16,7 @@ public class SeekMovementDescriber extends MovementDescriberImpl implements Targ
     private PVector targetLocation; 
     public float inerciaStrength;
     public float attractionStrength;
-    
+    public float initialDistanceToTarget;
     
     public SeekMovementDescriber()
     {
@@ -24,6 +24,7 @@ public class SeekMovementDescriber extends MovementDescriberImpl implements Targ
         this.targetLocation = new PVector(0,0);
         this.inerciaStrength = 0;
         this.attractionStrength = 0;
+		this.setInitialDistance();
     }
     
     public SeekMovementDescriber(PVector location,
@@ -34,6 +35,7 @@ public class SeekMovementDescriber extends MovementDescriberImpl implements Targ
          this.location = location.copy();
          this.direction = direction.copy();
          this.targetLocation = targetLocation.copy();
+		 this.setInitialDistance();
     }
     
     public SeekMovementDescriber(PVector location,
@@ -97,5 +99,20 @@ public class SeekMovementDescriber extends MovementDescriberImpl implements Targ
 	public boolean nearTarget(int distance)
 	{
 		return PVector.dist(targetLocation, location)< distance;
+	}
+
+	@Override
+	public float getDistanceToTarget() {
+		return PVector.dist(this.location, targetLocation);
+	}
+	
+	private void setInitialDistance()
+	{
+		this.initialDistanceToTarget = PVector.dist(targetLocation, location);
+	}
+	
+	public float getInitialDistance()
+	{
+		return this.initialDistanceToTarget;
 	}
 }
