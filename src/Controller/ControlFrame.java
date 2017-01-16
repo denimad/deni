@@ -2,23 +2,26 @@ package Controller;
 
 
 import controlP5.ControlP5;
-import controlP5.ControllerInterface;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import processing.core.PApplet;
 
 
 /**
- *
- * @author daudirac
+ * ControlFrames are simple PApplets Ideally used to write controllers.
+ * ControlFrames with be referenced by multiple ControlP5 objects.
+ * Objects that want to be write on this frame must get the ControlP5 references
+ * to this frame with the method .getNewControlP5().
  */
-public class ControlFrame extends PApplet implements ControlOwner{
+public class ControlFrame extends PApplet{
 
   int w, h;
   private final PApplet parent;
-  private ControlP5 cp5;
+  
   private int locationX;
   private int locationY;
   
+  Map<Object,ControlP5> p5Controllers;
   
   public static final int DEFAULT_WINDOW_LOCATION_X = 10;
   public static final int DEFAULT_WINDOW_LOCATION_Y = 10;
@@ -39,6 +42,8 @@ public class ControlFrame extends PApplet implements ControlOwner{
     h=_h;
 	locationX = locX;
 	locationY = locY;
+	
+	p5Controllers = new HashMap<>();
 	
     PApplet.runSketch(new String[]{this.getClass().getName()}, this);
   }
@@ -108,40 +113,18 @@ public class ControlFrame extends PApplet implements ControlOwner{
       return cfw;
   }
   
-  public void removeAllControls()
-  {
-	  
-     List<ControllerInterface<?>> controllerList =  this.cp5.getList();
-	 for (ControllerInterface<?> control: controllerList)
-	 {
-		 this.cp5.remove(control.getName());
-	 }
-  }
-  
-
-    @Override
-    public ControlP5 getControlP5() {
-        if (cp5 == null)
-        {
-            cp5 = new ControlP5(this);
-			cp5.hide();
-        }
+   
+  /**
+   * This method returns a controlP5 that writes on this frame.
+   * @param cfwo The Object that will own de CP5.
+   * @return The CP5 Object that writes on this frame.
+   */
+    public ControlP5 getNewControlP5(ControlFrameWriterOwner cfwo) {
         
-        return cp5;
-    }
-
-	public void hideControllers()
-	{
-		this.getControlP5().hide();
-	}
-	
-	public void showControllers()
-	{
-		this.getControlP5().show();
-	}
-	
-    @Override
-    public void setControllers() {
-        
+        ControlP5 cp5= new ControlP5(this);
+		//register the controllers with the corresponding cfwo object
+		p5Controllers.put(cfwo, cp5);
+		
+		return cp5;
     }
 }

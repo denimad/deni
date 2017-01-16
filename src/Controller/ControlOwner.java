@@ -14,6 +14,5 @@ import controlP5.ControlP5;
 public interface ControlOwner 
 {
     
-    public ControlP5 getControlP5();
-    public void setControllers();
+    public ControlP5 getControlP5(Object obj);
 }

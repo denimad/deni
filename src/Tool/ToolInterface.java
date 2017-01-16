@@ -6,6 +6,7 @@ package Tool;
 import Canvas.CanvasObject;
 import Controller.ControlFrameWriterOwner;
 import Drawing.DrawingObject;
+import controlP5.ControlListener;
 
 /**
  *
@@ -14,7 +15,8 @@ import Drawing.DrawingObject;
 public interface ToolInterface extends 
 		ControlFrameWriterOwner, 
 		DrawingObject,
-		CanvasObject
+		CanvasObject,
+		ControlListener
 {
 	public String getName();
 	public boolean isActive();

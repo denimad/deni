@@ -18,8 +18,8 @@ import controlP5.ScrollableList;
 import controlP5.Toggle;
 
 /**
- *
- * @author daudirac
+ * ToolControl writes the selected Tool Controls to 
+ * the ControlFrame
  */
 public class ToolControl implements ControlFrameWriterOwner
 {
@@ -30,11 +30,16 @@ public class ToolControl implements ControlFrameWriterOwner
 	
 	ControlFrameWriter toolChooserFrameWriter;
 	
+	String previousSelectedToolName;
+	String currentSelectedToolName;
+	
+	int[] toolPosition; 
 	public ToolControl(DeniCanvas _owner)
 	{
 		owner = _owner;
 		toolManager = new ToolManager();
 		
+		toolPosition= new int[]{20,20};
 	}
 	
 	public void initFrames()
@@ -46,8 +51,6 @@ public class ToolControl implements ControlFrameWriterOwner
 		toolChooserFrame = new ControlFrame(owner,
 		400,200,10,310,"toolChooserFrame");
 		
-		toolControlFrame.hideControllers();
-		toolChooserFrame.hideControllers();
 		
 		this.setControlFrameWriter(toolChooserFrame.
 				createNewControlFrameWriter(this));
@@ -56,8 +59,8 @@ public class ToolControl implements ControlFrameWriterOwner
 	
 	public void addTool(ToolInterface tool)
 	{
-		// create a control frame writer for the tool
-		// this will be used by the tool to writes its controls.
+		// create a control frame writer of the Tool Control Frame 
+		// for the tool.
 		tool.setControlFrameWriter(
 			this.toolControlFrame.createNewControlFrameWriter(tool));
 		
@@ -92,58 +95,97 @@ public class ToolControl implements ControlFrameWriterOwner
 	@Override
 	public void setControls() 
 	{
-		
-		/*this.toolChooserFrameWriter.addScrollableList(
-			"toolChanged",
-			0, 
-			0, 
-			this.toolManager.getToolNames(), 
-			"default");
-		*/
 		for (String toolName: this.toolManager.getToolNames())
 		{
 			this.toolChooserFrameWriter.addToogle(toolName, 
-				0, 
-				0, 
+				toolPosition[0], 
+				toolPosition[1], 
 				20, 
 				20, "default");
+			
+			this.calculateNextToolPosition();
 		}
 		
-		this.toolChooserFrame.showControllers();
+		//this.toolChooserFrame.showControllers();
+	}
+	
+	private void calculateNextToolPosition()
+	{
+		toolPosition[1]+=40;
+	}
+	
+	public void hideToolControls(ToolInterface tool)
+	{
+		if (tool != null)
+		{
+			tool.hideControls();
+		}
+		
 	}
 	
 	public void setToolControls(ToolInterface tool)
 	{
-		this.toolControlFrame.hideControllers();
-		this.toolControlFrame.removeAllControls();
-		tool.resetControlFrameWriter();
-		tool.setControls();
-		this.toolControlFrame.showControllers();
+		if (tool != null)
+		{
+			tool.showControls();
+		}
 	}
+	
 	
 	public void controlEvent(ControlEvent theEvent) 
 	{
-		String choosenToolName = theEvent.getName();
+		this.previousSelectedToolName = 
+			this.currentSelectedToolName;
+		
+		this.currentSelectedToolName = theEvent.getName();
+		
 		boolean isActive = ((Toggle) theEvent.getController()).getState();
 		
 		if (isActive)
 		{
-			this.toolManager.setActiveTool(choosenToolName);
+			this.toolManager.setActiveTool(
+				this.currentSelectedToolName);
 		}	
 		else 
 		{
-			this.toolManager.unSetActiveTool(choosenToolName);
+			this.toolManager.unSetActiveTool(
+				this.currentSelectedToolName);
 		}
 		
-		this.setToolControls(this.toolManager.getTool(choosenToolName));
+		//hide the previous shown tool controller.
+		this.hideToolControls(this.toolManager.getTool(
+				this.previousSelectedToolName));
+		
+		//show the new selected tool controller.
+		this.setToolControls(this.toolManager.getTool(
+				this.currentSelectedToolName));
 	}
 	
+	
+	//currently not it use 
+	@Deprecated
 	public void toolChanged(int n)
 	{
 		String choosenToolName = (String) this.toolChooserFrameWriter.getController(
 			ScrollableList.class, "toolChanged").getItem(n).get("name");
 		
 		this.setToolControls(this.toolManager.getTool(choosenToolName));
+	}
+
+	
+	@Override
+	public void hideControls() {
+		this.toolChooserFrameWriter.hideControlls();
+	}
+
+	@Override
+	public void showControls() {
+		this.toolChooserFrameWriter.showControlls();
+	}
+
+	@Override
+	public void toggleControlsVisibility() {
+		this.toolChooserFrameWriter.toggleControllsVisibility();
 	}
 	
 }

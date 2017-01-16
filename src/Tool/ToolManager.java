@@ -25,13 +25,6 @@ public class ToolManager
     {
         tools.put(tool.getName(), tool);
         toolNames.add(tool.getName());
-		
-        // if this is the first tool to be added
-        // set this as the active tool.
-        if (tools.size() == 1)
-        {
-            this.activeTool = tool;
-        }
     }
     
 	public ToolInterface getTool(String toolName)
@@ -75,7 +68,6 @@ public class ToolManager
 	}
 	
     
-    ToolInterface activeTool;
     Map<String, ToolInterface> tools;
 	List<String> toolNames;
 }

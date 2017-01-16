@@ -1,5 +1,4 @@
 
-import Canvas.CanvasManager;
 import processing.core.PApplet;
 
 /**
@@ -19,5 +18,5 @@ public class Processing
     }
     
     
-    public static final String projectName = "Example1";   
+    public static final String projectName = "Example1";
 }

@@ -13,7 +13,6 @@ import Moving.TargetMovementDescriber;
 import Drawing.DrawingObjectImpl;
 import Pencil.Stroke;
 import Util.ColorHelper;
-import controlP5.ControlEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,9 +30,14 @@ public class FanPattern extends DrawingObjectImpl{
     PVector dir;
     Stroke stroke;
     drawingState currentState;
-	String mode="direction";
 	
-	public static List<String> MODES= Arrays.asList("direction","direct","slight random","random");
+	
+	public static List<String> MODES= Arrays.asList(
+			"direction",
+			"direct",
+			"slight random",
+			"direction slight random",
+			"random");
 
     ArrayList<MovingDrawingObj> movingObjects;
 	
@@ -43,12 +47,16 @@ public class FanPattern extends DrawingObjectImpl{
 	public float movingObjectsSpeed = 2;
 	public float movingObjectsInerciaStrengthMult = 1;
 	public float movingObjectsAttractionStrength = 8;
+	public float fanCircleSize = 10;
 	public float fanCircleSizeInc = 0.2f;
+	public float randomStrength=1;
     
     private static final int DEFAULT_NUMBER_MOVING_OBJS = 10;
 
 	public int colorDeAletas = FanPattern.DEFAULT_COLOR;
 	public int colorDeAletasalpha = 255;
+	
+	public String mode="direction";
 	
 	public static final int DEFAULT_COLOR = 
 		ColorHelper.WHITE;
@@ -138,7 +146,7 @@ public class FanPattern extends DrawingObjectImpl{
         {
             switch(mode)
 			{
-				case "direction": mdes = new SeekMovementDescriber(point, dir.normalize(),targetPoint);
+				case "direction": mdes = new SeekMovementDescriber(point, dir,targetPoint);
 					break;
 				case "direct": mdes = new SeekMovementDescriber(point, PVector.sub(targetPoint, point),targetPoint);
 					break;
@@ -147,8 +155,17 @@ public class FanPattern extends DrawingObjectImpl{
 					PVector.add(new PVector(
 							PApplet.cos(canvas.random(0,PApplet.TWO_PI)),
 							PApplet.sin(canvas.random(0,PApplet.TWO_PI))),
-							PVector.sub(targetPoint, point).normalize().mult(1f)  ),targetPoint);
+							PVector.sub(targetPoint, point).normalize().mult(randomStrength*1.5f)),targetPoint);
 					break;
+				case "direction slight random": mdes = new SeekMovementDescriber(point, 
+					
+					PVector.add(new PVector(
+							PApplet.cos(canvas.random(0,PApplet.TWO_PI)),
+							PApplet.sin(canvas.random(0,PApplet.TWO_PI))),
+							dir.normalize().mult(randomStrength*1.5f)).normalize(),targetPoint);
+					
+					break;
+				
 				case "random": mdes = new SeekMovementDescriber(point, 
 					new PVector(
 							PApplet.cos(canvas.random(0,PApplet.TWO_PI)),
@@ -166,7 +183,7 @@ public class FanPattern extends DrawingObjectImpl{
 					this.movingObjectsAttractionStrength;
 
 				 this.movingObjects.add(
-					this.createFanDrawingObj(mdes, this.fanCircleSizeInc));
+					this.createFanDrawingObj(mdes, this.fanCircleSize, this.fanCircleSizeInc));
 			}
         }
     }
@@ -197,10 +214,7 @@ public class FanPattern extends DrawingObjectImpl{
         
     }
 	
-	public void changeMode(int n)
-	{
-		mode = FanPattern.MODES.get(n);
-	}
+	
 
     @Override
     public void draw(PGraphics canvasLayer) {
@@ -214,14 +228,15 @@ public class FanPattern extends DrawingObjectImpl{
     }
     
     
-    protected FanDrawingObj createFanDrawingObj(MovementDescriber mdes, float circleSize)
+    protected FanDrawingObj createFanDrawingObj(MovementDescriber mdes, float circleSize, float circleSizeInc)
 	{
-		return new FanDrawingObj(mdes, circleSize);
+		return new FanDrawingObj(mdes, circleSize, circleSizeInc);
 	}
 	
 	
     public class FanDrawingObj extends MovingDrawingObj
     {
+		protected float originalCircleSize;
         protected float circleSize;
         protected float circleSizeInc;
         protected Stroke stroke;
@@ -229,12 +244,13 @@ public class FanPattern extends DrawingObjectImpl{
         
 		
 		public FanDrawingObj(MovementDescriber movementDescriber) {
-            this(movementDescriber, 0.2f);
+            this(movementDescriber, 10,  0.2f);
         }
 		
-		public FanDrawingObj(MovementDescriber movementDescriber, float circleSizeInc) {
+		public FanDrawingObj(MovementDescriber movementDescriber, float circleSize,  float circleSizeInc) {
             super(movementDescriber);
-            circleSize = 10;
+			this.originalCircleSize = circleSize;
+            this.circleSize = circleSize;
             this.circleSizeInc = circleSizeInc;
             stroke = new Stroke(1);
         }
@@ -255,8 +271,6 @@ public class FanPattern extends DrawingObjectImpl{
 							movementDescriber.returnLocation().y, circleSize, circleSize);
 					canvas.getToolDrawingLayer().endDraw();
 				}
-				
-				
             }
             else
             {

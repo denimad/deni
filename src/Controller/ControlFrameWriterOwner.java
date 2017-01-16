@@ -18,6 +18,13 @@ public interface ControlFrameWriterOwner
 {
     public void setControlFrameWriter(ControlFrameWriter cw);
     public ControlFrameWriter getControlFrameWriter();
-    public void setControls();
+    
+	public void setControls();
+	
 	public void resetControlFrameWriter();
+	
+	// Controlls visibility methods
+	public void hideControls();
+	public void showControls();
+	public void toggleControlsVisibility();
 }

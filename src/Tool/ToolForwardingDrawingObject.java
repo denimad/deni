@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ToolBox;
+package Tool;
 
 import Drawing.ForwardingDrawingObject;
 import Controller.ControlFrameWriter;
 import Controller.ControlFrameWriterOwner;
 import Drawing.DrawingObjectImpl;
 import Tool.ToolInterface;
+import controlP5.ControlEvent;
 
 /**
  *
@@ -31,11 +32,19 @@ public abstract class ToolForwardingDrawingObject extends ForwardingDrawingObjec
 	}
 	
 	
+	// = = = = = = = = = = = = = = = = = =
+	// ControlFrameWriterOwner Interface methods.
+	// = = = = = = = = = = = = = = = = = =
 	@Override
 	public void setControlFrameWriter(ControlFrameWriter cw) {
 		this.controlFrameWriter = cw;
-		this.controlFrameWriter.setVariableObject(this.drawingObj);
-        this.setControls();
+		
+		// for tool forwarding objects the controlled object is 
+		// always the owned drawing object
+		
+		//this.controlFrameWriter.setControlledObject(this.drawingObj);
+		this.controlFrameWriter.hideControlls();
+		this.setControls();
 	}
 
 	@Override
@@ -50,11 +59,26 @@ public abstract class ToolForwardingDrawingObject extends ForwardingDrawingObjec
 	
 
 	@Override
-	public void setControls() 
+	public abstract void setControls();
+	
+	
+	public void hideControls()
 	{
-		
+		this.controlFrameWriter.hideControlls();
+	}
+	public void showControls()
+	{
+		this.controlFrameWriter.showControlls();
+	}
+	public void toggleControlsVisibility()
+	{
+		this.controlFrameWriter.toggleControllsVisibility();
 	}
 	
+	
+	// = = = = = = = = = = = = = = = = = =
+	// TOOL Interface methods.
+	// = = = = = = = = = = = = = = = = = =
 	@Override
 	public boolean isActive() {
 			return this.active;
@@ -69,6 +93,21 @@ public abstract class ToolForwardingDrawingObject extends ForwardingDrawingObjec
 	@Override
 	public abstract String getName();
 	
+	
+	// = = = = = = = = = = = = = = = = = =
+	// CONTROLLISTENER Interface methods.
+	// = = = = = = = = = = = = = = = = = =
+	/**
+	 * Override this method when the tool needs
+	 * to manage the control events.
+	 * @param theEvent the event triggered by a CP5 
+	 * controller action.
+	 */
+	@Override
+	public void controlEvent(ControlEvent theEvent) 
+	{
+		
+	}
 	/**
      * The control frame writer belonging to this tool
      */

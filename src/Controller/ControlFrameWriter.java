@@ -7,6 +7,7 @@ import Controller.Color.ColorsController;
 import controlP5.ControlP5;
 import controlP5.Controller;
 import controlP5.ControllerGroup;
+import controlP5.ControllerInterface;
 import controlP5.Tab;
 import java.util.List;
 
@@ -18,19 +19,19 @@ import java.util.List;
  * in a controlP5.ControllerGroup Object.
  * @author daudirac
  */
-public class ControlFrameWriter {
+public class ControlFrameWriter implements ControlOwner{
 
     ControlFrameWriter(ControlFrame _controlFrame,
             ControlFrameWriterOwner _controlOwner) {
         controlFrame = _controlFrame;
         controlOwner = _controlOwner;
-        this.cp5 = controlFrame.getControlP5();
+        this.cp5 = controlFrame.getNewControlP5(controlOwner);
     }
     
 
 	public void resetController()
 	{
-		this.colorsController.resetController();
+		this.getColorsController().resetController();
 	}
 	
     /**
@@ -80,7 +81,7 @@ public class ControlFrameWriter {
          return cp5.addSlider(varName).setPosition(posX, posY)
                 .setRange(minVal, maxVal)
 				.setValue(value)
-                .plugTo(this.getVariableObject(), varName)
+                .plugTo(this.getControlledObject(), varName)
                 .moveTo(this.getTab(groupName).getName());
     }
 	public Controller addToogle(
@@ -95,7 +96,7 @@ public class ControlFrameWriter {
 				.setLabel(label)
 				.setPosition(posX, posY)
 				.setSize(w, h)
-				.plugTo(this.getVariableObject())
+				.plugTo(this.getControlledObject())
 				.moveTo(this.getTab(groupName).getName());
 	}
 	
@@ -113,10 +114,23 @@ public class ControlFrameWriter {
 				.addItems(items)
 				.setBarHeight(20)
 				.setItemHeight(20)
-				.plugTo(this.getVariableObject())
+				.plugTo(this.getControlledObject())
 				.moveTo(this.getTab(groupName).getName());
 	}
     
+	public Controller addRange(String theName, String label,float posX, float posY, 
+		float minVal, float maxVal, String groupName)
+	{
+		return cp5.addRange(theName)
+				.setBroadcast(false) 
+				.setLabel(label)
+				.setPosition(posX,posY)
+				.setRange(minVal, maxVal)
+				.setBroadcast(true)
+				.plugTo(this.getControlledObject())
+				.moveTo(this.getTab(groupName).getName());
+	}
+	
 	public void addColorController(String varName,
 		int color,
 		float alpha)
@@ -124,7 +138,7 @@ public class ControlFrameWriter {
 		this.getColorsController().addColor(varName, 
 			color,
 			alpha,
-			this.variableObject);
+			this.getControlledObject());
 	}
 
     public void newGroup(String label, int width, int height) {
@@ -182,15 +196,15 @@ public class ControlFrameWriter {
 	
 	
 	
-	private Object getVariableObject()
+	private Object getControlledObject()
 	{
-		return (this.variableObject == null ? 
-				this.controlOwner : this.variableObject);
+		return (this.controlledObject == null ? 
+				this.controlOwner : this.controlledObject);
 	}
 	
-	public void setVariableObject(Object _variableObject)
+	public void setControlledObject(Object _variableObject)
 	{
-		this.variableObject = _variableObject;
+		this.controlledObject = _variableObject;
 	}
 	
 	/**
@@ -202,14 +216,49 @@ public class ControlFrameWriter {
 		if (this.colorsController == null)
 		{
 			this.colorsController = new ColorsController(this.cp5, 
-				this.getVariableObject(),
+				this.getControlledObject(),
 				this.getTab(ControlWriterConstants.DEFAULT_COLOR_CONTROLLER_GROUP_NAME)
 					.getName());
 		}
 		return this.colorsController;
 	}	
 	
-
+	public void hideControlls()
+	{
+		this.cp5.hide();
+	}
+	
+	public void showControlls()
+	{
+		this.cp5.show();
+	}
+	
+	public void toggleControllsVisibility()
+	{
+		if (cp5.isVisible())
+		{
+		  this.hideControlls();
+		}
+		else
+		{
+		  this.showControlls();
+		}
+	}
+	
+	public void removeAllControlls()
+	{
+		List<ControllerInterface<?>> controllerList =  this.cp5.getList();
+		for (ControllerInterface<?> control: controllerList)
+		{
+			this.cp5.remove(control.getName());
+		}
+	}
+	
+	@Override
+	public ControlP5 getControlP5(Object obj) 
+	{
+		return this.cp5;
+	}
 
     ControllerGroup currentControllerGroup;
 
@@ -236,7 +285,7 @@ public class ControlFrameWriter {
 	 * This object whose variables are modified.
 	 * serves when the controlOwner is delegates a drawing object.
 	 */
-	private Object variableObject;
+	private Object controlledObject;
 	
 	
     /**
@@ -244,4 +293,6 @@ public class ControlFrameWriter {
      * cP5 is always the one own by the controlFrame of this object.
      */
     private final ControlP5 cp5;
+
+	
 }

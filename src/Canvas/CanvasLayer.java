@@ -14,8 +14,8 @@ import Util.ColorHelper;
 public enum CanvasLayer
     {
         Draft("draft",true),
+		Tool("tool",true, ColorHelper.AQUAMARINE,2),
         Main("main",true, ColorHelper.BROWN2,0),
-        Tool("tool",true, ColorHelper.AQUAMARINE,2),
         Test("test",true, ColorHelper.DARKOLIVEGREEN,1),
         Guides("guides",true);
 		
