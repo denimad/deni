@@ -1,4 +1,4 @@
-/*
+/* 
  * deni 2017
  */
 package ToolBox;

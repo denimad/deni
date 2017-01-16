@@ -1,7 +1,6 @@
-/*
- * deni 2016
+/* 
+ * deni 2017
  */
-
 import Canvas.DeniCanvas;
 import Drawing.DrawingObjectImpl;
 import Moving.MovementDescriber;

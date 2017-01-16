@@ -2,6 +2,29 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Util/MathHelper.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Tool/ToolManager.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Canvas/Tool/ToolCanvasListenerManager.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Drawing/DrawingObject.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/ToolBox/FanPatternTool.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Drawing/ForwardingDrawingObject.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Controller/Color/ColorsController.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Controller/ControlFrameWriter.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Canvas/CanvasObject.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Example1.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Controller/Tool/ToolControl.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Canvas/CanvasListenerType.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Tool/ToolForwardingDrawingObject.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Canvas/DeniCanvas.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Controller/ControlOwner.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Drawing/DrawingObjectImpl.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Moving/MovingDrawingObj.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Controller/ControlFrame.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Tool/ToolDrawingObject.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Tool/ToolInterface.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Pattern/FanPattern.java</file>
+            <file>file:/Users/daudirac/Documents/mio/ProcessingApp/Processing/src/Controller/ControlFrameWriterOwner.java</file>
+        </group>
     </open-files>
 </project-private>
