@@ -39,10 +39,6 @@ public abstract class ToolForwardingDrawingObject extends ForwardingDrawingObjec
 	public void setControlFrameWriter(ControlFrameWriter cw) {
 		this.controlFrameWriter = cw;
 		
-		// for tool forwarding objects the controlled object is 
-		// always the owned drawing object
-		
-		//this.controlFrameWriter.setControlledObject(this.drawingObj);
 		this.controlFrameWriter.hideControlls();
 		this.setControls();
 	}

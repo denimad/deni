@@ -248,42 +248,6 @@ public class Example1  extends DeniCanvas
 				circleSize += circleSizeInc;
 			}
 		}
-		// this part had to be implemented due to issue (reported in stack overflow):
-		// http://stackoverflow.com/questions/41530679/controlp5-doesnt-modify-inherited-variables-of-plugto-object
-		public void controlEvent(ControlEvent event) 
-		{
-			if (event.isController())
-			{
-				switch(event.getName())
-				{
-					case "strokePointsDistance":
-						this.strokePointsDistance = (int) event.getValue();
-						break;
-					case "movingObjectsSpeed":
-						this.movingObjectsSpeed =  event.getValue();
-						break;	
-					case "movingObjectsInerciaStrengthMult":
-						this.movingObjectsInerciaStrengthMult =  event.getValue();
-						break;
-					case "movingObjectsAttractionStrength":
-						this.movingObjectsAttractionStrength =  event.getValue();
-						break;
-					case "fanCircleSizeInc":
-						this.fanCircleSizeInc =  event.getValue();
-						break;
-					case "fanCircleSize":
-						this.fanCircleSize =  event.getValue();
-						break;
-					case "colorDeAletas":
-						this.colorDeAletas = (int) event.getValue();
-						break;
-					case "colorDeAletasalpha":
-						this.colorDeAletasalpha = (int) event.getValue();
-						break;
-					
-				}
-			}
-		}
 	}
 	
 	private class BrushFanPatternTool extends LerpColorFanPatternTool
