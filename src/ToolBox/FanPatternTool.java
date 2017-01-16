@@ -40,22 +40,24 @@ public class FanPatternTool extends ToolForwardingDrawingObject
 	@Override
 	public void setControls() 
 	{
-		this.controlFrameWriter.addSlider("strokePointsDistance", 20, 20, 1, 20,
+		super.setControls();
+		
+		this.controlFrameWriter.addSlider("strokePointsDistance", 20, 30, 1, 20,
 				this.getFanPatterObj().strokePointsDistance);
-		this.controlFrameWriter.addSlider("movingObjectsSpeed", 20, 30, 1, 10,
+		this.controlFrameWriter.addSlider("movingObjectsSpeed", 20, 40, 1, 10,
 				this.getFanPatterObj().movingObjectsSpeed);
-		this.controlFrameWriter.addSlider("movingObjectsInerciaStrengthMult", 20, 40, 1, 10,
+		this.controlFrameWriter.addSlider("movingObjectsInerciaStrengthMult", 20, 50, 1, 10,
 				this.getFanPatterObj().movingObjectsInerciaStrengthMult);
 			
-		this.controlFrameWriter.addSlider("movingObjectsAttractionStrength", 20, 50, 1, 50,
+		this.controlFrameWriter.addSlider("movingObjectsAttractionStrength", 20, 60, 1, 50,
 				this.getFanPatterObj().movingObjectsAttractionStrength);
-		this.controlFrameWriter.addSlider("fanCircleSizeInc", 20, 60, -1, 1,
+		this.controlFrameWriter.addSlider("fanCircleSizeInc", 20, 70, -1, 1,
 				this.getFanPatterObj().fanCircleSizeInc);
-		this.controlFrameWriter.addSlider("fanCircleSize", 20, 70, 1, 10,
+		this.controlFrameWriter.addSlider("fanCircleSize", 20, 80, 1, 10,
 				this.getFanPatterObj().fanCircleSize);
-		this.controlFrameWriter.addSlider("randomStrength", 20, 80, 1, 100,
+		this.controlFrameWriter.addSlider("randomStrength", 20, 90, 1, 100,
 				this.getFanPatterObj().randomStrength);
-		this.controlFrameWriter.addScrollableList("changeMode","mode", 20, 90, 
+		this.controlFrameWriter.addScrollableList("changeMode","mode", 20, 100, 
 			FanPattern.MODES , "default");
 		
 		// color controllers

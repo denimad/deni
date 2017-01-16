@@ -17,5 +17,6 @@ public class ControlWriterConstants
     public static final int[] DEFAULT_TAB_ACTIVE_COLOR = new int[]{0,0,0,0};
     public static final int[] DEFAULT_TAB_INACTIVE_COLOR = new int[]{0,0,0,0};
 	
+	public static final String DEFAULT_CONTROLLER_GROUP_NAME = "default";
 	public static final String DEFAULT_COLOR_CONTROLLER_GROUP_NAME = "Colors";
 }

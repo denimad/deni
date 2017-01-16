@@ -8,6 +8,7 @@ import Controller.ControlFrameWriter;
 import Controller.ControlFrameWriterOwner;
 import Drawing.DrawingObjectImpl;
 import Tool.ToolInterface;
+import Util.ColorHelper;
 import controlP5.ControlEvent;
 
 /**
@@ -51,10 +52,23 @@ public abstract class ToolForwardingDrawingObject extends ForwardingDrawingObjec
 		this.controlFrameWriter.resetController();
 	}
 	
-
-	@Override
-	public abstract void setControls();
 	
+	@Override
+	public void setControls()
+	{
+		this.writeControlTitle();
+	}
+	
+	public void writeControlTitle()
+	{
+		for (String tabName : this.controlFrameWriter.getTabNames())
+		{
+			this.controlFrameWriter.addTextLabel("title"+tabName, 
+			"--------TOOL: "+this.getName() + "----------", 
+			40, 
+			20, ColorHelper.WHITE, tabName);
+		}	
+	}
 	
 	public void hideControls()
 	{

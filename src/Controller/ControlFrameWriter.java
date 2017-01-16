@@ -3,12 +3,15 @@
  */
 package Controller;
 
+import Canvas.CanvasManager;
 import Controller.Color.ColorsController;
+import controlP5.ControlFont;
 import controlP5.ControlP5;
 import controlP5.Controller;
 import controlP5.ControllerGroup;
 import controlP5.ControllerInterface;
 import controlP5.Tab;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -26,6 +29,11 @@ public class ControlFrameWriter implements ControlOwner{
         controlFrame = _controlFrame;
         controlOwner = _controlOwner;
         this.cp5 = controlFrame.getNewControlP5(controlOwner);
+		
+		//init tab names with the defaul tab names
+		this.tabNames = Arrays.asList(
+				ControlWriterConstants.DEFAULT_CONTROLLER_GROUP_NAME,
+				ControlWriterConstants.DEFAULT_COLOR_CONTROLLER_GROUP_NAME);
     }
     
 
@@ -131,6 +139,19 @@ public class ControlFrameWriter implements ControlOwner{
 				.moveTo(this.getTab(groupName).getName());
 	}
 	
+	public Controller addTextLabel(String theName,
+			String text, 
+			float posX, float posY,
+			int color,
+			String groupName)
+	{
+		return	cp5.addTextlabel(theName)
+                    .setText(text)
+                    .setPosition(posX,posY)
+                    .setColorValue(color)
+					.moveTo(groupName);
+	}
+	
 	public void addColorController(String varName,
 		int color,
 		float alpha)
@@ -168,6 +189,7 @@ public class ControlFrameWriter implements ControlOwner{
 		if (tab == null)
 		{
 			tab = this.newTab(name);
+			tabNames.add(name);
 		}
 		
 		return tab;
@@ -259,6 +281,11 @@ public class ControlFrameWriter implements ControlOwner{
 	{
 		return this.cp5;
 	}
+	
+	public List<String> getTabNames()
+	{
+		return this.tabNames;
+	}
 
     ControllerGroup currentControllerGroup;
 
@@ -287,7 +314,10 @@ public class ControlFrameWriter implements ControlOwner{
 	 */
 	private Object controlledObject;
 	
-	
+	/**
+	 * This list stores the names of all the tabs of this control frame writer.
+	 */
+	private List<String> tabNames;
     /**
      * This variables stores the controlP5 instance to write controllers. This
      * cP5 is always the one own by the controlFrame of this object.

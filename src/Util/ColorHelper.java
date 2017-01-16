@@ -39,6 +39,8 @@ public class ColorHelper
 	}
 	
 	
+	
+	
 	public float getAlpha(int color)
 	{
 		return p5.alpha(color);

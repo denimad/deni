@@ -9,7 +9,6 @@ import Pattern.FanPattern;
 import ToolBox.FanPatternTool;
 import Util.ColorHelper;
 import Util.MathHelper;
-import controlP5.ControlEvent;
 import java.util.HashMap;
 import java.util.Map;
 import processing.core.PGraphics;

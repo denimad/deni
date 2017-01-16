@@ -54,6 +54,9 @@ public class ColorsController
 	private static int DEFAULT_BANG_WIDTH= 20;
 	private static int DEFAULT_BANG_HEIGHT= 20;
 	
+	private static int DEFAULT_BANG_INIT_POSX= 20;
+	private static int DEFAULT_BANG_INIT_POSY= 30;
+	
 	PickerType type;
 	
 	enum PickerType
@@ -79,7 +82,10 @@ public class ColorsController
 		
 		this.type = type;
 		
-		bangPosition= new int[]{20,20};
+		bangPosition= new int[]{
+			ColorsController.DEFAULT_BANG_INIT_POSX,
+			ColorsController.DEFAULT_BANG_INIT_POSY};
+		
 	}
 	
 	public ColorsController(ControlP5 cp5, 
@@ -208,7 +214,9 @@ public class ColorsController
 	
 	public void resetController()
 	{
-		bangPosition= new int[]{20,20};
+		bangPosition= new int[]{
+			ColorsController.DEFAULT_BANG_INIT_POSX,
+			ColorsController.DEFAULT_BANG_INIT_POSY};
 	}
 	
 	

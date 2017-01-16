@@ -11,8 +11,6 @@ package Canvas;
 
 import Canvas.Tool.ToolCanvasListenerManager;
 import Controller.Tool.ToolControl;
-import Tool.ToolInterface;
-import java.util.Iterator;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
