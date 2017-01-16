@@ -9,8 +9,10 @@ import Pattern.FanPattern;
 import ToolBox.FanPatternTool;
 import Util.ColorHelper;
 import Util.MathHelper;
+import controlP5.ControlEvent;
 import java.util.HashMap;
 import java.util.Map;
+import static processing.core.PApplet.map;
 import processing.core.PGraphics;
 import processing.core.PVector;
 
@@ -100,6 +102,40 @@ public class Example1  extends DeniCanvas
 				this.fanPattern.middleColoralpha);
 			
 		}		
+		
+		@Override
+		public void controlEvent(ControlEvent event) 
+		{
+			super.controlEvent(event);
+			
+			if (event.isController())
+			{
+				switch(event.getName())
+				{
+					case "startColor": 
+						this.fanPattern.startColor = (int) event.getValue();
+						break;
+					case "startColoralpha": 
+						this.fanPattern.startColoralpha = (int) event.getValue();
+						break;
+					case "endColor": 
+						this.fanPattern.endColor = (int) event.getValue();
+						break;
+					case "endColoralpha": 
+						this.fanPattern.endColoralpha = (int) event.getValue();
+						break;
+					case "middleColor": 
+						this.fanPattern.middleColor = (int) event.getValue();
+						break;
+					case "middleColoralpha": 
+						this.fanPattern.middleColoralpha = (int) event.getValue();
+						break;
+					case "level":
+						this.fanPattern.level = (int) event.getValue();
+						break;
+				}
+			}
+		}
 	}
 	
 	private class LerpColorFanPattern extends FanPattern
@@ -129,7 +165,7 @@ public class Example1  extends DeniCanvas
 		
 		float[] circleSizeRange = new float[2];
 		
-		private class FanDrawingObj extends FanPattern.FanDrawingObj
+		protected class FanDrawingObj extends FanPattern.FanDrawingObj
 		{
 			TargetMovementDescriber targetmd;
 			protected Map<PVector,Integer> lerpColorMap;
@@ -151,12 +187,8 @@ public class Example1  extends DeniCanvas
 				{
 					PVector point = movementDescriber.returnLocation().copy();
 					stroke.addStrokePoint(point);
-					lerpColorMap.put(
-						point,
-						this.getLerpColor(canvasLayer, 
-								targetmd.getInitialDistance(),
-								targetmd.getDistanceToTarget(),
-								level));
+					
+					this.calculateStrokeInfoMaps(point, canvasLayer);
 				}
 				else
 				{
@@ -168,7 +200,7 @@ public class Example1  extends DeniCanvas
 							canvasLayer.fill(colorDeAletas,colorDeAletasalpha);
 							for (PVector point : stroke.strokePoints)
 							{
-								this.calculateCircleSize();
+								this.calculateCircleSize(point);
 								canvasLayer.ellipse(point.x,
 									point.y,
 									circleSize+2f,circleSize+2f);  
@@ -178,7 +210,7 @@ public class Example1  extends DeniCanvas
 							for (PVector point : stroke.strokePoints)
 							{
 								canvasLayer.fill(lerpColorMap.get(point),startColoralpha);
-								this.calculateCircleSize();
+								this.calculateCircleSize(point);
 								canvasLayer.ellipse(point.x,
 									point.y,
 									circleSize,circleSize);  
@@ -241,7 +273,19 @@ public class Example1  extends DeniCanvas
 				return lerpColor;
 			}
 			
-			protected void calculateCircleSize()
+			
+			protected void calculateStrokeInfoMaps(PVector point,
+					PGraphics canvasLayer)
+			{
+				lerpColorMap.put(
+						point,
+						this.getLerpColor(canvasLayer, 
+								targetmd.getInitialDistance(),
+								targetmd.getDistanceToTarget(),
+								level));
+			}
+			
+			protected void calculateCircleSize(PVector point)
 			{
 				circleSize += circleSizeInc;
 			}
@@ -265,20 +309,79 @@ public class Example1  extends DeniCanvas
 		public void setControls() 
 		{
 			super.setControls();
+			
+			this.controlFrameWriter.addRange("circleSizeRange", "circleSize", 140, 120, 0, 1, "default");
+		}
+		
+		@Override
+		public void controlEvent(ControlEvent event) 
+		{
+			super.controlEvent(event);
+			
+			if (event.isController())
+			{
+				switch(event.getName())
+				{
+					case "circleSizeRange": 
+						r1 = event.getArrayValue(0);
+						r2 = event.getArrayValue(1);
+						break;
+				}
+			}
 		}
 	}
 	
+	float r1= 0,r2= 1;
+	
 	private class BrushFanPattern extends LerpColorFanPattern
 	{
+	
 		
 		public BrushFanPattern()
 		{
 			super();
+			
 		}
 		
-		protected void calculateCircleSize()
+		@Override
+		protected FanDrawingObj createFanDrawingObj(
+			MovementDescriber mdes, 
+			float circleSize,
+			float circleSizeInc)
 		{
+			return new BrushFanDrawingObj(mdes, circleSize, circleSizeInc);
+		}
+		
+		private class BrushFanDrawingObj extends LerpColorFanPattern.FanDrawingObj
+		{
+			float range;
+			protected Map<PVector,Float> sizeStrokeMap;
 			
+			public BrushFanDrawingObj(MovementDescriber movementDescriber, float circleSize, float circleSizeInc) 
+			{
+				super(movementDescriber, circleSize, circleSizeInc);
+				sizeStrokeMap = new HashMap<>();
+				range = MathHelper.random(r1,r2);	
+			}
+			
+			@Override
+			protected void calculateStrokeInfoMaps(PVector point,
+					PGraphics canvasLayer)
+			{
+				super.calculateStrokeInfoMaps(point, canvasLayer);
+				
+				this.sizeStrokeMap.put(point, MathHelper.noNegative(map(
+						targetmd.getInitialDistance() - targetmd.getDistanceToTarget(),
+						0,
+						targetmd.getInitialDistance() * range,
+						originalCircleSize,
+						0)));
+			}
+			@Override
+			protected void calculateCircleSize(PVector point)
+			{
+				circleSize =  this.sizeStrokeMap.get(point);
+			}
 		}
 	}
 }
