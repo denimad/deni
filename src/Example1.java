@@ -44,7 +44,7 @@ public class Example1  extends DeniCanvas
 		this.toolController.addTool(bfanptool);
 		this.toolController.setControls();
 		
-		this.drawDraftBackground("/Users/daudirac/Pictures/artists/inspiration/rosa.jpg");
+		this.drawDraftBackground(this.getClass().getResource("resources/images/rosa.jpg").getPath());
 	}
 	
 	@Override

@@ -67,9 +67,6 @@ public class UndoablePGraphics extends AbstractPGraphics
 	@Override
 	public void preBeginDraw() 
 	{
-		
-		int a;
-		a = 1;
 	}
 
 	@Override
