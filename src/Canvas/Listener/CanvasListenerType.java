@@ -1,9 +1,12 @@
 /* 
  * deni 2017
  */
-package Canvas;
+package Canvas.Listener;
 
-import Canvas.Tool.ToolCanvasListenerManager;
+import Canvas.CanvasManager;
+import Canvas.Listener.CanvasListenerManager;
+import Canvas.Listener.Layer.CanvasLayerListenerManager;
+import Canvas.Listener.Tool.ToolCanvasListenerManager;
 
 /**
  *
@@ -13,6 +16,9 @@ public enum CanvasListenerType
 {
 	ToolListener("toolListener", 
 		new ToolCanvasListenerManager(
+			CanvasManager.getInstance().getCanvas())),
+	LayerListener("layerListener",
+		new CanvasLayerListenerManager(
 			CanvasManager.getInstance().getCanvas()));
 	
 	

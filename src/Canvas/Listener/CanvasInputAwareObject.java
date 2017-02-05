@@ -1,13 +1,13 @@
 /* 
  * deni 2017
  */
-package Canvas;
+package Canvas.Listener;
 
 /**
  *
  * @author daudirac
  */
-public interface CanvasObject 
+public interface CanvasInputAwareObject 
 {
     public void onMousePressed(int mouseX, int mouseY);
     public void onMouseDragged(int mouseX, int mouseY);

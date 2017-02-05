@@ -3,6 +3,7 @@
  */
 package Drawing;
 
+import Canvas.Layer.PGraphics.AbstractPGraphics;
 import processing.core.PGraphics;
 
 /**
@@ -12,6 +13,6 @@ import processing.core.PGraphics;
 public interface DrawingObject 
 {
     public void update();    
-    public void draw(PGraphics canvasLayer);
+    public void draw(AbstractPGraphics canvasLayer);
     public void setDrawingProperties();
 }

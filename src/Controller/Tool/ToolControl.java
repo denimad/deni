@@ -3,7 +3,7 @@
  */
 package Controller.Tool;
 
-import Canvas.CanvasListenerType;
+import Canvas.Listener.CanvasListenerType;
 import Canvas.CanvasManager;
 import Canvas.DeniCanvas;
 import Controller.ControlFrame;

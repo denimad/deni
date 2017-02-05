@@ -3,6 +3,7 @@
  */
 package Pencil;
 
+import Canvas.Layer.PGraphics.AbstractPGraphics;
 import Moving.Mover;
 import Drawing.DrawingObjectImpl;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class StrokeFollower2 extends DrawingObjectImpl{
     }
 
     @Override
-    public void draw(PGraphics canvasLayer) 
+    public void draw(AbstractPGraphics canvasLayer) 
     {
         stroke.draw(canvas.getToolDrawingLayer());
         drawFollowers(canvasLayer);
@@ -71,7 +72,7 @@ public class StrokeFollower2 extends DrawingObjectImpl{
         createFollowers();
     }
     
-    public void drawFollowers(PGraphics canvasLayer)
+    public void drawFollowers(AbstractPGraphics canvasLayer)
     { 
         for (Follower follower: followers)
         {
@@ -178,10 +179,10 @@ public class StrokeFollower2 extends DrawingObjectImpl{
         }
 
         @Override
-        public void draw(PGraphics canvasLayer) {
+        public void draw(AbstractPGraphics canvasLayer) {
             canvasLayer.beginDraw();
-                canvasLayer.fill(255);
-                canvasLayer.ellipse(loc.x, loc.y,10,10);
+                canvasLayer.getPG().fill(255);
+                canvasLayer.getPG().ellipse(loc.x, loc.y,10,10);
             canvasLayer.endDraw();
         }
 

@@ -3,6 +3,8 @@
  */
 package Canvas;
 
+import Canvas.Listener.CanvasInputAwareObject;
+import Canvas.Listener.CanvasListenerManager;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,7 +14,7 @@ import java.util.Map;
  *
  * @author daudirac
  */
-public final class CanvasManager<T extends CanvasObject> 
+public final class CanvasManager<T extends CanvasInputAwareObject> 
 {
     private CanvasManager()
     {
@@ -95,7 +97,18 @@ public final class CanvasManager<T extends CanvasObject>
 		}
     }
 	
-    private static final CanvasManager<CanvasObject> INSTANCE = new CanvasManager<>();
+	public void keyPressed(char key)
+    {
+        Iterator<CanvasListenerManager<T>> it = 
+			canvasListeners.values().iterator();
+		
+		while (it.hasNext())
+		{
+			it.next().onKeyPressed(key);
+		}
+    }
+	
+    private static final CanvasManager<CanvasInputAwareObject> INSTANCE = new CanvasManager<>();
     private DeniCanvas canvas;
 	
 	//deni canvas can have different types of canvas object listeners.

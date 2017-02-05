@@ -9,7 +9,11 @@ package Canvas;
  * and open the template in the editor.
  */
 
-import Canvas.Tool.ToolCanvasListenerManager;
+import Canvas.Listener.CanvasInputAwareObject;
+import Canvas.Layer.CanvasLayersManager;
+import Canvas.Layer.CanvasLayer;
+import Canvas.Layer.PGraphics.AbstractPGraphics;
+import Canvas.Listener.CanvasListenerType;
 import Controller.Tool.ToolControl;
 import processing.core.PApplet;
 import processing.core.PGraphics;
@@ -32,9 +36,10 @@ public class DeniCanvas extends PApplet
     {
         canvasManager = CanvasManager.getInstance();
         canvasManager.setCanvas(this);  
-        canvasLayersManager = new CanvasLayersManager();
+        canvasLayersManager = CanvasLayersManager.getInstance();
 		
 		this.initToolController();
+		this.setCanavasManagerListeners();
     }
     
     @Override
@@ -73,24 +78,24 @@ public class DeniCanvas extends PApplet
     @Override
     public void keyPressed()
     {
-        this.canvasLayersManager.keyPressed(key);
+		canvasManager.keyPressed(key);
     }
     
     // ======= ============= ======
     // ======= LAYER METHODS ======
     // ======= ============= ======
 	
-    public PGraphics getCurrenDrawingLayer()
+    public AbstractPGraphics getCurrenDrawingLayer()
     {
         return this.canvasLayersManager.getCurrentDrawingLayer();
     }
     
-    public PGraphics getToolDrawingLayer()
+    public AbstractPGraphics getToolDrawingLayer()
     {
         return this.getDrawingLayer(CanvasLayer.Tool);
     }
     
-    public PGraphics getDrawingLayer(CanvasLayer layer)
+    public AbstractPGraphics getDrawingLayer(CanvasLayer layer)
     {
         return this.canvasLayersManager.getLayer(layer);
     }
@@ -99,10 +104,23 @@ public class DeniCanvas extends PApplet
 	{
 		PImage bg = this.loadImage(path);
 		this.getDrawingLayer(CanvasLayer.Draft).beginDraw();
-		this.getDrawingLayer(CanvasLayer.Draft).background(bg);
+		this.getDrawingLayer(CanvasLayer.Draft).getPG().background(bg);
 		this.getDrawingLayer(CanvasLayer.Draft).endDraw();
 	}
-	
+
+
+	public void setCanavasManagerListeners()
+	{
+		// set the tools listener
+		canvasManager.addCanvasListener(
+			CanvasListenerType.ToolListener.getName(), 
+			CanvasListenerType.ToolListener.getCanvasListener());
+		
+		// set the canvas layers listener
+		canvasManager.addCanvasListener(
+			CanvasListenerType.LayerListener.getName(), 
+			CanvasListenerType.LayerListener.getCanvasListener());
+	}
     // ======= =========== ======
     // =======    TOOLS    ======
     // ======= =========== ======
@@ -111,17 +129,12 @@ public class DeniCanvas extends PApplet
 	{
 		this.toolController = new ToolControl(this);
 		this.toolController.initFrames();
-		
-		canvasManager.addCanvasListener(
-			CanvasListenerType.ToolListener.getName(), 
-			CanvasListenerType.ToolListener.getCanvasListener());
 	}
-	
-    
+
+
 	public ToolControl toolController;
-	public ToolCanvasListenerManager toolCanvasListenerManager;
 	
-    public CanvasManager<CanvasObject> canvasManager;
+    public CanvasManager<CanvasInputAwareObject> canvasManager;
     public CanvasLayersManager canvasLayersManager;
     
 	public int canvasWidth = DeniCanvasConstants.DENI_DEFAULT_WIDTH;

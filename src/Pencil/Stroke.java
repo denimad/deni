@@ -3,6 +3,7 @@
  */
 package Pencil;
 
+import Canvas.Layer.PGraphics.AbstractPGraphics;
 import Drawing.DrawingObjectImpl;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,26 +67,26 @@ public class Stroke extends DrawingObjectImpl
     }
 
     @Override
-    public void draw(PGraphics canvasLayer) 
+    public void draw(AbstractPGraphics canvasLayer) 
     {
         canvasLayer.beginDraw();
         if(drawStroke)
         {
             
-            canvasLayer.beginShape();
+            canvasLayer.getPG().beginShape();
             for (PVector point: strokePoints)
             {
-                canvasLayer.stroke(0);
-                canvasLayer.vertex(point.x, point.y);
-                canvasLayer.ellipse(point.x, point.y,3,3);
+                canvasLayer.getPG().stroke(0);
+                canvasLayer.getPG().vertex(point.x, point.y);
+                canvasLayer.getPG().ellipse(point.x, point.y,3,3);
                 if(drawStrokeMovement && point != lastAddedPoint)
                 {
                     PVector movement = strokeMovement.get(point);
-                    drawArrow(canvasLayer, point.x,point.y,pointsDistance,pointsDistance/2,
+                    drawArrow(canvasLayer.getPG(), point.x,point.y,pointsDistance,pointsDistance/2,
                         PApplet.atan2(movement.y, movement.x));
                 }
             }
-            canvasLayer.endShape();
+            canvasLayer.getPG().endShape();
         }
         canvasLayer.endDraw();
     }

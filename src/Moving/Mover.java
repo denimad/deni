@@ -3,6 +3,7 @@
  */
 package Moving;
 
+import Canvas.Layer.PGraphics.AbstractPGraphics;
 import Drawing.DrawingObjectImpl;
 import processing.core.PApplet;
 import processing.core.PGraphics;
@@ -214,10 +215,10 @@ public class Mover extends DrawingObjectImpl
 
 
     @Override
-    public void draw(PGraphics canvasLayer) {
+    public void draw(AbstractPGraphics canvasLayer) {
         canvasLayer.beginDraw();
-            canvasLayer.fill (color);
-            canvasLayer.ellipse (location.x, location.y, ellipseSize, ellipseSize);
+            canvasLayer.getPG().fill (color);
+            canvasLayer.getPG().ellipse (location.x, location.y, ellipseSize, ellipseSize);
         canvasLayer.endDraw();
     }
 

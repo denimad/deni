@@ -1,22 +1,24 @@
 /* 
  * deni 2017
  */
-package Canvas;
+package Canvas.Listener;
 
+import Canvas.DeniCanvas;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author daudirac
+ * @param <T> generic for object types that listen user inputs.
  */
-public class CanvasListenerManager<T extends CanvasObject> 
+public class CanvasListenerManager<T extends CanvasInputAwareObject> 
 {
-	public DeniCanvas canvas;
+	public DeniCanvas parentCanvas;
 	
 	public CanvasListenerManager(DeniCanvas parentCanvas)
 	{
-		canvas = parentCanvas;
+		this.parentCanvas = parentCanvas;
 		this.initListenerLists();
 	}
 	
@@ -61,6 +63,13 @@ public class CanvasListenerManager<T extends CanvasObject>
         }
     }
 	
+	public void onKeyPressed(char key)
+	{
+		for (T object : this.onKeyPressedListeners )
+        {
+            object.onKeyPressed(key);
+        }
+	}
 	public void addOnMousePressedListener(T canvasObject)
     {
         this.onMousePressedListeners.add(canvasObject);
@@ -75,6 +84,11 @@ public class CanvasListenerManager<T extends CanvasObject>
     {
         this.onMouseReleasedListeners.add(canvasObject);
     }
+	
+	public void addOnKeyPressedListener(T canvasObject)
+	{
+		this.onKeyPressedListeners.add(canvasObject);
+	}
     
     public void addOnMouseClickedListeners(T canvasObject)
     {
@@ -88,6 +102,18 @@ public class CanvasListenerManager<T extends CanvasObject>
         addOnMouseReleasedListener(canvasObject);
         addOnMouseClickedListeners(canvasObject);
     }
+	
+	public void addKeyListeners(T canvasObject)
+	{
+		addOnKeyPressedListener(canvasObject);
+	}
+
+
+	public void addAllInputListeners(T canvasObject)
+	{
+		addMouseListeners(canvasObject);
+		addKeyListeners(canvasObject);
+	}
 	
     public List<T> onMousePressedListeners;
     public List<T> onMouseDraggedListeners;

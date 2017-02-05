@@ -3,16 +3,17 @@
  */
 package Drawing;
 
-import Canvas.CanvasObject;
+import Canvas.Layer.PGraphics.AbstractPGraphics;
 import Drawing.DrawingObject;
 import Drawing.DrawingObjectImpl;
 import processing.core.PGraphics;
+import Canvas.Listener.CanvasInputAwareObject;
 
 /**
  * Forwarding drawing object class.
  */
 public class ForwardingDrawingObject implements
-	CanvasObject, DrawingObject {	
+	CanvasInputAwareObject, DrawingObject {	
 
 	protected final DrawingObjectImpl drawingObj;
 	
@@ -53,7 +54,7 @@ public class ForwardingDrawingObject implements
 	}
 
 	@Override
-	public void draw(PGraphics canvasLayer) {
+	public void draw(AbstractPGraphics canvasLayer) {
 		this.drawingObj.draw(canvasLayer);
 	}
 

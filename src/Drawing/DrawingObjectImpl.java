@@ -5,15 +5,15 @@ package Drawing;
 
 import Drawing.DrawingObject;
 import Canvas.CanvasManager;
-import Canvas.CanvasObject;
 import Canvas.DeniCanvas;
 import processing.core.PApplet;
+import Canvas.Listener.CanvasInputAwareObject;
 
 /**
  *
  * @author daudirac
  */
-public abstract class DrawingObjectImpl implements CanvasObject, DrawingObject 
+public abstract class DrawingObjectImpl implements CanvasInputAwareObject, DrawingObject 
 {   
     public DrawingObjectImpl()
     {

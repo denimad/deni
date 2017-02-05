@@ -3,6 +3,7 @@
  */
 package Pattern;
 
+import Canvas.Layer.PGraphics.AbstractPGraphics;
 import Moving.MovementDescriber;
 
 import Moving.MovingDrawingObj;
@@ -188,7 +189,7 @@ public class FanPattern extends DrawingObjectImpl{
     
     
     
-    private void drawMovingObjects(PGraphics canvasLayer)
+    private void drawMovingObjects(AbstractPGraphics canvasLayer)
     {
         if (this.movingObjects != null)
         {
@@ -215,7 +216,7 @@ public class FanPattern extends DrawingObjectImpl{
 	
 
     @Override
-    public void draw(PGraphics canvasLayer) {
+    public void draw(AbstractPGraphics canvasLayer) {
         stroke.draw(canvas.getToolDrawingLayer());
         drawMovingObjects(canvasLayer);
     }
@@ -228,7 +229,7 @@ public class FanPattern extends DrawingObjectImpl{
     
     protected FanDrawingObj createFanDrawingObj(MovementDescriber mdes, float circleSize, float circleSizeInc)
 	{
-		return new FanDrawingObj(mdes, circleSize, circleSizeInc);
+		return null;
 	}
 	
 	
@@ -253,8 +254,12 @@ public class FanPattern extends DrawingObjectImpl{
             stroke = new Stroke(1);
         }
 
-        @Override
-        public void draw(PGraphics canvasLayer) 
+		/**
+		 *
+		 * @param canvasLayer
+		 */
+		@Override
+        public void draw(AbstractPGraphics canvasLayer) 
         {
              
             if (this.movementDescriber instanceof TargetMovementDescriber &&
@@ -265,7 +270,7 @@ public class FanPattern extends DrawingObjectImpl{
 				{
 					canvas.getToolDrawingLayer().beginDraw();
 					circleSize += circleSizeInc;
-					canvas.getToolDrawingLayer().ellipse(movementDescriber.returnLocation().x, 
+					canvas.getToolDrawingLayer().getPG().ellipse(movementDescriber.returnLocation().x, 
 							movementDescriber.returnLocation().y, circleSize, circleSize);
 					canvas.getToolDrawingLayer().endDraw();
 				}
@@ -279,28 +284,28 @@ public class FanPattern extends DrawingObjectImpl{
                     canvasLayer.beginDraw();
                     circleSize = 5;
                     painted = true;
-                    canvasLayer.fill(0);
-                    canvasLayer.noStroke();
+                    canvasLayer.getPG().fill(0);
+                    canvasLayer.getPG().noStroke();
                     for (PVector point : stroke.strokePoints)
                     {
                         if (circleSize>0)
 						{
 							circleSize += circleSizeInc;
 						
-							canvasLayer.ellipse(point.x,
+							canvasLayer.getPG().ellipse(point.x,
 								point.y,
 								circleSize,circleSize);  
 						}
                     }
                 
                     circleSize = 5;
-                    canvasLayer.fill(FanPattern.this.colorDeAletas, FanPattern.this.colorDeAletasalpha);
+                    canvasLayer.getPG().fill(FanPattern.this.colorDeAletas, FanPattern.this.colorDeAletasalpha);
                     for (PVector point : stroke.strokePoints)
                     {
                         if (circleSize>0)
 						{
 							circleSize += circleSizeInc;
-							canvasLayer.ellipse(point.x,
+							canvasLayer.getPG().ellipse(point.x,
 								point.y,
 								 circleSize,circleSize);  
 							System.out.println(circleSize);

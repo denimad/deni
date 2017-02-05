@@ -2,6 +2,7 @@
  * deni 2017
  */
 import Canvas.DeniCanvas;
+import Canvas.Layer.PGraphics.AbstractPGraphics;
 import Drawing.DrawingObjectImpl;
 import Moving.MovementDescriber;
 import Moving.TargetMovementDescriber;
@@ -180,7 +181,7 @@ public class Example1  extends DeniCanvas
 			}
 			
 			 @Override
-			public void draw(PGraphics canvasLayer) 
+			public void draw(AbstractPGraphics canvasLayer) 
 			{
 				
 				if (!targetmd.nearTarget(2))
@@ -196,12 +197,12 @@ public class Example1  extends DeniCanvas
 					{
 						canvasLayer.beginDraw();
 							this.circleSize = this.originalCircleSize;
-							canvasLayer.noStroke();
-							canvasLayer.fill(colorDeAletas,colorDeAletasalpha);
+							canvasLayer.getPG().noStroke();
+							canvasLayer.getPG().fill(colorDeAletas,colorDeAletasalpha);
 							for (PVector point : stroke.strokePoints)
 							{
 								this.calculateCircleSize(point);
-								canvasLayer.ellipse(point.x,
+								canvasLayer.getPG().ellipse(point.x,
 									point.y,
 									circleSize+2f,circleSize+2f);  
 							}
@@ -209,9 +210,9 @@ public class Example1  extends DeniCanvas
 							this.circleSize = this.originalCircleSize;
 							for (PVector point : stroke.strokePoints)
 							{
-								canvasLayer.fill(lerpColorMap.get(point),startColoralpha);
+								canvasLayer.getPG().fill(lerpColorMap.get(point),startColoralpha);
 								this.calculateCircleSize(point);
-								canvasLayer.ellipse(point.x,
+								canvasLayer.getPG().ellipse(point.x,
 									point.y,
 									circleSize,circleSize);  
 							}
@@ -229,7 +230,7 @@ public class Example1  extends DeniCanvas
 			 * (only 1 and 2 values are valid)
 			 * @param levels 
 			 */
-			private int getLerpColor(PGraphics canvasLayer, float totalDist, float curDist,int level)
+			private int getLerpColor(AbstractPGraphics canvasLayer, float totalDist, float curDist,int level)
 			{
 				int lerpColor=0;
 				if (level != 1 || level != 2)
@@ -241,7 +242,7 @@ public class Example1  extends DeniCanvas
 					
 					if (level == 1)
 					{
-						lerpColor = canvasLayer.lerpColor(
+						lerpColor = canvasLayer.getPG().lerpColor(
 							startColor, 
 							endColor, 
 							amt);
@@ -250,14 +251,14 @@ public class Example1  extends DeniCanvas
 					{
 						if (amt<0.5)
 						{
-							lerpColor = canvasLayer.lerpColor(
+							lerpColor = canvasLayer.getPG().lerpColor(
 							startColor, 
 							middleColor, 
 							amt*2f);
 						}
 						else
 						{
-							lerpColor = canvasLayer.lerpColor(
+							lerpColor = canvasLayer.getPG().lerpColor(
 							middleColor, 
 							endColor, 
 							(amt-0.5f)*2f);
@@ -275,7 +276,7 @@ public class Example1  extends DeniCanvas
 			
 			
 			protected void calculateStrokeInfoMaps(PVector point,
-					PGraphics canvasLayer)
+					AbstractPGraphics canvasLayer)
 			{
 				lerpColorMap.put(
 						point,
@@ -366,7 +367,7 @@ public class Example1  extends DeniCanvas
 			
 			@Override
 			protected void calculateStrokeInfoMaps(PVector point,
-					PGraphics canvasLayer)
+					AbstractPGraphics canvasLayer)
 			{
 				super.calculateStrokeInfoMaps(point, canvasLayer);
 				

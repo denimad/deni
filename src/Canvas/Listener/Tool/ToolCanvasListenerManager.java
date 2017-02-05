@@ -1,9 +1,9 @@
 /* 
  * deni 2017
  */
-package Canvas.Tool;
+package Canvas.Listener.Tool;
 
-import Canvas.CanvasListenerManager;
+import Canvas.Listener.CanvasListenerManager;
 import Canvas.DeniCanvas;
 import Tool.ToolInterface;
 

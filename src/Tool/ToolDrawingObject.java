@@ -3,11 +3,12 @@
  */
 package Tool;
 
-import Canvas.CanvasObject;
+import Canvas.Layer.PGraphics.AbstractPGraphics;
 import Controller.ControlFrameWriter;
 import Controller.ControlFrameWriterOwner;
 import Drawing.DrawingObject;
 import processing.core.PGraphics;
+import Canvas.Listener.CanvasInputAwareObject;
 
 /**
  * This class represent objects that draws on the canvas,
@@ -37,7 +38,7 @@ public abstract class ToolDrawingObject implements
     }
 
     @Override
-    public void draw(PGraphics canvasLayer) {
+    public void draw(AbstractPGraphics canvasLayer) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

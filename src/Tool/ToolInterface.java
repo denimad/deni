@@ -3,10 +3,10 @@
  */
 package Tool;
 
-import Canvas.CanvasObject;
 import Controller.ControlFrameWriterOwner;
 import Drawing.DrawingObject;
 import controlP5.ControlListener;
+import Canvas.Listener.CanvasInputAwareObject;
 
 /**
  *
@@ -15,7 +15,7 @@ import controlP5.ControlListener;
 public interface ToolInterface extends 
 		ControlFrameWriterOwner, 
 		DrawingObject,
-		CanvasObject,
+		CanvasInputAwareObject,
 		ControlListener
 {
 	public String getName();
