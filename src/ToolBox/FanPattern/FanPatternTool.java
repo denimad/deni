@@ -1,7 +1,7 @@
 /* 
  * deni 2017
  */
-package ToolBox;
+package ToolBox.FanPattern;
 
 import Tool.ToolForwardingDrawingObject;
 import Drawing.DrawingObjectImpl;

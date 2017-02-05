@@ -23,6 +23,8 @@ public enum CanvasLayer
         private boolean visible;
 		private final int frameColor;
         boolean hasFrame;
+		int opacity;
+		
 		PGraphicType pGraphicType;
 		
         CanvasLayer(String _name, boolean _visible)
@@ -58,6 +60,7 @@ public enum CanvasLayer
 			frameColor = _frameColor;
 			framePosition = _framePosition;
 			hasFrame = true;
+			opacity = 255;
 			pGraphicType = pGtype;
         }
         public String getName()
@@ -85,6 +88,15 @@ public enum CanvasLayer
             this.visible = visible;
         }
 		
+		public int getOpacity()
+		{
+			return opacity;
+		}
+		
+		public void setOpacity(int _opacity)
+		{
+			opacity = _opacity;
+		}
 		public int getFrameColor()
 		{
 			return frameColor;

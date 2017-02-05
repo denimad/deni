@@ -2,7 +2,7 @@
  * deni 2017
  */
 import Canvas.DeniCanvas;
-import ToolBox.FanPatternTool;
+import ToolBox.FanPattern.FanPatternTool;
 
 
 /**

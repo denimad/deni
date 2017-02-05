@@ -41,6 +41,7 @@ public class CanvasLayersManager implements CanvasInputAwareObject
         {
             if (layer.isVisible())
             {	
+				canvas.tint(255,layer.getOpacity());
                 canvas.image(this.layersMap.get(layer).getPG(), 0, 0);
 			}
         }
