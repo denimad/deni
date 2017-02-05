@@ -124,7 +124,7 @@ public class FanPattern extends DrawingObjectImpl{
     
     private void toggleState()
     {
-            if (currentState == drawingState.strokeDrawing)
+        if (currentState == drawingState.strokeDrawing)
         {
             currentState = drawingState.pointDrawing;
         }
@@ -203,8 +203,15 @@ public class FanPattern extends DrawingObjectImpl{
     }
 
     @Override
-    public void onKeyPressed(char key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void onKeyPressed(char key) 
+	{
+		if (this.movingObjects != null)
+        {
+            for (MovingDrawingObj movObj: this.movingObjects)
+            {
+                movObj.onKeyPressed(key);
+            }
+        }
     }
 
     @Override

@@ -13,10 +13,10 @@ import Canvas.Listener.CanvasInputAwareObject;
 import Canvas.Layer.CanvasLayersManager;
 import Canvas.Layer.CanvasLayer;
 import Canvas.Layer.PGraphics.AbstractPGraphics;
+import Canvas.Layer.SaveCanvasLayerAction;
 import Canvas.Listener.CanvasListenerType;
 import Controller.Tool.ToolControl;
 import processing.core.PApplet;
-import processing.core.PGraphics;
 import processing.core.PImage;
 
 /**
@@ -108,6 +108,10 @@ public class DeniCanvas extends PApplet
 		this.getDrawingLayer(CanvasLayer.Draft).endDraw();
 	}
 
+	public void setSavingInfo(String fileName, String path)
+	{
+		this.canvasLayersManager.setSavingInfo(fileName, path);
+	}
 
 	public void setCanavasManagerListeners()
 	{

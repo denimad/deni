@@ -63,4 +63,16 @@ public class ToolCanvasListenerManager extends CanvasListenerManager<ToolInterfa
 		}
 	}
 	
+	@Override
+	public void onKeyPressed(char key)
+	{
+		for (ToolInterface tool : this.onKeyPressedListeners)
+		{
+			if (tool.isActive())
+			{
+				tool.onKeyPressed(key);
+			}
+		}
+	}
+	
 }

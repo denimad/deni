@@ -171,6 +171,26 @@ public class CanvasLayersManager implements CanvasInputAwareObject
 	{
 		
 	}
+	
+	public void setSavingInfo(String fileName, String path)
+	{
+		this.imageSaver = new SaveCanvasLayerAction(
+			CanvasLayer.Main,
+			fileName,
+			path);
+	}
+	
+	public void doSaveImage()
+	{
+		if (this.imageSaver != null)
+		{
+			this.imageSaver.save();
+		}
+		else
+		{
+			System.err.println("No saving info specified!");
+		}
+	}
 
 	@Override
 	public void onKeyPressed(char key) 
@@ -184,16 +204,16 @@ public class CanvasLayersManager implements CanvasInputAwareObject
 			case 'w':
 				CanvasLayer.Test.toggleVisible();
 				break;
-			case 'D':
-			case 'd':
+			case 'R':
+			case 'r':
 				CanvasLayer.Draft.toggleVisible();
 				break;
 			case 'Q':
 			case 'q':
 				CanvasLayer.Main.toggleVisible();
 				break;
-			case 'R':
-			case 'r':
+			case 'T':
+			case 't':
 				currentDrawingLayer = currentDrawingLayer == CanvasLayer.Main ?
 						CanvasLayer.Test : CanvasLayer.Main;
 				currentDrawingLayer.setVisible(true);
@@ -201,6 +221,11 @@ public class CanvasLayersManager implements CanvasInputAwareObject
 			case 'Z':
 			case 'z':
 				this.undoMainCanvas();
+				break;
+				
+			case 'S':
+			case 's':
+				this.doSaveImage();
 				break;
 			case ' ':
 				this.clearLayer(CanvasLayer.Tool);
@@ -221,6 +246,8 @@ public class CanvasLayersManager implements CanvasInputAwareObject
 	// convinient variable assignment to prevent bunch of 
 	// castings.
 	private UndoablePGraphics mainPGraphic;
+	
+	public SaveCanvasLayerAction imageSaver;
 	
     // this canvas has different layers
     // the main is the final drawing. the tool layer is used to show

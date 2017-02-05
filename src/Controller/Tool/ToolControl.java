@@ -65,7 +65,7 @@ public class ToolControl implements ControlFrameWriterOwner
 		//add to tool listener manager.
 		CanvasManager.getInstance().getCanvasListener(
 			CanvasListenerType.ToolListener.getName()
-		).addMouseListeners(tool);
+		).addAllInputListeners(tool);
 		
 		//add to the tool list. all tools are disabled when added. 
 		tool.setActive(false);

@@ -3,10 +3,7 @@
  */
 package Canvas.Layer;
 
-import Canvas.Layer.PGraphics.AbstractPGraphics;
 import Canvas.Layer.PGraphics.PGraphicType;
-import Canvas.Layer.PGraphics.SimplePGraphics;
-import Canvas.Layer.PGraphics.UndoablePGraphics;
 import Util.ColorHelper;
 
 /**
@@ -16,9 +13,9 @@ import Util.ColorHelper;
 public enum CanvasLayer
     {
         Draft("draft",true),
-		Tool("tool",true, ColorHelper.AQUAMARINE,2),
         Main("main",true, ColorHelper.BROWN2,0, PGraphicType.Undoable),
         Test("test",true, ColorHelper.DARKOLIVEGREEN,1),
+		Tool("tool",true, ColorHelper.AQUAMARINE,2),
         Guides("guides",true);
 
         private final String name;
