@@ -4,7 +4,7 @@
 package ToolBox.FanPattern;
 
 import Drawing.DrawingObjectImpl;
-import Pattern.LerpColorFanPattern;
+import Drawing.Pattern.LerpColorFanPattern;
 import controlP5.ControlEvent;
 
 /**

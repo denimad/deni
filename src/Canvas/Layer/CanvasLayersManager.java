@@ -11,6 +11,7 @@ import Canvas.Layer.PGraphics.UndoablePGraphics;
 import java.util.HashMap;
 import java.util.Map;
 import processing.core.PApplet;
+import processing.event.MouseEvent;
 
 /**
  *
@@ -22,6 +23,7 @@ public class CanvasLayersManager implements CanvasInputAwareObject
     {
         this.parentCanvas = CanvasManager.getInstance().getCanvas();
         this.initLayers();
+		this.setDefaultZoomTranslate();
     }
 
 	public static CanvasLayersManager getInstance()
@@ -41,8 +43,19 @@ public class CanvasLayersManager implements CanvasInputAwareObject
         {
             if (layer.isVisible())
             {	
-				canvas.tint(255,layer.getOpacity());
-                canvas.image(this.layersMap.get(layer).getPG(), 0, 0);
+				if (layer != CanvasLayer.Guides)
+				{
+					canvas.pushMatrix();
+						canvas.translate(translateX,translateY);
+						canvas.scale(scaleFactor);
+						canvas.tint(255,layer.getOpacity());
+						canvas.image(this.layersMap.get(layer).getPG(), 0, 0);
+					canvas.popMatrix();
+				}
+				else
+				{
+					canvas.image(this.layersMap.get(layer).getPG(), 0, 0);
+				}
 			}
         }
     }
@@ -53,7 +66,14 @@ public class CanvasLayersManager implements CanvasInputAwareObject
         return this.layersMap.get(this.currentDrawingLayer);
     }
     
-    
+    private void setDefaultZoomTranslate()
+	{
+		scaleFactor = 1;
+		translateX = 0;
+		translateY = 0;
+	}
+	
+	
     /**
      * This method initializes the layers of a Deni Canvas.
      */
@@ -173,6 +193,15 @@ public class CanvasLayersManager implements CanvasInputAwareObject
 		
 	}
 	
+	@Override
+	public void onMouseWheel(MouseEvent e) 
+	{
+		translateX = translateX-e.getAmount()*(e.getX())/100;
+		translateY = translateY-e.getAmount()*(e.getY())/100;
+		scaleFactor += e.getAmount() / 100;
+	}
+	
+	
 	public void setSavingInfo(String fileName, String path)
 	{
 		this.imageSaver = new SaveCanvasLayerAction(
@@ -203,21 +232,11 @@ public class CanvasLayersManager implements CanvasInputAwareObject
 				break;
 			case 'W':
 			case 'w':
-				CanvasLayer.Test.toggleVisible();
+				 CanvasLayer.Main.toggleVisible();
 				break;
 			case 'R':
 			case 'r':
 				CanvasLayer.Draft.toggleVisible();
-				break;
-			case 'Q':
-			case 'q':
-				CanvasLayer.Main.toggleVisible();
-				break;
-			case 'T':
-			case 't':
-				currentDrawingLayer = currentDrawingLayer == CanvasLayer.Main ?
-						CanvasLayer.Test : CanvasLayer.Main;
-				currentDrawingLayer.setVisible(true);
 				break;
 			case 'Z':
 			case 'z':
@@ -228,10 +247,13 @@ public class CanvasLayersManager implements CanvasInputAwareObject
 			case 's':
 				this.doSaveImage();
 				break;
-			case ' ':
+			case 'C':
+			case 'c':
 				this.clearLayer(CanvasLayer.Tool);
 				this.clearLayer(currentDrawingLayer);
 				break;
+			case ' ':
+				this.setDefaultZoomTranslate();
 			default:
 				break;
 		}
@@ -257,5 +279,12 @@ public class CanvasLayersManager implements CanvasInputAwareObject
     public Map<CanvasLayer, AbstractPGraphics> layersMap;
     private CanvasLayer currentDrawingLayer;
 	private static final CanvasLayersManager INSTANCE = new CanvasLayersManager();
+	
+	// This variables control the zoom and pan actions on the canvases.
+	public float scaleFactor;
+	public float translateX;
+	public float translateY;
+
+	
 
 }

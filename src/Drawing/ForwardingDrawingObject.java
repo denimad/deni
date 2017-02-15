@@ -8,6 +8,7 @@ import Drawing.DrawingObject;
 import Drawing.DrawingObjectImpl;
 import processing.core.PGraphics;
 import Canvas.Listener.CanvasInputAwareObject;
+import processing.event.MouseEvent;
 
 /**
  * Forwarding drawing object class.
@@ -43,6 +44,10 @@ public class ForwardingDrawingObject implements
 		this.drawingObj.onMouseClicked(mouseX, mouseY);
 	}
 
+	@Override
+	public void onMouseWheel(MouseEvent e){}
+	
+	
 	@Override
 	public void onKeyPressed(char key) {
 		this.drawingObj.onKeyPressed(key);

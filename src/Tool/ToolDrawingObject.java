@@ -9,6 +9,7 @@ import Controller.ControlFrameWriterOwner;
 import Drawing.DrawingObject;
 import processing.core.PGraphics;
 import Canvas.Listener.CanvasInputAwareObject;
+import processing.event.MouseEvent;
 
 /**
  * This class represent objects that draws on the canvas,
@@ -109,6 +110,11 @@ public abstract class ToolDrawingObject implements
     public void onKeyPressed(char key) {
         
     }
+	
+	@Override
+	public void onMouseWheel(MouseEvent e)
+	{
+	}
 
 	@Override
 	public boolean isActive() {

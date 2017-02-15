@@ -8,6 +8,7 @@ import Canvas.CanvasManager;
 import Canvas.DeniCanvas;
 import processing.core.PApplet;
 import Canvas.Listener.CanvasInputAwareObject;
+import processing.event.MouseEvent;
 
 /**
  *
@@ -44,6 +45,9 @@ public abstract class DrawingObjectImpl implements CanvasInputAwareObject, Drawi
     
     @Override
     public  void onKeyPressed(char key){}
+	
+	@Override
+	public void onMouseWheel(MouseEvent e){}
 
     
 }

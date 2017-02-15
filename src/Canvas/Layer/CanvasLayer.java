@@ -14,8 +14,8 @@ public enum CanvasLayer
     {
         Draft("draft",true),
         Main("main",true, ColorHelper.BROWN2,0, PGraphicType.Undoable),
-        Test("test",true, ColorHelper.DARKOLIVEGREEN,1),
-		Tool("tool",true, ColorHelper.AQUAMARINE,2),
+        //Test("test",true, ColorHelper.DARKOLIVEGREEN,1),
+		Tool("tool",true, ColorHelper.AQUAMARINE,1),
         Guides("guides",true);
 
         private final String name;
@@ -24,6 +24,7 @@ public enum CanvasLayer
 		private final int frameColor;
         boolean hasFrame;
 		int opacity;
+		
 		
 		PGraphicType pGraphicType;
 		

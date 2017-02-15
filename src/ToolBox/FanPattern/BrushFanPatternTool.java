@@ -3,7 +3,7 @@
  */
 package ToolBox.FanPattern;
 
-import Pattern.BrushFanPattern;
+import Drawing.Pattern.BrushFanPattern;
 import controlP5.ControlEvent;
 
 /**

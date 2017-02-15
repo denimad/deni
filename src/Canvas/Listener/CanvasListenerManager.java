@@ -6,6 +6,7 @@ package Canvas.Listener;
 import Canvas.DeniCanvas;
 import java.util.ArrayList;
 import java.util.List;
+import processing.event.MouseEvent;
 
 /**
  *
@@ -13,6 +14,7 @@ import java.util.List;
  * @param <T> generic for object types that listen user inputs.
  */
 public class CanvasListenerManager<T extends CanvasInputAwareObject> 
+	implements CanvasInputAwareObject
 {
 	public DeniCanvas parentCanvas;
 	
@@ -28,6 +30,7 @@ public class CanvasListenerManager<T extends CanvasInputAwareObject>
         this.onMouseDraggedListeners = new ArrayList();
         this.onMouseReleasedListeners = new ArrayList();
         this.onMouseClickedListeners = new ArrayList();
+		this.onMouseWheelListeners = new ArrayList();
         this.onKeyPressedListeners = new ArrayList();
     }
 	 
@@ -63,6 +66,15 @@ public class CanvasListenerManager<T extends CanvasInputAwareObject>
         }
     }
 	
+	@Override
+	public void onMouseWheel(MouseEvent e) 
+	{
+		for (T object : this.onMouseWheelListeners )
+        {
+            object.onMouseWheel(e);
+        }
+	}
+	
 	public void onKeyPressed(char key)
 	{
 		for (T object : this.onKeyPressedListeners )
@@ -90,17 +102,24 @@ public class CanvasListenerManager<T extends CanvasInputAwareObject>
 		this.onKeyPressedListeners.add(canvasObject);
 	}
     
-    public void addOnMouseClickedListeners(T canvasObject)
+    public void addOnMouseClickedListener(T canvasObject)
     {
         this.onMouseClickedListeners.add(canvasObject);
     }
 	
+	public void addOnMouseWheelListener(T canvasObject)
+    {
+        this.onMouseWheelListeners.add(canvasObject);
+    }
+
+
 	public void addMouseListeners(T canvasObject)
     {
         addOnMousePressedListener(canvasObject);
         addOnMouseDraggedListener(canvasObject);
         addOnMouseReleasedListener(canvasObject);
-        addOnMouseClickedListeners(canvasObject);
+        addOnMouseClickedListener(canvasObject);
+		addOnMouseWheelListener(canvasObject);
     }
 	
 	public void addKeyListeners(T canvasObject)
@@ -119,5 +138,6 @@ public class CanvasListenerManager<T extends CanvasInputAwareObject>
     public List<T> onMouseDraggedListeners;
     public List<T> onMouseReleasedListeners;
     public List<T> onMouseClickedListeners;
+	public List<T> onMouseWheelListeners;
     public List<T> onKeyPressedListeners;
 }

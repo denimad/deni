@@ -5,6 +5,7 @@ package Canvas.Layer.PGraphics;
 
 import Canvas.CanvasManager;
 import Canvas.DeniCanvas;
+import Canvas.Layer.CanvasLayersManager;
 import processing.core.PGraphics;
 
 /**
@@ -23,11 +24,13 @@ public abstract class AbstractPGraphics
 	{
 		this.preBeginDraw();
 		this.pgraphics.beginDraw();
+		this.postBeginDraw();
 	}
 
 
 	public void endDraw()
 	{
+		this.preEndDraw();
 		this.pgraphics.endDraw();
 		this.postEndDraw();
 	}
@@ -38,8 +41,18 @@ public abstract class AbstractPGraphics
 	}
 
 
-	public abstract void preBeginDraw();
-	public abstract void postEndDraw();
+	public void postBeginDraw()
+	{
+	}
+	
+	public void preEndDraw()
+	{
+	}
+	
+	public void preBeginDraw()
+	{}
+	public void postEndDraw()
+	{}
 
 	PGraphics pgraphics;
 	DeniCanvas parentCanvas;

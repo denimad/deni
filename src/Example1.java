@@ -3,24 +3,8 @@
  */
 import Canvas.DeniCanvas;
 import Canvas.Layer.CanvasLayer;
-import Canvas.Layer.PGraphics.AbstractPGraphics;
-import Canvas.Layer.SaveCanvasLayerAction;
-import Drawing.DrawingObjectImpl;
-import Moving.MovementDescriber;
-import Moving.TargetMovementDescriber;
-import Pattern.FanPattern;
 import ToolBox.FanPattern.BrushFanPatternTool;
-import ToolBox.FanPattern.FanPatternTool;
 import ToolBox.FanPattern.LerpColorFanPatternTool;
-import Util.ColorHelper;
-import Util.MathHelper;
-import controlP5.ControlEvent;
-import java.util.HashMap;
-import java.util.Map;
-import static processing.core.PApplet.map;
-import processing.core.PConstants;
-import processing.core.PGraphics;
-import processing.core.PVector;
 
 
 /**
@@ -35,8 +19,8 @@ public class Example1  extends DeniCanvas
 	@Override
 	public void settings()
 	{
-		canvasWidth = 842;
-        canvasHeight = 700;
+		canvasWidth = 500;
+        canvasHeight = 530;
         super.settings();
     }
 	
@@ -51,8 +35,8 @@ public class Example1  extends DeniCanvas
 		this.toolController.addTool(bfanptool);
 		this.toolController.setControls();
 		
-		this.drawDraftBackground(this.getClass().getResource("resources/images/lion.jpg").getPath());
-		this.setSavingInfo("lion", "/Users/daudirac/Desktop/images");
+		this.drawDraftBackground("/Users/daudirac/Desktop/images/rosa.jpg");
+		this.setSavingInfo("rosa", "/Users/daudirac/Desktop/images");
 	}
 	
 	@Override

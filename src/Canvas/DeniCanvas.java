@@ -18,6 +18,7 @@ import Canvas.Listener.CanvasListenerType;
 import Controller.Tool.ToolControl;
 import processing.core.PApplet;
 import processing.core.PImage;
+import processing.event.MouseEvent;
 
 /**
  *
@@ -54,26 +55,40 @@ public class DeniCanvas extends PApplet
     @Override
     public void mousePressed()
     {
-        canvasManager.mousePressed(mouseX, mouseY);
+        canvasManager.mousePressed(
+			(int) this.getMouseX(), 
+			(int) this.getMouseY());
     }
     
     @Override
     public void mouseDragged()
     {
-        canvasManager.mouseDragged(mouseX, mouseY);
+        canvasManager.mouseDragged(
+			(int) this.getMouseX(), 
+			(int) this.getMouseY());
     }
     
     @Override
     public void mouseReleased()
     {
-       canvasManager.mouseReleased(mouseX, mouseY);
+       canvasManager.mouseReleased(
+			(int) this.getMouseX(), 
+			(int) this.getMouseY());
     }
     
     @Override
     public void mouseClicked()
     {
-        canvasManager.mouseClicked(mouseX, mouseY);
+        canvasManager.mouseClicked(
+			(int) this.getMouseX(), 
+			(int) this.getMouseY());
     }
+	
+	@Override
+	public void mouseWheel(MouseEvent e)
+	{
+		canvasManager.mouseWheel(e);
+	}
     
     @Override
     public void keyPressed()
@@ -81,6 +96,18 @@ public class DeniCanvas extends PApplet
 		canvasManager.keyPressed(key);
     }
     
+	public float getMouseX()
+	{
+		return (mouseX - canvasLayersManager.translateX) / 
+			 canvasLayersManager.scaleFactor;
+	}
+	
+	public float getMouseY()
+	{
+		return (mouseY - canvasLayersManager.translateY) / 
+				canvasLayersManager.scaleFactor;
+	}
+	
     // ======= ============= ======
     // ======= LAYER METHODS ======
     // ======= ============= ======

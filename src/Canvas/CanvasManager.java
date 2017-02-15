@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import processing.event.MouseEvent;
 
 /**
  *
@@ -96,6 +97,17 @@ public final class CanvasManager<T extends CanvasInputAwareObject>
 			it.next().onMouseClicked(mouseX, mouseY);
 		}
     }
+	
+	public void mouseWheel(MouseEvent e)
+	{
+		Iterator<CanvasListenerManager<T>> it = 
+			canvasListeners.values().iterator();
+		
+		while (it.hasNext())
+		{
+			it.next().onMouseWheel(e);
+		}
+	}
 	
 	public void keyPressed(char key)
     {

@@ -1,7 +1,7 @@
 /*
  * deni 2017
  */
-package Pattern;
+package Drawing.Pattern;
 
 import Canvas.Layer.PGraphics.AbstractPGraphics;
 import Moving.MovementDescriber;

@@ -64,18 +64,6 @@ public class UndoablePGraphics extends AbstractPGraphics
 	}
 	
 	
-	@Override
-	public void preBeginDraw() 
-	{
-	}
-
-	@Override
-	public void postEndDraw() 
-	{
-		
-	}
-	
-	
 	private int maxUndos;
 	LinkedList<PGraphics> pGraphicsQueue;
 

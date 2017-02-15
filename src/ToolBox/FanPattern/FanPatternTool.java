@@ -5,7 +5,7 @@ package ToolBox.FanPattern;
 
 import Tool.ToolForwardingDrawingObject;
 import Drawing.DrawingObjectImpl;
-import Pattern.FanPattern;
+import Drawing.Pattern.FanPattern;
 import controlP5.ControlEvent;
 import java.util.Arrays;
 
@@ -53,7 +53,7 @@ public class FanPatternTool extends ToolForwardingDrawingObject
 				this.getFanPatterObj().movingObjectsAttractionStrength);
 		this.controlFrameWriter.addSlider("fanCircleSizeInc", 20, 70, -1, 1,
 				this.getFanPatterObj().fanCircleSizeInc);
-		this.controlFrameWriter.addSlider("fanCircleSize", 20, 80, 1, 10,
+		this.controlFrameWriter.addSlider("fanCircleSize", 20, 80, 0, 10,
 				this.getFanPatterObj().fanCircleSize);
 		this.controlFrameWriter.addSlider("randomStrength", 20, 90, 1, 100,
 				this.getFanPatterObj().randomStrength);
