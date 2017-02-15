@@ -32,6 +32,7 @@ public class CanvasListenerManager<T extends CanvasInputAwareObject>
         this.onMouseClickedListeners = new ArrayList();
 		this.onMouseWheelListeners = new ArrayList();
         this.onKeyPressedListeners = new ArrayList();
+		this.onKeyReleasedListeners = new ArrayList();
     }
 	 
 	public void onMousePressed(int mouseX, int mouseY)
@@ -82,6 +83,16 @@ public class CanvasListenerManager<T extends CanvasInputAwareObject>
             object.onKeyPressed(key);
         }
 	}
+	
+	@Override
+	public void onKeyReleased() {
+		for (T object : this.onKeyReleasedListeners )
+        {
+            object.onKeyReleased();
+        }
+	}
+
+
 	public void addOnMousePressedListener(T canvasObject)
     {
         this.onMousePressedListeners.add(canvasObject);
@@ -96,11 +107,6 @@ public class CanvasListenerManager<T extends CanvasInputAwareObject>
     {
         this.onMouseReleasedListeners.add(canvasObject);
     }
-	
-	public void addOnKeyPressedListener(T canvasObject)
-	{
-		this.onKeyPressedListeners.add(canvasObject);
-	}
     
     public void addOnMouseClickedListener(T canvasObject)
     {
@@ -112,6 +118,15 @@ public class CanvasListenerManager<T extends CanvasInputAwareObject>
         this.onMouseWheelListeners.add(canvasObject);
     }
 
+	public void addOnKeyPressedListener(T canvasObject)
+	{
+		this.onKeyPressedListeners.add(canvasObject);
+	}
+    
+	public void addOnKeyReleasedListener(T canvasObject)
+	{
+		this.onKeyReleasedListeners.add(canvasObject);
+	}
 
 	public void addMouseListeners(T canvasObject)
     {
@@ -125,6 +140,7 @@ public class CanvasListenerManager<T extends CanvasInputAwareObject>
 	public void addKeyListeners(T canvasObject)
 	{
 		addOnKeyPressedListener(canvasObject);
+		addOnKeyReleasedListener(canvasObject);
 	}
 
 
@@ -140,4 +156,5 @@ public class CanvasListenerManager<T extends CanvasInputAwareObject>
     public List<T> onMouseClickedListeners;
 	public List<T> onMouseWheelListeners;
     public List<T> onKeyPressedListeners;
+	public List<T> onKeyReleasedListeners;
 }

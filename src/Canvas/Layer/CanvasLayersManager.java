@@ -101,7 +101,7 @@ public class CanvasLayersManager implements CanvasInputAwareObject
 	{
 		this.clearLayer(CanvasLayer.Guides);
 		this.drawLayerFrames();
-		this.drawDrawingLayerMark();
+	//	this.drawDrawingLayerMark();
 	}
 	
 	
@@ -258,7 +258,14 @@ public class CanvasLayersManager implements CanvasInputAwareObject
 				break;
 		}
 	}
-	
+
+
+	@Override
+	public void onKeyReleased() 
+	{
+	}
+
+
 	private void undoMainCanvas()
 	{
 		this.mainPGraphic.undo();
@@ -284,7 +291,4 @@ public class CanvasLayersManager implements CanvasInputAwareObject
 	public float scaleFactor;
 	public float translateX;
 	public float translateY;
-
-	
-
 }

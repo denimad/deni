@@ -52,6 +52,12 @@ public class ForwardingDrawingObject implements
 	public void onKeyPressed(char key) {
 		this.drawingObj.onKeyPressed(key);
 	}
+	
+	
+	@Override
+	public void onKeyReleased() {
+		this.drawingObj.onKeyReleased();
+	}
 
 	@Override
 	public void update() {

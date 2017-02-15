@@ -17,4 +17,5 @@ public interface CanvasInputAwareObject
     public void onMouseClicked(int mouseX, int mouseY);
 	public void onMouseWheel(MouseEvent e);
     public void onKeyPressed(char key);
+	public void onKeyReleased();
 }

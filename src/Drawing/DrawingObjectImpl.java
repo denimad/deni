@@ -47,6 +47,9 @@ public abstract class DrawingObjectImpl implements CanvasInputAwareObject, Drawi
     public  void onKeyPressed(char key){}
 	
 	@Override
+	public  void onKeyReleased(){}
+	
+	@Override
 	public void onMouseWheel(MouseEvent e){}
 
     
