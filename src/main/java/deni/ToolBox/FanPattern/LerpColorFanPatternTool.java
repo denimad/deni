@@ -28,7 +28,7 @@ public class LerpColorFanPatternTool extends FanPatternTool
 
 	@Override
 	public String getName() {
-		return "FPT1";
+		return "LerpColorTool";
 	}
 
 	public void setControls() 

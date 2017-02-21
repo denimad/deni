@@ -1,4 +1,4 @@
-package examples;
+
 
 /* 
  * deni 2017
@@ -22,5 +22,5 @@ public class Processing
     }
     
     
-    public static final String projectName = "Example1";
+    public static final String projectName = "SimpleFanTool";
 }

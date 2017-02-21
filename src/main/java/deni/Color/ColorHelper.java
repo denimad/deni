@@ -12,30 +12,30 @@ import processing.core.PApplet;
  */
 public class ColorHelper 
 {
-	PApplet p5;
+	PApplet deniCanvas;
 	private static ColorHelper instance;
 	private ColorHelper()
 	{
-		p5 = CanvasManager.getInstance().getCanvas();
+		deniCanvas = CanvasManager.getInstance().getCanvas();
 	}
 	
 	public int getColorWithAlpha(int color, float alpha)
 	{
-		float green  = p5.green(color);
-		float red  = p5.red(color);
-		float blue  = p5.blue(color);
+		float green  = deniCanvas.green(color);
+		float red  = deniCanvas.red(color);
+		float blue  = deniCanvas.blue(color);
 		
-		return p5.color(red, green, blue, alpha);
+		return deniCanvas.color(red, green, blue, alpha);
 	}
 	
 	public int getColor(int r, int g, int b)
 	{
-		return p5.color(r, g, b);
+		return deniCanvas.color(r, g, b);
 	}
 	
 	public int getColor(int r, int g, int b, int a)
 	{
-		return p5.color(r, g, b,a );
+		return deniCanvas.color(r, g, b,a );
 	}
 	
 	
@@ -43,12 +43,12 @@ public class ColorHelper
 	
 	public float getAlpha(int color)
 	{
-		return p5.alpha(color);
+		return deniCanvas.alpha(color);
 	}
 	
 	public float getBrightness(int color)
 	{
-		return p5.brightness(color);
+		return deniCanvas.brightness(color);
 	}
 	
 	public static ColorHelper getInstance()

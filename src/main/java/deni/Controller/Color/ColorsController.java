@@ -208,7 +208,7 @@ public class ColorsController
 						}
 					}
 				});
-		}
+		} 
 	}
 	
 	
@@ -218,6 +218,4 @@ public class ColorsController
 			ColorsController.DEFAULT_BANG_INIT_POSX,
 			ColorsController.DEFAULT_BANG_INIT_POSY};
 	}
-	
-	
 }

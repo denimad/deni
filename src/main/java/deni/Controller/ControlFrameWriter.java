@@ -13,6 +13,9 @@ import controlP5.ControllerInterface;
 import controlP5.Tab;
 import java.util.Arrays;
 import java.util.List;
+import main.java.deni.Color.DColor;
+import main.java.deni.Color.DColorPool;
+import main.java.deni.Controller.Color.ColorsController2;
 
 /**
  * ControlFrameWriter class writes on a Control Frame 
@@ -156,10 +159,24 @@ public class ControlFrameWriter implements ControlOwner{
 		int color,
 		float alpha)
 	{
-		this.getColorsController().addColor(varName, 
+		/*this.getColorsController().addColor(varName, 
 			color,
 			alpha,
-			this.getControlledObject());
+			this.getControlledObject());*/
+	}
+	
+	public void addSimpleColorController(String varName,
+		DColor color)
+	{
+		this.getColorsController().addSimpleColorEditor(
+			varName, 
+			color);
+	}
+	
+	public void addColorPoolController(String varName,
+			DColorPool colorPool)
+	{
+		this.getColorsController().addColorPoolEditor(varName, colorPool);
 	}
 
     public void newGroup(String label, int width, int height) {
@@ -233,11 +250,11 @@ public class ControlFrameWriter implements ControlOwner{
 	 * method creation of the color controller.
 	 * @return 
 	 */
-	private ColorsController getColorsController()
+	private ColorsController2 getColorsController()
 	{
 		if (this.colorsController == null)
 		{
-			this.colorsController = new ColorsController(this.cp5, 
+			this.colorsController = new ColorsController2(this.cp5, 
 				this.getControlledObject(),
 				this.getTab(ControlWriterConstants.DEFAULT_COLOR_CONTROLLER_GROUP_NAME)
 					.getName());
@@ -306,7 +323,7 @@ public class ControlFrameWriter implements ControlOwner{
 	 * ColorsController writes the controls for colors in
 	 * the "color" tab.
 	 */
-	private ColorsController colorsController;
+	private ColorsController2 colorsController;
 	
 	/**
 	 * This object whose variables are modified.
