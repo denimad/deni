@@ -5,6 +5,7 @@ package main.java.deni.Canvas.Layer.PGraphics;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import processing.core.PApplet;
 import processing.core.PGraphics;
 
 /**
@@ -40,11 +41,20 @@ public class UndoablePGraphics extends AbstractPGraphics
 				parentCanvas.height);
 
 		newPGraphics.beginDraw();
+		
+			newPGraphics.loadPixels();
+		PApplet.arrayCopy(this.pgraphics.pixels, newPGraphics.pixels);
+		newPGraphics.updatePixels();
+		
+		newPGraphics.endDraw();
+		
+		
+		/*newPGraphics.beginDraw();
 		this.pgraphics.beginDraw();
 			newPGraphics.image(
-				this.pgraphics,0,0);
+				this.pgraphics.get(),0,0);
 		this.pgraphics.endDraw();
-		newPGraphics.endDraw();
+		newPGraphics.endDraw();*/
 		
 		this.pGraphicsQueue.addFirst(newPGraphics);
 		this.pgraphics = this.pGraphicsQueue.peek();
