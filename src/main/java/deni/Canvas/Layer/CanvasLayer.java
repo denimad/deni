@@ -13,8 +13,9 @@ import main.java.deni.Color.ColorHelper;
 public enum CanvasLayer
 {
 	Draft("draft",true),
+	Background("background",true, ColorHelper.DARKOLIVEGREEN,1),
+	Saved("saved",true),
 	Main("main",true, ColorHelper.BROWN2,0, PGraphicType.Undoable),
-	//Test("test",true, ColorHelper.DARKOLIVEGREEN,1),
 	Tool("tool",true, ColorHelper.AQUAMARINE,1),
 	Guides("guides",true);
 

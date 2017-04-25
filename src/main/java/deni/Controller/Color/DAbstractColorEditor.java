@@ -7,15 +7,11 @@ import controlP5.Bang;
 import controlP5.CallbackEvent;
 import controlP5.CallbackListener;
 import controlP5.ColorWheel;
-import controlP5.ControlEvent;
 import controlP5.ControlP5;
-import controlP5.Controller;
-import controlP5.ControllerInterface;
 import controlP5.Slider;
 import main.java.deni.Color.DColor;
 
 /**
- *
  * @author daudirac
  */
 public abstract class DAbstractColorEditor implements DColorEditor{
@@ -131,7 +127,7 @@ public abstract class DAbstractColorEditor implements DColorEditor{
 	 * ControlP5 object owner of this editor.
 	 */
 	ControlP5 cp5;
-	
+
 	CallbackListener hideEdition;
 	private final int[] position;
 	String colorVarName;

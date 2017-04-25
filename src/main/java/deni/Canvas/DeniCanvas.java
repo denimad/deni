@@ -127,12 +127,19 @@ public class DeniCanvas extends PApplet
         return this.canvasLayersManager.getLayer(layer);
     }
    
-	public void drawDraftBackground(String path)
+	public void drawImage(CanvasLayer layer, String path)
 	{
 		PImage bg = this.loadImage(path);
-		this.getDrawingLayer(CanvasLayer.Draft).beginDraw();
-		this.getDrawingLayer(CanvasLayer.Draft).getPG().background(bg);
-		this.getDrawingLayer(CanvasLayer.Draft).endDraw();
+		this.getDrawingLayer(layer).beginDraw();
+		this.getDrawingLayer(layer).getPG().background(bg);
+		this.getDrawingLayer(layer).endDraw();
+	}
+	
+	public void setBackgroundColor(int color)
+	{
+		this.getDrawingLayer(CanvasLayer.Background).beginDraw();
+			this.getDrawingLayer(CanvasLayer.Background).getPG().background(color);
+		this.getDrawingLayer(CanvasLayer.Background).endDraw();
 	}
 
 	public void setSavingInfo(String fileName, String path)

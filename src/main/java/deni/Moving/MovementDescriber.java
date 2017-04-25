@@ -12,6 +12,7 @@ import processing.core.PVector;
 public interface MovementDescriber 
 {
     public PVector returnLocation();
+	public void resetOriginalValues();
     public float getLocationX();
     public float getLocationY();
     public void setSpeed(float speed);

@@ -40,7 +40,9 @@ public class DColorPool
 		return this;
 	}
 	
-	public DColor getColor() {
+	
+	public DColor getDColor() 
+	{
 		if(colorList.size() <= 0) return DefaultColor;
 
 		int index = (int) Math.floor(deniCanvas.random(colorList.size()));
@@ -55,10 +57,11 @@ public class DColorPool
 
 	public DColor getColor(int seed) {
 		MathHelper.tempSeed(seed);
-		DColor clr = getColor();
+		DColor clr = getDColor();
 		MathHelper.removeTempSeed();
 		return clr;
 	}
 	
 	private static DColor DefaultColor = new DSimpleColor(100,255);
+
 }

@@ -182,7 +182,7 @@ public class Stroke extends DrawingObjectImpl
     private int pointsDistance;
     
     
-    public static final int DEFAULT_POINTS_DISTANCE = 20;
+    public static final int DEFAULT_POINTS_DISTANCE = 1;
 
     @Override
     public void onMouseClicked(int mouseX, int mouseY) {

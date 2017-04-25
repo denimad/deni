@@ -18,9 +18,16 @@ public class DSimpleColor implements DColor
 		alpha = _alpha;
 	}
 
+	public DSimpleColor() 
+	{
+		color = 100;
+		alpha = 255;
+	}
+
 	/**
 	 * @return the color
 	 */
+	@Override
 	public int getColor() {
 		return color;
 	}

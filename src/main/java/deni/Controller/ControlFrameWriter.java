@@ -173,6 +173,7 @@ public class ControlFrameWriter implements ControlOwner{
 			color);
 	}
 	
+	
 	public void addColorPoolController(String varName,
 			DColorPool colorPool)
 	{

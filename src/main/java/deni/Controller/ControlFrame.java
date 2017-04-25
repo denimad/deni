@@ -98,7 +98,6 @@ public class ControlFrame extends PApplet{
           case 3 : color = color(rgb[0],rgb[1],rgb[2]); break;
           case 4 : color = color(rgb[0],rgb[1],rgb[2],rgb[3]); break;
           default: color = color(255,255,255);
-          
       }
       return color;
   }

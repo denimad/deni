@@ -14,6 +14,9 @@ import main.java.deni.Color.ColorHelper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import main.java.deni.Color.DColor;
+import main.java.deni.Color.DSimpleColor;
+import main.java.deni.Util.MathHelper;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PVector;
@@ -51,8 +54,8 @@ public class FanPattern extends DrawingObjectImpl{
     
     private static final int DEFAULT_NUMBER_MOVING_OBJS = 10;
 
-	public int colorDeAletas = FanPattern.DEFAULT_COLOR;
-	public int colorDeAletasalpha = 255;
+	public DSimpleColor colorDeAletas = new DSimpleColor();
+	
 	
 	public String mode="direction";
 	
@@ -84,6 +87,7 @@ public class FanPattern extends DrawingObjectImpl{
 		// points distance value.
 		if (currentState == drawingState.strokeDrawing)
         {
+			stroke = new Stroke();
             stroke.setPointsDistance(strokePointsDistance);
         }
     }
@@ -127,7 +131,6 @@ public class FanPattern extends DrawingObjectImpl{
         }
         else
         {
-            stroke = new Stroke();
             currentState = drawingState.strokeDrawing;
         }
     
@@ -156,16 +159,16 @@ public class FanPattern extends DrawingObjectImpl{
 				case "direction slight random": mdes = new SeekMovementDescriber(point, 
 					
 					PVector.add(new PVector(
-							PApplet.cos(canvas.random(0,PApplet.TWO_PI)),
-							PApplet.sin(canvas.random(0,PApplet.TWO_PI))),
+							PApplet.cos(MathHelper.randomInt(0, PApplet.TWO_PI)),
+							PApplet.sin(MathHelper.randomInt(0,PApplet.TWO_PI))),
 							dir.normalize().mult(randomStrength*1.5f)).normalize(),targetPoint);
 					
 					break;
 				
 				case "random": mdes = new SeekMovementDescriber(point, 
 					new PVector(
-							PApplet.cos(canvas.random(0,PApplet.TWO_PI)),
-							PApplet.sin(canvas.random(0,PApplet.TWO_PI))),
+							PApplet.cos(MathHelper.randomInt(0,PApplet.TWO_PI)),
+							PApplet.sin(MathHelper.randomInt(0,PApplet.TWO_PI))),
 					targetPoint);
 				break;
 			}
@@ -202,13 +205,15 @@ public class FanPattern extends DrawingObjectImpl{
     @Override
     public void onKeyPressed(char key) 
 	{
-		if (this.movingObjects != null)
-        {
-            for (MovingDrawingObj movObj: this.movingObjects)
-            {
-                movObj.onKeyPressed(key);
-            }
-        }
+		switch(key)
+		{
+			case ' ': 
+					if (this.movingObjects != null)
+					{
+						this.createMovingObjects(point, stroke.strokePoints);
+					}
+					break;
+		}
     }
 
     @Override
@@ -303,7 +308,7 @@ public class FanPattern extends DrawingObjectImpl{
                     }
                 
                     circleSize = 5;
-                    canvasLayer.getPG().fill(FanPattern.this.colorDeAletas, FanPattern.this.colorDeAletasalpha);
+                    canvasLayer.getPG().fill(FanPattern.this.colorDeAletas.getColor(), FanPattern.this.colorDeAletas.getAlpha());
                     for (PVector point : stroke.strokePoints)
                     {
                         if (circleSize>0)
@@ -323,6 +328,18 @@ public class FanPattern extends DrawingObjectImpl{
 
         }
 
+		@Override
+		public  void onKeyPressed(char key)
+		{
+			switch(key)
+			{
+				case ' ': this.movementDescriber.resetOriginalValues();
+				this.painted = false; 
+				this.circleSize = this.originalCircleSize;
+				break;
+			}
+		}
+		
         @Override
         public void setDrawingProperties() {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

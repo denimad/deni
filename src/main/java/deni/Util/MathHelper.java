@@ -60,6 +60,7 @@ public class MathHelper
 	
 	public static void removeTempSeed() {
 		CANVAS.randomSeed(resetSeedValue);
+		usingTempSeed = false;
 	}
 	
 	private static final DeniCanvas CANVAS = CanvasManager.getInstance().getCanvas();

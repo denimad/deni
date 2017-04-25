@@ -38,7 +38,7 @@ public class CanvasLayersManager implements CanvasInputAwareObject
 		
 		// do draw
         CanvasLayer[] layers = CanvasLayer.values();
-        
+        canvas.clear();
         for(CanvasLayer layer : layers)
         {
             if (layer.isVisible())
@@ -48,7 +48,7 @@ public class CanvasLayersManager implements CanvasInputAwareObject
 					canvas.pushMatrix();
 						canvas.translate(translateX,translateY);
 						canvas.scale(scaleFactor);
-						canvas.tint(255,layer.getOpacity());
+						//canvas.tint(255,layer.getOpacity());
 						canvas.image(this.layersMap.get(layer).getPG(), 0, 0);
 					canvas.popMatrix();
 				}
@@ -226,17 +226,22 @@ public class CanvasLayersManager implements CanvasInputAwareObject
 	public void onKeyPressed(char key) 
 	{
 		switch (key) {
-			case 'E':
-			case 'e':
-				CanvasLayer.Tool.toggleVisible();
+			
+			case 'Q':
+			case 'q':
+				 CanvasLayer.Main.toggleVisible();
 				break;
 			case 'W':
 			case 'w':
-				 CanvasLayer.Main.toggleVisible();
+				 CanvasLayer.Background.toggleVisible();
+				break;
+			case 'E':
+			case 'e':
+				CanvasLayer.Draft.toggleVisible();
 				break;
 			case 'R':
 			case 'r':
-				CanvasLayer.Draft.toggleVisible();
+				CanvasLayer.Tool.toggleVisible();
 				break;
 			case 'Z':
 			case 'z':

@@ -6,6 +6,7 @@ package main.java.deni.Controller.Color;
 import controlP5.ControlP5;
 import java.util.HashMap;
 import java.util.Map;
+import main.java.deni.Canvas.Listener.DCanvasKeyInputAwareObject;
 import main.java.deni.Color.DColor;
 import main.java.deni.Color.DColorPool;
 
@@ -13,7 +14,7 @@ import main.java.deni.Color.DColorPool;
  *
  * @author daudirac
  */
-public class ColorsController2
+public class ColorsController2 
 {
 	
 	public ColorsController2(ControlP5 _cp5, 
@@ -65,7 +66,6 @@ public class ColorsController2
 			ColorsController2.DEFAULT_BANG_INIT_POSX,
 			ColorsController2.DEFAULT_BANG_INIT_POSY};
 	}
-	
 	
 	Map<String, DColorEditor> colorEditors;
 	/**

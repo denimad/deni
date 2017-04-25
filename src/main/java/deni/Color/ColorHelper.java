@@ -3,6 +3,7 @@
  */
 package main.java.deni.Color;
 
+import java.math.BigInteger;
 import main.java.deni.Canvas.CanvasManager;
 import processing.core.PApplet;
 
@@ -36,9 +37,15 @@ public class ColorHelper
 	public int getColor(int r, int g, int b, int a)
 	{
 		return deniCanvas.color(r, g, b,a );
+		
 	}
 	
-	
+	public int getColorFromHex(String hexString)
+	{
+		
+		int decodedHex =  Integer.decode(hexString);
+		return deniCanvas.color(decodedHex,255);
+	}
 	
 	
 	public float getAlpha(int color)

@@ -15,27 +15,32 @@ public class SeekMovementDescriber extends MovementDescriberImpl implements Targ
     public float inerciaStrength;
     public float attractionStrength;
     public float initialDistanceToTarget;
-    
+	
     public SeekMovementDescriber()
     {
-        super();
-        this.targetLocation = new PVector(0,0);
-        this.inerciaStrength = 0;
-        this.attractionStrength = 0;
-		this.setInitialDistance();
+        this(null, null, null);
     }
-    
+
     public SeekMovementDescriber(PVector location,
             PVector direction,
             PVector targetLocation)
     {
-         this();
-         this.location = location.copy();
-         this.direction = direction.copy();
-         this.targetLocation = targetLocation.copy();
+         super(location,direction);
+         if (targetLocation == null)
+		 {
+			 this.targetLocation = new PVector(0,0);
+		 }
+		 else
+		 {
+			 this.targetLocation = targetLocation.copy();
+		 }
+		 
+		 this.inerciaStrength = 0;
+         this.attractionStrength = 0;
+		
 		 this.setInitialDistance();
-    }
-    
+	}
+	
     public SeekMovementDescriber(PVector location,
             PVector targetLocation)
     {
@@ -46,7 +51,7 @@ public class SeekMovementDescriber extends MovementDescriberImpl implements Targ
     
     public void setTargetLocation(PVector targetLocation)
     {
-         this.targetLocation = targetLocation;
+		this.targetLocation = targetLocation;
     }
     
 
@@ -109,8 +114,17 @@ public class SeekMovementDescriber extends MovementDescriberImpl implements Targ
 		this.initialDistanceToTarget = PVector.dist(targetLocation, location);
 	}
 	
+	@Override
 	public float getInitialDistance()
 	{
 		return this.initialDistanceToTarget;
+	}
+	
+	@Override
+	public void resetOriginalValues()
+	{
+		this.resetOriginalLocation();
+		this.resetOriginalDirection();
+		this.setInitialDistance();
 	}
 }

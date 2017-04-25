@@ -10,6 +10,8 @@ import main.java.deni.Color.ColorHelper;
 import main.java.deni.Util.MathHelper;
 import java.util.HashMap;
 import java.util.Map;
+import main.java.deni.Color.DSimpleColor;
+import processing.core.PApplet;
 import processing.core.PVector;
 
 /**
@@ -37,7 +39,7 @@ public class LerpColorFanPattern extends FanPattern
 	protected class FanDrawingObj extends FanPattern.FanDrawingObj
 	{
 		TargetMovementDescriber targetmd;
-		protected Map<PVector,Integer> lerpColorMap;
+		protected Map<PVector,DSimpleColor> lerpColorMap;
 
 		public FanDrawingObj(MovementDescriber movementDescriber, 
 			float circleSize,
@@ -56,7 +58,6 @@ public class LerpColorFanPattern extends FanPattern
 		{
 				PVector point = movementDescriber.returnLocation().copy();
 				stroke.addStrokePoint(point);
-
 				this.calculateStrokeInfoMaps(point, canvasLayer);
 			}
 			else
@@ -66,7 +67,7 @@ public class LerpColorFanPattern extends FanPattern
 					canvasLayer.beginDraw();
 						this.circleSize = this.originalCircleSize;
 						canvasLayer.getPG().noStroke();
-						canvasLayer.getPG().fill(colorDeAletas,colorDeAletasalpha);
+						canvasLayer.getPG().fill(colorDeAletas.getColor(),colorDeAletas.getAlpha());
 						for (PVector point : stroke.strokePoints)
 						{
 							this.calculateCircleSize(point);
@@ -78,7 +79,9 @@ public class LerpColorFanPattern extends FanPattern
 						this.circleSize = this.originalCircleSize;
 						for (PVector point : stroke.strokePoints)
 						{
-							canvasLayer.getPG().fill(lerpColorMap.get(point),startColoralpha);
+							canvasLayer.getPG().fill(
+								lerpColorMap.get(point).getColor(),
+								lerpColorMap.get(point).getAlpha());
 							this.calculateCircleSize(point);
 							canvasLayer.getPG().ellipse(point.x,
 								point.y,
@@ -98,9 +101,11 @@ public class LerpColorFanPattern extends FanPattern
 		 * (only 1 and 2 values are valid)
 		 * @param levels 
 		 */
-		private int getLerpColor(AbstractPGraphics canvasLayer, float totalDist, float curDist,int level)
+		protected DSimpleColor getLerpColor(AbstractPGraphics canvasLayer, float totalDist, float curDist,int level)
 		{
 			int lerpColor=0;
+			float alpha = 0;
+
 			if (level != 1 || level != 2)
 			{
 				float amt = MathHelper.directRuleOfThree(
@@ -114,22 +119,28 @@ public class LerpColorFanPattern extends FanPattern
 						startColor, 
 						endColor, 
 						amt);
+					alpha = PApplet.map(amt,
+						0,100,startColoralpha,endColoralpha);
 				}
 				else
 				{
 					if (amt<0.5)
 					{
 						lerpColor = canvasLayer.getPG().lerpColor(
-						startColor, 
-						middleColor, 
-						amt*2f);
+							startColor, 
+							middleColor, 
+							amt*2f);
+						alpha = PApplet.map(amt*2f,
+							0,100,startColoralpha,middleColoralpha);
 					}
 					else
 					{
 						lerpColor = canvasLayer.getPG().lerpColor(
-						middleColor, 
-						endColor, 
-						(amt-0.5f)*2f);
+							middleColor, 
+							endColor, 
+							(amt-0.5f)*2f);
+						alpha = PApplet.map((amt-0.5f)*2f,
+							0,100,startColoralpha,middleColoralpha);
 					}
 				}
 			}
@@ -139,7 +150,8 @@ public class LerpColorFanPattern extends FanPattern
 					this.getClass());
 			}
 
-			return lerpColor;
+			return new DSimpleColor(lerpColor, alpha);
+			
 		}
 
 
