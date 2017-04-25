@@ -63,5 +63,9 @@ public class MathHelper
 		usingTempSeed = false;
 	}
 	
+	public static int round(float f)
+	{
+		return Math.round(f);
+	}
 	private static final DeniCanvas CANVAS = CanvasManager.getInstance().getCanvas();
 }
