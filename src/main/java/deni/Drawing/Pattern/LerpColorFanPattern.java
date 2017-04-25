@@ -10,6 +10,7 @@ import main.java.deni.Color.ColorHelper;
 import main.java.deni.Util.MathHelper;
 import java.util.HashMap;
 import java.util.Map;
+import main.java.deni.Color.DColor;
 import main.java.deni.Color.DSimpleColor;
 import processing.core.PApplet;
 import processing.core.PVector;
@@ -116,31 +117,37 @@ public class LerpColorFanPattern extends FanPattern
 				if (level == 1)
 				{
 					lerpColor = canvasLayer.getPG().lerpColor(
-						startColor, 
-						endColor, 
+						startColor.getColor(), 
+						endColor.getColor(), 
 						amt);
 					alpha = PApplet.map(amt,
-						0,100,startColoralpha,endColoralpha);
+						0,100,
+						MathHelper.round(startColor.getAlpha()), 
+						MathHelper.round(endColor.getAlpha()));
 				}
 				else
 				{
 					if (amt<0.5)
 					{
 						lerpColor = canvasLayer.getPG().lerpColor(
-							startColor, 
-							middleColor, 
+							startColor.getColor(), 
+							middleColor.getColor(), 
 							amt*2f);
 						alpha = PApplet.map(amt*2f,
-							0,100,startColoralpha,middleColoralpha);
+							0,100,
+							MathHelper.round(startColor.getAlpha()), 
+							MathHelper.round(middleColor.getAlpha()));
 					}
 					else
 					{
 						lerpColor = canvasLayer.getPG().lerpColor(
-							middleColor, 
-							endColor, 
+							middleColor.getColor(), 
+							endColor.getColor(), 
 							(amt-0.5f)*2f);
 						alpha = PApplet.map((amt-0.5f)*2f,
-							0,100,startColoralpha,middleColoralpha);
+							0,100,
+							MathHelper.round(middleColor.getAlpha()), 
+							MathHelper.round(endColor.getAlpha()));
 					}
 				}
 			}
@@ -173,12 +180,10 @@ public class LerpColorFanPattern extends FanPattern
 	}
 	
 	
-	public int startColor = ColorHelper.BROWN2;
-	public int startColoralpha = 255;
-	public int endColor = ColorHelper.AQUAMARINE;
-	public int endColoralpha = 255;
-	public int middleColor = ColorHelper.GOLDENROD;
-	public int middleColoralpha = 255;
+	public DColor startColor = new DSimpleColor(ColorHelper.BROWN2);
+	public DColor endColor = new DSimpleColor(ColorHelper.AQUAMARINE, 255);	
+	public DColor middleColor = new DSimpleColor(ColorHelper.GOLDENROD);
+	
 	public int level=2;
 
 }

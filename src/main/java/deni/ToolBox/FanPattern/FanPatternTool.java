@@ -7,7 +7,6 @@ import main.java.deni.Tool.ToolForwardingDrawingObject;
 import main.java.deni.Drawing.DrawingObjectImpl;
 import main.java.deni.Drawing.Pattern.FanPattern;
 import controlP5.ControlEvent;
-import java.util.Arrays;
 
 
 /**
@@ -61,9 +60,9 @@ public class FanPatternTool extends ToolForwardingDrawingObject
 			FanPattern.MODES , "default");
 		
 		// color controllers
-		this.controlFrameWriter.addColorController("colorDeAletas", 
-				this.getFanPatterObj().colorDeAletas,
-				this.getFanPatterObj().colorDeAletasalpha);
+		this.controlFrameWriter.addSimpleColorController(
+			"colorDeAletas", 
+			this.getFanPatterObj().colorDeAletas);
 	}
 
 	/**
@@ -100,12 +99,12 @@ public class FanPatternTool extends ToolForwardingDrawingObject
 					case "fanCircleSize":
 						fp.fanCircleSize =  event.getValue();
 						break;
-					case "colorDeAletas":
+					/*case "colorDeAletas":
 						fp.colorDeAletas = (int) event.getValue();
 						break;
 					case "colorDeAletasalpha":
 						fp.colorDeAletasalpha = (int) event.getValue();
-						break;
+						break;*/
 					case "changeMode":
 						fp.mode = FanPattern.MODES.get((int) event.getValue());
 						break;

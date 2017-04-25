@@ -12,6 +12,11 @@ public class DSimpleColor implements DColor
 	private int color;
 	private float alpha;
 	
+	public DSimpleColor(int _color)
+	{
+		// the default is a non opacity color;
+		this(_color, 255);
+	}
 	public DSimpleColor(int _color, float _alpha)
 	{
 		color = _color;
@@ -23,6 +28,7 @@ public class DSimpleColor implements DColor
 		color = 100;
 		alpha = 255;
 	}
+
 
 	/**
 	 * @return the color

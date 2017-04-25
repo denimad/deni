@@ -35,24 +35,24 @@ public class LerpColorFanPatternTool extends FanPatternTool
 	{
 		super.setControls();
 
-
 		this.controlFrameWriter.addSlider("level",
 			140, 100, 1, 2, this.fanPattern.level);
 
-		this.controlFrameWriter.addColorController(
-			"startColor", 
-			this.fanPattern.startColor,
-			this.fanPattern.startColoralpha);
-		this.controlFrameWriter.addColorController(
-			"endColor", 
-			this.fanPattern.endColor,
-			this.fanPattern.endColoralpha);
-		this.controlFrameWriter.addColorController(
-			"middleColor", 
-			this.fanPattern.middleColor,
-			this.fanPattern.middleColoralpha);
+		this.setColorControls();
+	}	
 
-	}		
+	public void setColorControls()
+	{
+		this.controlFrameWriter.addSimpleColorController(
+			"startColor", 
+			this.fanPattern.startColor);
+		this.controlFrameWriter.addSimpleColorController(
+			"endColor", 
+			this.fanPattern.endColor);
+		this.controlFrameWriter.addSimpleColorController(
+			"middleColor", 
+			this.fanPattern.middleColor);
+	}
 
 	@Override
 	public void controlEvent(ControlEvent event) 
@@ -63,24 +63,6 @@ public class LerpColorFanPatternTool extends FanPatternTool
 		{
 			switch(event.getName())
 			{
-				case "startColor": 
-					this.fanPattern.startColor = (int) event.getValue();
-					break;
-				case "startColoralpha": 
-					this.fanPattern.startColoralpha = (int) event.getValue();
-					break;
-				case "endColor": 
-					this.fanPattern.endColor = (int) event.getValue();
-					break;
-				case "endColoralpha": 
-					this.fanPattern.endColoralpha = (int) event.getValue();
-					break;
-				case "middleColor": 
-					this.fanPattern.middleColor = (int) event.getValue();
-					break;
-				case "middleColoralpha": 
-					this.fanPattern.middleColoralpha = (int) event.getValue();
-					break;
 				case "level":
 					this.fanPattern.level = (int) event.getValue();
 					break;

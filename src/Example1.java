@@ -5,8 +5,10 @@
  */
 import main.java.deni.Canvas.DeniCanvas;
 import main.java.deni.Canvas.Layer.CanvasLayer;
+import main.java.deni.Drawing.Pattern.LerpColorPoolFanPattern;
 import main.java.deni.ToolBox.FanPattern.BrushFanPatternTool;
 import main.java.deni.ToolBox.FanPattern.LerpColorFanPatternTool;
+import main.java.deni.ToolBox.FanPattern.LerpColorPoolFanPatternTool;
 
 
 /**
@@ -14,15 +16,15 @@ import main.java.deni.ToolBox.FanPattern.LerpColorFanPatternTool;
  */
 public class Example1  extends DeniCanvas
 {
-	LerpColorFanPatternTool lfanptool;
+	LerpColorPoolFanPatternTool lfanptool;
 	BrushFanPatternTool bfanptool;
 	
 	
 	@Override
 	public void settings()
 	{
-		canvasWidth = 500;
-        canvasHeight = 530;
+		canvasWidth = 600;
+        canvasHeight = 800;
         super.settings();
     }
 	
@@ -30,14 +32,15 @@ public class Example1  extends DeniCanvas
 	public void setup()
 	{
 		super.setup();
-		lfanptool = new LerpColorFanPatternTool();
+		lfanptool = new LerpColorPoolFanPatternTool();
 		bfanptool = new BrushFanPatternTool();
 		
 		this.toolController.addTool(lfanptool);
 		this.toolController.addTool(bfanptool);
 		this.toolController.setControls();
 		
-		this.drawDraftBackground("/Users/daudirac/Desktop/images/rosa.jpg");
+		this.drawImage(CanvasLayer.Draft, "/Users/daudirac/Desktop/images/arbol.png");
+		
 		this.setSavingInfo("rosa", "/Users/daudirac/Desktop/images");
 	}
 	
