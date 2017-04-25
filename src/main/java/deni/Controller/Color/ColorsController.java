@@ -19,6 +19,7 @@ import java.util.Map;
  * it displays them in a matrix and uses a color wheel or color picker
  * to modify the colors.
  */
+@Deprecated
 public class ColorsController 
 {
 	/**
