@@ -50,7 +50,7 @@ public class ExecutableExample extends DeniCanvas
 		
 		this.drawImage(CanvasLayer.Draft, draftImage);
 		
-		this.setSavingInfo("savedImage", DSystem.getSavedImagesPath());
+		this.setSavingInfo("savedImage", DSystem.getAppSavedImagesPath());
 	}
 	
 	@Override

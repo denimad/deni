@@ -64,7 +64,7 @@ public class DSystem
 		return DSystem.getRunningJarLocation() +  "/resources";
 	}
 	
-	public static String getSavedImagesPath()
+	public static String getAppSavedImagesPath()
 	{
 		return DSystem.getRunningJarLocation() + "/savedImages";
 	}
