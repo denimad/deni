@@ -5,7 +5,6 @@ import main.java.deni.ToolBox.FanPattern.BrushFanPatternTool;
 import main.java.deni.ToolBox.FanPattern.LerpColorPoolFanPatternTool;
 import main.java.deni.ToolBox.Tool1;
 import main.java.deni.Util.DSystem;
-import static processing.core.PConstants.CODED;
 import processing.core.PImage;
 
 /*
@@ -62,22 +61,4 @@ public class ExecutableExample extends DeniCanvas
 		bfanptool.draw(this.getCurrenDrawingLayer());
 		tool1.draw(this.getCurrenDrawingLayer());
 	}
-	
-	 @Override
-    public void keyPressed()
-    {
-		super.keyPressed();
-		 if (key == CODED) {
-			if (keyCode == DeniCanvas.DOWN)
-			{
-				CanvasLayer.Main.setOpacity(200);
-			}
-			if (keyCode == DeniCanvas.UP)
-			{
-				CanvasLayer.Main.setOpacity(255);
-			}
-		}
-	}
-	
-	
 }
