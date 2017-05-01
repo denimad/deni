@@ -3,6 +3,7 @@
  */
 package main.java.deni.Canvas.Layer;
 
+import main.java.deni.Canvas.Layer.action.SaveCanvasLayerAction;
 import main.java.deni.Canvas.Listener.CanvasInputAwareObject;
 import main.java.deni.Canvas.CanvasManager;
 import main.java.deni.Canvas.Layer.CanvasLayer;
@@ -10,6 +11,7 @@ import main.java.deni.Canvas.Layer.PGraphics.AbstractPGraphics;
 import main.java.deni.Canvas.Layer.PGraphics.UndoablePGraphics;
 import java.util.HashMap;
 import java.util.Map;
+import main.java.deni.Canvas.Layer.action.DUpdateCanvasLayerAction;
 import processing.core.PApplet;
 import processing.event.MouseEvent;
 
@@ -208,17 +210,41 @@ public class CanvasLayersManager implements CanvasInputAwareObject
 			CanvasLayer.Main,
 			fileName,
 			path);
+		this.imageUpdater = new DUpdateCanvasLayerAction(
+			CanvasLayer.Main,
+			fileName,
+			path);
 	}
 	
 	public void doSaveImage()
 	{
-		if (this.imageSaver != null)
+		if (this.imageSaver != null ||
+			this.imageUpdater != null)
 		{
-			this.imageSaver.save();
+			this.imageSaver.doAction();
+			this.imageUpdater.setUpdateImageName(
+				this.imageSaver.getLastSavedImageName());
 		}
 		else
 		{
-			System.err.println("No saving info specified!");
+			String errorMessage = (this.imageSaver == null ? 
+				"\nNo saving info specified!":""	) + 
+				(this.imageUpdater == null ? 
+				"\n No updating info specified!":""	);
+			
+			System.err.println(errorMessage);
+		}
+	}
+	
+	public void doUpdateImage()
+	{
+		if (this.imageUpdater != null)
+		{
+			this.imageUpdater.doAction();
+		}
+		else
+		{
+			System.err.println("No updating info specified!");
 		}
 	}
 
@@ -252,6 +278,11 @@ public class CanvasLayersManager implements CanvasInputAwareObject
 			case 's':
 				this.doSaveImage();
 				break;
+			case 'U':
+			case 'u':
+				this.doUpdateImage();
+				break;
+				
 			case 'C':
 			case 'c':
 				this.clearLayer(CanvasLayer.Tool);
@@ -283,6 +314,7 @@ public class CanvasLayersManager implements CanvasInputAwareObject
 	private UndoablePGraphics mainPGraphic;
 	
 	public SaveCanvasLayerAction imageSaver;
+	public DUpdateCanvasLayerAction imageUpdater;
 	
     // this canvas has different layers
     // the main is the final drawing. the tool layer is used to show
