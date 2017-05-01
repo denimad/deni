@@ -143,7 +143,7 @@ public abstract class DAbstractColorEditor implements DColorEditor{
 	public static int DEFAULT_BANG_WIDTH= 20;
 	public static int DEFAULT_BANG_HEIGHT= 20;
 	
-	public final static String COLOR_WHEEL_COMPONENT_NAME = "colorWheel";
-	public final static String ALPHA_SLIDER_COMPONENT_NAME = "alphaSlider";
+	public final static String COLOR_WHEEL_COMPONENT_NAME = "color";
+	public final static String ALPHA_SLIDER_COMPONENT_NAME = "alpha";
 
 }
