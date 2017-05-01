@@ -13,7 +13,6 @@ import main.java.deni.Canvas.Listener.CanvasInputAwareObject;
 import main.java.deni.Canvas.Layer.CanvasLayersManager;
 import main.java.deni.Canvas.Layer.CanvasLayer;
 import main.java.deni.Canvas.Layer.PGraphics.AbstractPGraphics;
-import main.java.deni.Canvas.Layer.SaveCanvasLayerAction;
 import main.java.deni.Canvas.Listener.CanvasListenerType;
 import main.java.deni.Controller.Tool.ToolControl;
 import processing.core.PApplet;
@@ -127,13 +126,30 @@ public class DeniCanvas extends PApplet
         return this.canvasLayersManager.getLayer(layer);
     }
    
+	/**
+	 * Draws the image of the given path in the indicated layer.
+	 * @param layer layer on which to draw the image.
+	 * @param path path of the image to draw.
+	 */
 	public void drawImage(CanvasLayer layer, String path)
 	{
 		PImage bg = this.loadImage(path);
+		this.drawImage(layer, bg);
+	}
+	
+	/**
+	 * Draws the given image in the indicated layer.
+	 * @param layer layer on which to draw the image.
+	 * @param img image to draw.
+	 */
+	public void drawImage(CanvasLayer layer, PImage img)
+	{
 		this.getDrawingLayer(layer).beginDraw();
-		this.getDrawingLayer(layer).getPG().background(bg);
+		this.getDrawingLayer(layer).getPG().background(img);
 		this.getDrawingLayer(layer).endDraw();
 	}
+	
+	
 	
 	public void setBackgroundColor(int color)
 	{
