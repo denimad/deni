@@ -69,14 +69,16 @@ public abstract class DAbstractColorEditor implements DColorEditor{
 		
 		inColorEdition = true;
 		
-		colorWheelEditor = cp5.addColorWheel("color")
+		colorWheelEditor = cp5.addColorWheel(
+				DAbstractColorEditor.COLOR_WHEEL_COMPONENT_NAME)
 			.setPosition(40,40)
 			.setRGB(color.getColor())
 			.plugTo(color)
 			.moveTo(this.parentGroup)
 			.addCallback(this.getHideEditionListener(bang));
 		
-		cp5.addSlider("alpha")
+		cp5.addSlider(
+				DAbstractColorEditor.ALPHA_SLIDER_COMPONENT_NAME)
 			.setSize(20,200)
 			.setRange(0, 255)
 			.setValue(color.getAlpha())
@@ -113,14 +115,14 @@ public abstract class DAbstractColorEditor implements DColorEditor{
 			DAbstractColorEditor.this.colorWheelEditor.getRGB();
 		editedBang.setColorForeground(newColor);
 
-		cp5.get("color").hide();
-		cp5.get("alpha").hide();
+		cp5.get(DAbstractColorEditor.COLOR_WHEEL_COMPONENT_NAME).hide();
+		cp5.get(DAbstractColorEditor.ALPHA_SLIDER_COMPONENT_NAME).hide();
 	}
 
 	protected void removeAllEditorComponents()
 	{
-		cp5.remove("color");
-		cp5.remove("alpha");
+		cp5.remove(DAbstractColorEditor.COLOR_WHEEL_COMPONENT_NAME);
+		cp5.remove(DAbstractColorEditor.ALPHA_SLIDER_COMPONENT_NAME);
 	}
 	
 	/**
@@ -140,5 +142,8 @@ public abstract class DAbstractColorEditor implements DColorEditor{
 	
 	public static int DEFAULT_BANG_WIDTH= 20;
 	public static int DEFAULT_BANG_HEIGHT= 20;
+	
+	public final static String COLOR_WHEEL_COMPONENT_NAME = "colorWheel";
+	public final static String ALPHA_SLIDER_COMPONENT_NAME = "alphaSlider";
 
 }
