@@ -4,15 +4,18 @@
  * deni 2017
  */
 import main.java.deni.Canvas.DeniCanvas;
-import main.java.deni.Canvas.Layer.PGraphics.AbstractPGraphics;
-import main.java.deni.Color.ColorHelper;
+import main.java.deni.Canvas.Layer.DCanvasLayer;
+import main.java.deni.Canvas.Layer.PGraphics.DAbstractPGraphics;
+import main.java.deni.Color.DColorHelper;
 import main.java.deni.Color.DColor;
 import main.java.deni.Color.DColorPool;
 import main.java.deni.Color.DSimpleColor;
-import main.java.deni.Drawing.DrawingObjectImpl;
-import main.java.deni.Drawing.Pattern.FanPattern;
-import main.java.deni.Tool.ToolForwardingDrawingObject;
-import main.java.deni.ToolBox.FanPattern.FanPatternTool;
+import main.java.deni.Drawing.DDrawingObjectImpl;
+import main.java.deni.Drawing.Pattern.DFanPattern;
+import main.java.deni.Tool.DToolForwardingDrawingObject;
+import main.java.deni.ToolBox.FanPattern.DBrushFanPatternTool;
+import main.java.deni.ToolBox.FanPattern.DFanPatternTool;
+import main.java.deni.ToolBox.FanPattern.DLerpColorPoolFanPatternTool;
 
 
 /**
@@ -24,8 +27,8 @@ public class SimpleFanTool extends DeniCanvas
 	@Override
 	public void settings()
 	{
-		canvasWidth = 680;
-        canvasHeight = 412;
+		canvasWidth = 600;
+        canvasHeight = 800;
         super.settings();
         
     }
@@ -34,22 +37,34 @@ public class SimpleFanTool extends DeniCanvas
 	{
 		super.setup();
 		
+		bfanptool =	new DBrushFanPatternTool();
 		circleDO = new CircleDOTool();
+		fanTool = new DLerpColorPoolFanPatternTool();
 		
+		this.toolController.addTool(bfanptool);
 		this.toolController.addTool(circleDO);
+		this.toolController.addTool(fanTool);
+		
 		this.toolController.setControls();
+		
+		this.drawImage(DCanvasLayer.Draft, "/Users/daudirac/Desktop/images/arbol.png");
+		//this.drawImage(CanvasLayer.Background, "/Users/daudirac/Desktop/images/hanas2_Back.jpg");
+		this.setSavingInfo("arbol", "/Users/daudirac/Desktop/images");
 	}
 	
 	public void draw()
 	{
 		this.background(100);
 		super.draw();
-		circleDO.draw(this.getCurrenDrawingLayer());
+		//circleDO.draw(this.getCurrenDrawingLayer());
+		fanTool.draw(this.getCurrenDrawingLayer());
 	}
-	
+
+	DBrushFanPatternTool bfanptool;
 	CircleDOTool circleDO;
-	
-	public class CircleDOTool extends ToolForwardingDrawingObject
+	DLerpColorPoolFanPatternTool fanTool;
+
+	public class CircleDOTool extends DToolForwardingDrawingObject
 	{
 		CircleDrawingObj cdo;
 	
@@ -84,14 +99,14 @@ public class SimpleFanTool extends DeniCanvas
 		}
 	}
 	
-	public class CircleDrawingObj extends DrawingObjectImpl
+	public class CircleDrawingObj extends DDrawingObjectImpl
 	{
 		DColor circleColor;
 		DColorPool circleColorPool;
 		
 		public CircleDrawingObj()
 		{
-			circleColor = new DSimpleColor(ColorHelper.AQUAMARINE, 
+			circleColor = new DSimpleColor(DColorHelper.AQUAMARINE, 
 				255);
 			circleColorPool = new DColorPool();
 		}
@@ -103,10 +118,10 @@ public class SimpleFanTool extends DeniCanvas
 
 		
 		@Override
-		public void draw(AbstractPGraphics canvasLayer) 
+		public void draw(DAbstractPGraphics canvasLayer) 
 		{
 			canvasLayer.beginDraw();
-				DColor dc = circleColorPool.getColor();
+				DColor dc = circleColorPool.getDColor();
 				canvasLayer.getPG().fill(dc.getColor(),
 						dc.getAlpha());
 				canvasLayer.getPG().ellipse(mouseX, mouseY, 30, 30);

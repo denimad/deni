@@ -3,9 +3,9 @@
  */
 package main.java.deni.Pencil;
 
-import main.java.deni.Canvas.Layer.PGraphics.AbstractPGraphics;
-import main.java.deni.Moving.Mover;
-import main.java.deni.Drawing.DrawingObjectImpl;
+import main.java.deni.Canvas.Layer.PGraphics.DAbstractPGraphics;
+import main.java.deni.Moving.DMover;
+import main.java.deni.Drawing.DDrawingObjectImpl;
 import java.util.ArrayList;
 import java.util.List;
 import processing.core.PApplet;
@@ -16,7 +16,7 @@ import processing.core.PVector;
  *
  * @author daudirac
  */
-public class StrokeFollower2 extends DrawingObjectImpl{
+public class StrokeFollower2 extends DDrawingObjectImpl{
     public StrokeFollower2()
     {
         this(StrokeFollower2.DEFAULT_NUM_FOLLOWERS,
@@ -26,7 +26,7 @@ public class StrokeFollower2 extends DrawingObjectImpl{
     public StrokeFollower2(int numFollowers, int minDist)
     {
         super();
-        stroke = new Stroke();
+        stroke = new DStroke();
         totalNumFollowers = numFollowers;
         strokeMinDistance = minDist;
         
@@ -41,7 +41,7 @@ public class StrokeFollower2 extends DrawingObjectImpl{
     }
 
     @Override
-    public void draw(AbstractPGraphics canvasLayer) 
+    public void draw(DAbstractPGraphics canvasLayer) 
     {
         stroke.draw(canvas.getToolDrawingLayer());
         drawFollowers(canvasLayer);
@@ -72,7 +72,7 @@ public class StrokeFollower2 extends DrawingObjectImpl{
         createFollowers();
     }
     
-    public void drawFollowers(AbstractPGraphics canvasLayer)
+    public void drawFollowers(DAbstractPGraphics canvasLayer)
     { 
         for (Follower follower: followers)
         {
@@ -126,7 +126,7 @@ public class StrokeFollower2 extends DrawingObjectImpl{
 
    
     
-    class Follower extends DrawingObjectImpl
+    class Follower extends DDrawingObjectImpl
     {
         PVector loc;
         PVector dir;
@@ -179,7 +179,7 @@ public class StrokeFollower2 extends DrawingObjectImpl{
         }
 
         @Override
-        public void draw(AbstractPGraphics canvasLayer) {
+        public void draw(DAbstractPGraphics canvasLayer) {
             canvasLayer.beginDraw();
                 canvasLayer.getPG().fill(255);
                 canvasLayer.getPG().ellipse(loc.x, loc.y,10,10);
@@ -200,7 +200,7 @@ public class StrokeFollower2 extends DrawingObjectImpl{
        
     }
     
-    Stroke stroke;
+    DStroke stroke;
     List<Follower> followers;
     List<PVector> strokeMovement;
     

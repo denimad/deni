@@ -1,8 +1,8 @@
 
 import main.java.deni.Canvas.DeniCanvas;
-import main.java.deni.Canvas.Layer.CanvasLayer;
-import main.java.deni.ToolBox.FanPattern.BrushFanPatternTool;
-import main.java.deni.ToolBox.FanPattern.LerpColorPoolFanPatternTool;
+import main.java.deni.Canvas.Layer.DCanvasLayer;
+import main.java.deni.ToolBox.FanPattern.DBrushFanPatternTool;
+import main.java.deni.ToolBox.FanPattern.DLerpColorPoolFanPatternTool;
 import main.java.deni.ToolBox.Tool1;
 import main.java.deni.Util.DSystem;
 import processing.core.PImage;
@@ -18,8 +18,8 @@ import processing.core.PImage;
  */
 public class ExecutableExample extends DeniCanvas
 {
-	LerpColorPoolFanPatternTool lfanptool;
-	BrushFanPatternTool bfanptool;
+	DLerpColorPoolFanPatternTool lfanptool;
+	DBrushFanPatternTool bfanptool;
 	Tool1 tool1;
 
 	PImage draftImage;
@@ -38,8 +38,8 @@ public class ExecutableExample extends DeniCanvas
 	public void setup()
 	{
 		super.setup();
-		lfanptool = new LerpColorPoolFanPatternTool();
-		bfanptool = new BrushFanPatternTool();
+		lfanptool = new DLerpColorPoolFanPatternTool();
+		bfanptool = new DBrushFanPatternTool();
 		tool1 = new Tool1();
 		
 		this.toolController.addTool(lfanptool);
@@ -47,7 +47,7 @@ public class ExecutableExample extends DeniCanvas
 		this.toolController.addTool(tool1);
 		this.toolController.setControls();
 		
-		this.drawImage(CanvasLayer.Draft, draftImage);
+		this.drawImage(DCanvasLayer.Draft, draftImage);
 		
 		this.setSavingInfo("savedImage", DSystem.getAppSavedImagesPath());
 	}

@@ -3,10 +3,10 @@
  */
 package main.java.deni.Canvas.Layer.action;
 
-import main.java.deni.Canvas.CanvasManager;
-import main.java.deni.Canvas.Layer.CanvasLayer;
-import main.java.deni.Canvas.Layer.CanvasLayersManager;
-import main.java.deni.Canvas.Layer.PGraphics.AbstractPGraphics;
+import main.java.deni.Canvas.DCanvasManager;
+import main.java.deni.Canvas.Layer.DCanvasLayer;
+import main.java.deni.Canvas.Layer.DCanvasLayersManager;
+import main.java.deni.Canvas.Layer.PGraphics.DAbstractPGraphics;
 import processing.core.PImage;
 
 /**
@@ -17,7 +17,7 @@ public class DUpdateCanvasLayerAction implements DAction
 {
 
 	public DUpdateCanvasLayerAction(
-		CanvasLayer _canvasLayer,
+		DCanvasLayer _canvasLayer,
 		String _fileName,
 		String _resourcePath)
 	{
@@ -29,7 +29,7 @@ public class DUpdateCanvasLayerAction implements DAction
 				resourcePath.endsWith("/") ? "": "/";
 		
 		pGraphic = 
-			CanvasLayersManager.getInstance().getLayer(canvasLayer);
+			DCanvasLayersManager.getInstance().getLayer(canvasLayer);
 		
 	}
 	
@@ -40,7 +40,7 @@ public class DUpdateCanvasLayerAction implements DAction
 	
 	public void updateImage()
 	{
-		PImage updatedImage = CanvasManager.getInstance().
+		PImage updatedImage = DCanvasManager.getInstance().
 			getCanvas().
 			loadImage(this.resourcePath + this.fileName);
 		
@@ -68,6 +68,6 @@ public class DUpdateCanvasLayerAction implements DAction
 	
 	String fileName;
 	String resourcePath;
-	CanvasLayer canvasLayer;
-	AbstractPGraphics pGraphic;
+	DCanvasLayer canvasLayer;
+	DAbstractPGraphics pGraphic;
 }

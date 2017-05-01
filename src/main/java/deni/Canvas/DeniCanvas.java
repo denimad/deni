@@ -10,9 +10,9 @@ package main.java.deni.Canvas;
  */
 
 import main.java.deni.Canvas.Listener.CanvasInputAwareObject;
-import main.java.deni.Canvas.Layer.CanvasLayersManager;
-import main.java.deni.Canvas.Layer.CanvasLayer;
-import main.java.deni.Canvas.Layer.PGraphics.AbstractPGraphics;
+import main.java.deni.Canvas.Layer.DCanvasLayersManager;
+import main.java.deni.Canvas.Layer.DCanvasLayer;
+import main.java.deni.Canvas.Layer.PGraphics.DAbstractPGraphics;
 import main.java.deni.Canvas.Listener.CanvasListenerType;
 import main.java.deni.Controller.Tool.ToolControl;
 import processing.core.PApplet;
@@ -34,9 +34,9 @@ public class DeniCanvas extends PApplet
     @Override
     public void setup()
     {
-        canvasManager = CanvasManager.getInstance();
+        canvasManager = DCanvasManager.getInstance();
         canvasManager.setCanvas(this);  
-        canvasLayersManager = CanvasLayersManager.getInstance();
+        canvasLayersManager = DCanvasLayersManager.getInstance();
 		
 		this.initToolController();
 		this.setCanavasManagerListeners();
@@ -111,17 +111,17 @@ public class DeniCanvas extends PApplet
     // ======= LAYER METHODS ======
     // ======= ============= ======
 	
-    public AbstractPGraphics getCurrenDrawingLayer()
+    public DAbstractPGraphics getCurrenDrawingLayer()
     {
         return this.canvasLayersManager.getCurrentDrawingLayer();
     }
     
-    public AbstractPGraphics getToolDrawingLayer()
+    public DAbstractPGraphics getToolDrawingLayer()
     {
-        return this.getDrawingLayer(CanvasLayer.Tool);
+        return this.getDrawingLayer(DCanvasLayer.Tool);
     }
     
-    public AbstractPGraphics getDrawingLayer(CanvasLayer layer)
+    public DAbstractPGraphics getDrawingLayer(DCanvasLayer layer)
     {
         return this.canvasLayersManager.getLayer(layer);
     }
@@ -131,7 +131,7 @@ public class DeniCanvas extends PApplet
 	 * @param layer layer on which to draw the image.
 	 * @param path path of the image to draw.
 	 */
-	public void drawImage(CanvasLayer layer, String path)
+	public void drawImage(DCanvasLayer layer, String path)
 	{
 		PImage bg = this.loadImage(path);
 		this.drawImage(layer, bg);
@@ -142,7 +142,7 @@ public class DeniCanvas extends PApplet
 	 * @param layer layer on which to draw the image.
 	 * @param img image to draw.
 	 */
-	public void drawImage(CanvasLayer layer, PImage img)
+	public void drawImage(DCanvasLayer layer, PImage img)
 	{
 		this.getDrawingLayer(layer).beginDraw();
 		this.getDrawingLayer(layer).getPG().background(img);
@@ -153,9 +153,9 @@ public class DeniCanvas extends PApplet
 	
 	public void setBackgroundColor(int color)
 	{
-		this.getDrawingLayer(CanvasLayer.Background).beginDraw();
-			this.getDrawingLayer(CanvasLayer.Background).getPG().background(color);
-		this.getDrawingLayer(CanvasLayer.Background).endDraw();
+		this.getDrawingLayer(DCanvasLayer.Background).beginDraw();
+			this.getDrawingLayer(DCanvasLayer.Background).getPG().background(color);
+		this.getDrawingLayer(DCanvasLayer.Background).endDraw();
 	}
 
 	public void setSavingInfo(String fileName, String path)
@@ -188,8 +188,8 @@ public class DeniCanvas extends PApplet
 
 	public ToolControl toolController;
 	
-    public CanvasManager<CanvasInputAwareObject> canvasManager;
-    public CanvasLayersManager canvasLayersManager;
+    public DCanvasManager<CanvasInputAwareObject> canvasManager;
+    public DCanvasLayersManager canvasLayersManager;
     
 	public int canvasWidth = DeniCanvasConstants.DENI_DEFAULT_WIDTH;
     public int canvasHeight = DeniCanvasConstants.DENI_DEFAULT_HEIGHT;

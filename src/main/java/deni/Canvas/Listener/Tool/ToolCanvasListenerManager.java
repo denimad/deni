@@ -5,14 +5,14 @@ package main.java.deni.Canvas.Listener.Tool;
 
 import main.java.deni.Canvas.Listener.CanvasListenerManager;
 import main.java.deni.Canvas.DeniCanvas;
-import main.java.deni.Tool.ToolInterface;
+import main.java.deni.Tool.DToolInterface;
 
 /**
  * ToolCanvasManager manages the tool interaction
  * with canvas.
  * Only Active Tool can interact with canvas.
  */
-public class ToolCanvasListenerManager extends CanvasListenerManager<ToolInterface>
+public class ToolCanvasListenerManager extends CanvasListenerManager<DToolInterface>
 {
 	
 	public ToolCanvasListenerManager(DeniCanvas parentCanvas) 
@@ -23,7 +23,7 @@ public class ToolCanvasListenerManager extends CanvasListenerManager<ToolInterfa
 	@Override
 	public void onMousePressed(int mouseX, int mouseY)
     {
-        for (ToolInterface tool : this.onMousePressedListeners )
+        for (DToolInterface tool : this.onMousePressedListeners )
         {
 			if (tool.isActive())
 			{
@@ -42,7 +42,7 @@ public class ToolCanvasListenerManager extends CanvasListenerManager<ToolInterfa
 	@Override
 	public void onMouseReleased(int mouseX, int mouseY)
 	{
-		for (ToolInterface tool : this.onMouseReleasedListeners )
+		for (DToolInterface tool : this.onMouseReleasedListeners )
 		{
 			if (tool.isActive())
 			{
@@ -54,7 +54,7 @@ public class ToolCanvasListenerManager extends CanvasListenerManager<ToolInterfa
 	@Override
 	public void onMouseClicked(int mouseX, int mouseY)
 	{
-		for (ToolInterface tool : this.onMouseClickedListeners )
+		for (DToolInterface tool : this.onMouseClickedListeners )
 		{
 			if (tool.isActive())
 			{
@@ -66,7 +66,7 @@ public class ToolCanvasListenerManager extends CanvasListenerManager<ToolInterfa
 	@Override
 	public void onKeyPressed(char key)
 	{
-		for (ToolInterface tool : this.onKeyPressedListeners)
+		for (DToolInterface tool : this.onKeyPressedListeners)
 		{
 			if (tool.isActive())
 			{

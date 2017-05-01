@@ -4,29 +4,29 @@
 package main.java.deni.Controller.Tool;
 
 import main.java.deni.Canvas.Listener.CanvasListenerType;
-import main.java.deni.Canvas.CanvasManager;
+import main.java.deni.Canvas.DCanvasManager;
 import main.java.deni.Canvas.DeniCanvas;
-import main.java.deni.Controller.ControlFrame;
-import main.java.deni.Controller.ControlFrameWriter;
-import main.java.deni.Controller.ControlFrameWriterOwner;
-import main.java.deni.Tool.ToolInterface;
-import main.java.deni.Tool.ToolManager;
+import main.java.deni.Controller.DControlFrame;
+import main.java.deni.Controller.DControlFrameWriter;
+import main.java.deni.Tool.DToolManager;
 import controlP5.ControlEvent;
 import controlP5.ScrollableList;
 import controlP5.Toggle;
+import main.java.deni.Controller.DControlFrameWriterOwner;
+import main.java.deni.Tool.DToolInterface;
 
 /**
  * ToolControl writes the selected Tool Controls to 
  * the ControlFrame
  */
-public class ToolControl implements ControlFrameWriterOwner
+public class ToolControl implements DControlFrameWriterOwner
 {
-	ToolManager toolManager;
+	DToolManager toolManager;
 	DeniCanvas owner;
-	ControlFrame toolControlFrame;
-	ControlFrame toolChooserFrame; 
+	DControlFrame toolControlFrame;
+	DControlFrame toolChooserFrame; 
 	
-	ControlFrameWriter toolChooserFrameWriter;
+	DControlFrameWriter toolChooserFrameWriter;
 	
 	String previousSelectedToolName;
 	String currentSelectedToolName;
@@ -35,7 +35,7 @@ public class ToolControl implements ControlFrameWriterOwner
 	public ToolControl(DeniCanvas _owner)
 	{
 		owner = _owner;
-		toolManager = new ToolManager();
+		toolManager = new DToolManager();
 		
 		toolPosition= new int[]{20,20};
 	}
@@ -43,10 +43,10 @@ public class ToolControl implements ControlFrameWriterOwner
 	public void initFrames()
 	{
 		
-		toolControlFrame = new ControlFrame(owner,
+		toolControlFrame = new DControlFrame(owner,
 		400,300,10,10,"toolControlFrame");
 		
-		toolChooserFrame = new ControlFrame(owner,
+		toolChooserFrame = new DControlFrame(owner,
 		400,200,10,310,"toolChooserFrame");
 		
 		
@@ -55,7 +55,7 @@ public class ToolControl implements ControlFrameWriterOwner
 		
 	}
 	
-	public void addTool(ToolInterface tool)
+	public void addTool(DToolInterface tool)
 	{
 		// create a control frame writer of the Tool Control Frame 
 		// for the tool.
@@ -63,7 +63,7 @@ public class ToolControl implements ControlFrameWriterOwner
 			this.toolControlFrame.createNewControlFrameWriter(tool));
 		
 		//add to tool listener manager.
-		CanvasManager.getInstance().getCanvasListener(
+		DCanvasManager.getInstance().getCanvasListener(
 			CanvasListenerType.ToolListener.getName()
 		).addAllInputListeners(tool);
 		
@@ -73,13 +73,13 @@ public class ToolControl implements ControlFrameWriterOwner
 	}
 
 	@Override
-	public void setControlFrameWriter(ControlFrameWriter cw) 
+	public void setControlFrameWriter(DControlFrameWriter cw) 
 	{
 		toolChooserFrameWriter = cw;
 	}
 
 	@Override
-	public ControlFrameWriter getControlFrameWriter() 
+	public DControlFrameWriter getControlFrameWriter() 
 	{
 		return this.toolChooserFrameWriter;
 	}
@@ -112,7 +112,7 @@ public class ToolControl implements ControlFrameWriterOwner
 		toolPosition[1]+=40;
 	}
 	
-	public void hideToolControls(ToolInterface tool)
+	public void hideToolControls(DToolInterface tool)
 	{
 		if (tool != null)
 		{
@@ -121,7 +121,7 @@ public class ToolControl implements ControlFrameWriterOwner
 		
 	}
 	
-	public void setToolControls(ToolInterface tool)
+	public void setToolControls(DToolInterface tool)
 	{
 		if (tool != null)
 		{

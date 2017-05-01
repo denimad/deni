@@ -3,7 +3,7 @@
  */
 package main.java.deni.Canvas.Listener.Layer;
 
-import main.java.deni.Canvas.Layer.CanvasLayersManager;
+import main.java.deni.Canvas.Layer.DCanvasLayersManager;
 import main.java.deni.Canvas.Listener.CanvasListenerManager;
 import main.java.deni.Canvas.DeniCanvas;
 
@@ -11,7 +11,7 @@ import main.java.deni.Canvas.DeniCanvas;
  * This method handles canvas listener events for singleton canvas layers.
  * @author daudirac
  */
-public class CanvasLayerListenerManager extends CanvasListenerManager<CanvasLayersManager>
+public class CanvasLayerListenerManager extends CanvasListenerManager<DCanvasLayersManager>
 {
 	
 	public CanvasLayerListenerManager(DeniCanvas parentCanvas) 
@@ -19,7 +19,7 @@ public class CanvasLayerListenerManager extends CanvasListenerManager<CanvasLaye
 		super(parentCanvas);
 		
 		//add the input listener object
-		this.addAllInputListeners(CanvasLayersManager.getInstance());
+		this.addAllInputListeners(DCanvasLayersManager.getInstance());
 	}
 	
 	

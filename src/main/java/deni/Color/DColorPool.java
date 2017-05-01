@@ -4,8 +4,8 @@
 package main.java.deni.Color;
 
 import java.util.ArrayList;
-import main.java.deni.Canvas.CanvasManager;
-import main.java.deni.Util.MathHelper;
+import main.java.deni.Canvas.DCanvasManager;
+import main.java.deni.Util.DMathHelper;
 import processing.core.PApplet;
 
 /**
@@ -19,7 +19,7 @@ public class DColorPool
 	
 	public DColorPool() {
 		colorList = new ArrayList<>();
-		deniCanvas = CanvasManager.getInstance().getCanvas();
+		deniCanvas = DCanvasManager.getInstance().getCanvas();
 	}
 	
 	public DColorPool add(DColor clr) {
@@ -56,9 +56,9 @@ public class DColorPool
 
 
 	public DColor getColor(int seed) {
-		MathHelper.tempSeed(seed);
+		DMathHelper.tempSeed(seed);
 		DColor clr = getDColor();
-		MathHelper.removeTempSeed();
+		DMathHelper.removeTempSeed();
 		return clr;
 	}
 	

@@ -3,7 +3,7 @@
  */
 package main.java.deni.Canvas.Listener;
 
-import main.java.deni.Canvas.CanvasManager;
+import main.java.deni.Canvas.DCanvasManager;
 import main.java.deni.Canvas.Listener.CanvasListenerManager;
 import main.java.deni.Canvas.Listener.Layer.CanvasLayerListenerManager;
 import main.java.deni.Canvas.Listener.Tool.ToolCanvasListenerManager;
@@ -16,10 +16,10 @@ public enum CanvasListenerType
 {
 	ToolListener("toolListener", 
 		new ToolCanvasListenerManager(
-			CanvasManager.getInstance().getCanvas())),
+			DCanvasManager.getInstance().getCanvas())),
 	LayerListener("layerListener",
 		new CanvasLayerListenerManager(
-			CanvasManager.getInstance().getCanvas()));
+			DCanvasManager.getInstance().getCanvas()));
 	
 	
 	CanvasListenerType(String _name,
