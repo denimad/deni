@@ -68,6 +68,11 @@ public class DColorHelper
 		return instance;
 	}
 	
+	public static int unHexColor(String hexString)
+	{
+		return PApplet.unhex("FF" + hexString);
+	}
+	
 	public static final int WHITE = DColorHelper.getInstance().getColor(255, 255, 255);
 	public static final int BLACK = DColorHelper.getInstance().getColor(0, 0, 0);
 	public static final int RED = DColorHelper.getInstance().getColor(255, 0, 0);

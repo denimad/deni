@@ -4,12 +4,20 @@
 package main.java.deni.Controller.Color;
 
 import controlP5.Bang;
+import controlP5.Button;
 import controlP5.CallbackEvent;
 import controlP5.CallbackListener;
 import controlP5.ColorWheel;
 import controlP5.ControlP5;
 import controlP5.Slider;
+import java.awt.Toolkit;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import main.java.deni.Color.DColor;
+import main.java.deni.Color.DColorHelper;
 
 /**
  * @author daudirac
@@ -87,6 +95,13 @@ public abstract class DAbstractColorEditor implements DColorEditor{
 			.plugTo(color)
 			.moveTo(this.parentGroup)
 			.addCallback(this.getHideEditionListener(bang));
+		
+		cp5.addButton(
+				DAbstractColorEditor.COPY_BUTTON_COMPONENT_NAME)
+			.setPosition(280, 40)
+			.plugTo(this)
+			.moveTo(this.parentGroup)
+				.addCallback(this.copyButtonListener(bang));
 	}
 
 
@@ -108,6 +123,41 @@ public abstract class DAbstractColorEditor implements DColorEditor{
 		
 		return hideEdition;
 	}
+
+
+	public CallbackListener copyButtonListener(Bang editedBang)
+	{
+		return new CallbackListener()
+			{
+				public void controlEvent(CallbackEvent event) 
+				{
+					if (event.getController() instanceof Button && (inColorEdition &&
+							event.getAction() == ControlP5.ACTION_RELEASE))
+					{
+						try 
+						{
+							String hexString = (String) Toolkit.getDefaultToolkit() 
+									.getSystemClipboard().getData(DataFlavor.stringFlavor);
+							int color = DColorHelper.unHexColor(hexString);
+							colorWheelEditor.setRGB(color);
+							DAbstractColorEditor.this.hideAllEditorComponents(editedBang);
+							
+						} catch (UnsupportedFlavorException | IOException ex) {
+							Logger.getLogger(DColorPoolEditor.class.getName()).log(Level.SEVERE,
+									"Error on getting clipboard", ex);
+						} catch (NumberFormatException ex)
+						{
+							Logger.getLogger(DColorPoolEditor.class.getName()).log(Level.SEVERE,
+									"the copied text cannot be converted to color",
+									ex);
+						}
+					}
+					
+					
+				}
+			};
+	}
+	
 	
 	protected void hideAllEditorComponents(Bang editedBang)
 	{
@@ -117,12 +167,14 @@ public abstract class DAbstractColorEditor implements DColorEditor{
 
 		cp5.get(DAbstractColorEditor.COLOR_WHEEL_COMPONENT_NAME).hide();
 		cp5.get(DAbstractColorEditor.ALPHA_SLIDER_COMPONENT_NAME).hide();
+		cp5.get(DAbstractColorEditor.COPY_BUTTON_COMPONENT_NAME).hide();
 	}
 
 	protected void removeAllEditorComponents()
 	{
 		cp5.remove(DAbstractColorEditor.COLOR_WHEEL_COMPONENT_NAME);
 		cp5.remove(DAbstractColorEditor.ALPHA_SLIDER_COMPONENT_NAME);
+		cp5.remove(DAbstractColorEditor.COPY_BUTTON_COMPONENT_NAME);
 	}
 	
 	/**
@@ -145,5 +197,6 @@ public abstract class DAbstractColorEditor implements DColorEditor{
 	
 	public final static String COLOR_WHEEL_COMPONENT_NAME = "color";
 	public final static String ALPHA_SLIDER_COMPONENT_NAME = "alpha";
+	public final static String COPY_BUTTON_COMPONENT_NAME = "copy";
 
 }

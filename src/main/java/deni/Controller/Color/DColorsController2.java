@@ -6,7 +6,6 @@ package main.java.deni.Controller.Color;
 import controlP5.ControlP5;
 import java.util.HashMap;
 import java.util.Map;
-import main.java.deni.Canvas.Listener.DCanvasKeyInputAwareObject;
 import main.java.deni.Color.DColor;
 import main.java.deni.Color.DColorPool;
 
