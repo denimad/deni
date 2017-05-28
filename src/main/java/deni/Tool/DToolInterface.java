@@ -19,6 +19,7 @@ public interface DToolInterface extends
 		ControlListener
 {
 	public String getName();
+	public String getUUID();
 	public boolean isActive();
 	public void setActive(boolean active);
 }

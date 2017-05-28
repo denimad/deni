@@ -8,7 +8,8 @@ import main.java.deni.Controller.DControlFrameWriter;
 import main.java.deni.Drawing.DDrawingObjectImpl;
 import main.java.deni.Color.DColorHelper;
 import controlP5.ControlEvent;
-import main.java.deni.Controller.DControlFrameWriterOwner;
+import java.util.UUID;
+
 import main.java.deni.Tool.DToolInterface;
 
 /**
@@ -22,6 +23,8 @@ public abstract class DToolForwardingDrawingObject extends DForwardingDrawingObj
 	public DToolForwardingDrawingObject(DDrawingObjectImpl drawingObj) 
 	{
 		super(drawingObj);
+		
+		this.id = UUID.randomUUID().toString();
 		active = false;
 	}
 
@@ -101,6 +104,11 @@ public abstract class DToolForwardingDrawingObject extends DForwardingDrawingObj
 	@Override
 	public abstract String getName();
 	
+	@Override
+	public String getUUID()
+	{
+		return this.id;
+	}
 	
 	// = = = = = = = = = = = = = = = = = =
 	// CONTROLLISTENER Interface methods.
@@ -123,5 +131,5 @@ public abstract class DToolForwardingDrawingObject extends DForwardingDrawingObj
 	
 	private boolean active;
 
-	
+	private String id;
 }

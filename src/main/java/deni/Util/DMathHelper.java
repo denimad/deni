@@ -5,6 +5,7 @@ package main.java.deni.Util;
 
 import main.java.deni.Canvas.DCanvasManager;
 import main.java.deni.Canvas.DeniCanvas;
+import processing.core.PApplet;
 
 /**
  *
@@ -36,6 +37,11 @@ public class DMathHelper
 	public static float noNegative(float num)
 	{
 		return num < 0 ? 0 : num;
+	}
+	
+	public static int floor(float num)
+	{
+		return (int) PApplet.floor(num);
 	}
 	
 	public static int randomInt(float high) {

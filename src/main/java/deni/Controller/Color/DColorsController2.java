@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import main.java.deni.Color.DColor;
 import main.java.deni.Color.DColorPool;
+import main.java.deni.Grid.DSquareGrid;
 
 /**
  *
@@ -27,37 +28,40 @@ public class DColorsController2
 		this.colorEditorPosition = new int[]{
 			DColorsController2.DEFAULT_BANG_INIT_POSX,
 			DColorsController2.DEFAULT_BANG_INIT_POSY};
+		
+		
 	}
 	
 	public void addSimpleColorEditor(String varName,
-			DColor color)
+			DColor color,
+			int[] pos)
 	{
 		DSimpleColorEditor simpleCE = 
 		 new DSimpleColorEditor(cp5, varName, color);
 		colorEditors.put(varName, simpleCE);
 		
-		this.setColorEditorProperties(simpleCE);
+		this.setColorEditorProperties(simpleCE, pos);
 		
 		simpleCE.drawMe();
 	}
 	
 	public void addColorPoolEditor(String varName,
-		DColorPool colorPool)
+		DColorPool colorPool,
+		int[] pos)
 	{
 		DColorPoolEditor colorPoolE = 
 				new DColorPoolEditor(cp5, varName, colorPool);
 		colorEditors.put(varName, colorPoolE);
 		
-		this.setColorEditorProperties(colorPoolE);
+		this.setColorEditorProperties(colorPoolE, pos);
 		
 		colorPoolE.drawMe();
 	}
 	
-	private void setColorEditorProperties(DColorEditor ce)
+	private void setColorEditorProperties(DColorEditor ce, int[] pos)
 	{
-		ce.setPosition(colorEditorPosition[0], colorEditorPosition[1])
+		ce.setPosition(pos[0], pos[1])
 				.setGroupName(groupName);
-		colorEditorPosition[1]+=40;
 	}
 	public void resetController()
 	{
@@ -87,6 +91,12 @@ public class DColorsController2
 	 * it automatically calculates the next editor position.
 	 */
 	int[] colorEditorPosition;
+	
+	/**
+	 * This field is used to calculate the position of buttons
+	 * in a square grid layout position.
+	 */
+	private static DSquareGrid squareGrid;
 	
 	private static final int DEFAULT_BANG_INIT_POSX= 20;
 	private static final int DEFAULT_BANG_INIT_POSY= 30;

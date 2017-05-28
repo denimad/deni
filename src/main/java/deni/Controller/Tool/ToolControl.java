@@ -31,13 +31,13 @@ public class ToolControl implements DControlFrameWriterOwner
 	String previousSelectedToolName;
 	String currentSelectedToolName;
 	
-	int[] toolPosition; 
+	
 	public ToolControl(DeniCanvas _owner)
 	{
 		owner = _owner;
 		toolManager = new DToolManager();
 		
-		toolPosition= new int[]{20,20};
+		
 	}
 	
 	public void initFrames()
@@ -95,22 +95,19 @@ public class ToolControl implements DControlFrameWriterOwner
 	{
 		for (String toolName: this.toolManager.getToolNames())
 		{
-			this.toolChooserFrameWriter.addToogle(toolName, 
-				toolPosition[0], 
-				toolPosition[1], 
+			String[] toolInfo = toolName.split("\\.");
+			this.toolChooserFrameWriter.addToogle(
+				toolName,  
+				toolInfo[0],
 				20, 
 				20, "default");
 			
-			this.calculateNextToolPosition();
+			
 		}
 		
 		//this.toolChooserFrame.showControllers();
 	}
 	
-	private void calculateNextToolPosition()
-	{
-		toolPosition[1]+=40;
-	}
 	
 	public void hideToolControls(DToolInterface tool)
 	{

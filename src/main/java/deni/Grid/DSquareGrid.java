@@ -3,6 +3,8 @@
  */
 package main.java.deni.Grid;
 
+import main.java.deni.Util.DMathHelper;
+
 /**
  * This class generates positions for a square grid.
  * The positions are generated based on a filling direction setup and
@@ -32,6 +34,34 @@ public class DSquareGrid
 	
 	public DSquareGrid(int width, int height, int _gridSizeX, int _gridSizeY, DSquareGridFillingMode direction, DCorner _initialCorner)
 	{
+		this.calculateSizes(width, height, _gridSizeX, _gridSizeY);
+		
+		fillingDirection = direction;
+		initialCorner = _initialCorner;
+		
+		this.initInitialPosition();
+		this.initIncrementals();
+	}
+	
+	/**
+	 * Set border size and do all derived calculations.
+	 * @param borderWidth 
+	 */
+	public void setBorder(int borderWidth)
+	{
+		this.calculateSizes
+			(
+				this.matrixWidth- (borderWidth * 3),
+				this.matrixHeight- (borderWidth * 3),
+				this.gridSizeX,
+				this.gridSizeY
+			);
+		this.initialPosition[0] += borderWidth;
+		this.initialPosition[1] += borderWidth;
+	}
+	
+	private void calculateSizes(int width, int height, int _gridSizeX, int _gridSizeY)
+	{
 		matrixWidth = width;
 		matrixHeight = height;
 		
@@ -46,14 +76,8 @@ public class DSquareGrid
 		}
 		
 		// calculate the total number of cells on each axis
-		totalNumberXCells = width / gridSizeX;
-		totalNumberYCells = height / gridSizeY;
-		
-		fillingDirection = direction;
-		initialCorner = _initialCorner;
-		
-		this.initInitialPosition();
-		this.initIncrementals();
+		totalNumberXCells = DMathHelper.floor(matrixWidth / gridSizeX);
+		totalNumberYCells = DMathHelper.floor(matrixHeight / gridSizeY);
 	}
 	
 	private void initInitialPosition()
@@ -81,7 +105,7 @@ public class DSquareGrid
 	private void initIncrementals()
 	{
 		this.incrementalX = 0;
-		this.incrementalY = 0;
+		this.incrementalY = -1;
 	}
 	
 	public int[] getNextPosition()
@@ -90,8 +114,8 @@ public class DSquareGrid
 		switch (this.fillingDirection)
 		{
 			case HORIZONTAL_FILLING:
-				if (incrementalX < -totalNumberXCells || 
-					incrementalX > totalNumberXCells)
+				if (incrementalX <= -totalNumberXCells || 
+					incrementalX >= totalNumberXCells)
 				{
 					incrementalX = 0;
 					incrementalY += this.getYIncrementalValue();
@@ -103,8 +127,8 @@ public class DSquareGrid
 				
 				break;
 			case VERTICAL_FILLING:
-				if (incrementalY < -totalNumberYCells ||
-					incrementalY > totalNumberYCells)
+				if (incrementalY <= -totalNumberYCells ||
+					incrementalY >= totalNumberYCells)
 				{
 					incrementalY = 0;
 					incrementalX += this.getXIncrementalValue();

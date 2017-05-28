@@ -23,8 +23,9 @@ public class DToolManager
     
     public void addTool(DToolInterface tool)
     {
-        tools.put(tool.getName(), tool);
-        toolNames.add(tool.getName());
+		String toolID = tool.getName() + "." + tool.getUUID();
+        tools.put(toolID, tool);
+        toolNames.add(toolID);
     }
     
 	public DToolInterface getTool(String toolName)

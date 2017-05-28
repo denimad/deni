@@ -16,6 +16,7 @@ import java.util.List;
 import main.java.deni.Color.DColor;
 import main.java.deni.Color.DColorPool;
 import main.java.deni.Controller.Color.DColorsController2;
+import main.java.deni.Grid.DSquareGrid;
 
 /**
  * ControlFrameWriter class writes on a Control Frame 
@@ -33,13 +34,38 @@ public class DControlFrameWriter implements DControlOwner{
         controlOwner = _controlOwner;
         this.cp5 = controlFrame.getNewControlP5(controlOwner);
 		
+
+		
 		//init tab names with the defaul tab names
 		this.tabNames = Arrays.asList(
 				DControlWriterConstants.DEFAULT_CONTROLLER_GROUP_NAME,
 				DControlWriterConstants.DEFAULT_COLOR_CONTROLLER_GROUP_NAME);
+		
+		this.initLayoutVariables();
     }
     
-
+	private void initLayoutVariables()
+	{
+		automaticLayout = false;
+		
+		ownerFrameWidth = controlFrame.w;
+		ownerFrameHeight = controlFrame.h;
+		
+		buttonsPositionsquareGrid = new DSquareGrid(ownerFrameWidth, 
+			ownerFrameHeight,
+			ownerFrameWidth/4,
+			ownerFrameHeight/5,
+			DSquareGrid.DSquareGridFillingMode.VERTICAL_FILLING);
+		buttonsPositionsquareGrid.setBorder(15);
+		colorsPositionsquareGrid = new DSquareGrid(ownerFrameWidth, 
+			ownerFrameHeight,
+			ownerFrameWidth/4,
+			ownerFrameHeight/5,
+			DSquareGrid.DSquareGridFillingMode.VERTICAL_FILLING);
+		colorsPositionsquareGrid.setBorder(15);
+	}
+	
+	
 	public void resetController()
 	{
 		this.getColorsController().resetController();
@@ -96,6 +122,7 @@ public class DControlFrameWriter implements DControlOwner{
                 .moveTo(this.getTab(groupName).getName());
     }
 	public Controller addToogle(
+			String id,
 			String label,
         float posX, 
         float posY,
@@ -103,12 +130,36 @@ public class DControlFrameWriter implements DControlOwner{
 		int h,
 		String groupName)
 	{
-		return cp5.addToggle(label)
+		return cp5.addToggle(id)
 				.setLabel(label)
 				.setPosition(posX, posY)
 				.setSize(w, h)
 				.plugTo(this.getControlledObject())
 				.moveTo(this.getTab(groupName).getName());
+	}
+	
+	/**
+	 * add slider to the given group name. 
+	 * it positions the toggle automatically.
+	 * @param label
+	 * @param w
+	 * @param h
+	 * @param groupName
+	 * @return 
+	 */
+	public Controller addToogle(
+		String id,
+		String label,
+		int w,
+		int h,
+		String groupName)
+	{
+		int pos[] =  this.buttonsPositionsquareGrid.getNextPosition();
+		
+		return this.addToogle(id,label, 
+			pos[0], pos[1],
+			w, h,
+			groupName);
 	}
 	
 	
@@ -170,14 +221,18 @@ public class DControlFrameWriter implements DControlOwner{
 	{
 		this.getColorsController().addSimpleColorEditor(
 			varName, 
-			color);
+			color,
+			this.colorsPositionsquareGrid.getNextPosition());
 	}
 	
 	
 	public void addColorPoolController(String varName,
 			DColorPool colorPool)
 	{
-		this.getColorsController().addColorPoolEditor(varName, colorPool);
+		this.getColorsController().addColorPoolEditor(
+			varName, 
+			colorPool,
+			this.colorsPositionsquareGrid.getNextPosition());
 	}
 
     public void newGroup(String label, int width, int height) {
@@ -319,6 +374,7 @@ public class DControlFrameWriter implements DControlOwner{
      */
     private final DControlFrameWriterOwner controlOwner;
     
+	
 	/**
 	 * color variables are handled by a Colors Controller.
 	 * ColorsController writes the controls for colors in
@@ -336,7 +392,37 @@ public class DControlFrameWriter implements DControlOwner{
 	 * This list stores the names of all the tabs of this control frame writer.
 	 */
 	private List<String> tabNames;
-    /**
+    
+	
+	/**
+	 * 
+	 * = = = = = = = =  = = =  Dimension related variables= = = = = = = = = = = = = = =
+	 * 
+	 * This fields manage the layout positioning of objects in the control frame.
+	 * 
+	 * = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+	 */
+	/**
+	 * This fields store the dimensions of the owner Control Frame.
+	 */
+	
+	private boolean automaticLayout;
+	
+	private int ownerFrameWidth;
+	private int ownerFrameHeight;
+	
+	/**
+	 * This method is to add button in a square grid layout.
+	 */
+	private DSquareGrid buttonsPositionsquareGrid;
+	
+	/**
+	 * This method is to add colors button in a square grid layout.
+	 */
+	private DSquareGrid colorsPositionsquareGrid;
+	
+	
+	/**
      * This variables stores the controlP5 instance to write controllers. This
      * cP5 is always the one own by the controlFrame of this object.
      */
