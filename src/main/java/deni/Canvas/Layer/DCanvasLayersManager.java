@@ -211,7 +211,7 @@ public class DCanvasLayersManager implements CanvasInputAwareObject
 			fileName,
 			path);
 		this.imageUpdater = new DUpdateCanvasLayerAction(
-			DCanvasLayer.Main,
+			DCanvasLayer.Draft,
 			fileName,
 			path);
 	}
