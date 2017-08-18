@@ -7,7 +7,7 @@ import main.java.deni.Canvas.DeniCanvas;
 import main.java.deni.Canvas.Layer.DCanvasLayer;
 import main.java.deni.ToolBox.FanPattern.DBrushFanPatternTool;
 import main.java.deni.ToolBox.FanPattern.DLerpColorPoolFanPatternTool;
-import main.java.deni.ToolBox.Tool1;
+import main.java.deni.ToolBox.DNoiseParticlesDrawerTool;
 
 
 /**
@@ -17,12 +17,14 @@ public class Example1  extends DeniCanvas
 {
 	DLerpColorPoolFanPatternTool lfanptool;
 	DBrushFanPatternTool bfanptool;
-	Tool1 tool1;
+	DNoiseParticlesDrawerTool tool1;
+	DNoiseParticlesDrawerTool tool2;
+	DNoiseParticlesDrawerTool tool3;
 	
 	@Override
 	public void settings()
 	{
-		canvasWidth = 1170;
+		canvasWidth = 1398;
         canvasHeight = 800;
         super.settings();
     }
@@ -33,15 +35,17 @@ public class Example1  extends DeniCanvas
 		super.setup();
 		lfanptool = new DLerpColorPoolFanPatternTool();
 		bfanptool = new DBrushFanPatternTool();
-		tool1 = new Tool1();
+		tool1 = new DNoiseParticlesDrawerTool();
+		tool2 = new DNoiseParticlesDrawerTool();
+		tool3 = new DNoiseParticlesDrawerTool();
 		
 		this.toolController.addTool(lfanptool);
 		this.toolController.addTool(bfanptool);
 		this.toolController.addTool(tool1);
-		this.toolController.setControls();
+		this.toolController.addTool(tool2);
+		this.toolController.addTool(tool3);
 		
-		this.drawImage(DCanvasLayer.Draft, "/Users/daudirac/Dropbox/deniCloud/denise.royskopp.png");
-		this.setSavingInfo("denise.royskopp", "/Users/daudirac/Dropbox/deniCloud");
+		this.toolController.setControls();
 	}
 	
 	@Override
@@ -52,6 +56,9 @@ public class Example1  extends DeniCanvas
 		lfanptool.draw(this.getCurrenDrawingLayer());
 		bfanptool.draw(this.getCurrenDrawingLayer());
 		tool1.draw(this.getCurrenDrawingLayer());
+		
+		tool2.draw(this.getCurrenDrawingLayer());
+		tool3.draw(this.getCurrenDrawingLayer());
 	}
 	
 	 @Override
